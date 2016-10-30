@@ -1,0 +1,1959 @@
+{
+    "def": "uk",
+    "regex": {
+        "v_IP4": "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b",
+        "v_MAC": "([0-9A-F]{2}[\\.-]){5}([0-9A-F]{2})",
+
+        "v_BaudN": "600|1200|2400|4800|9600|19200|38400|57600|115200|230400|460800|921600",
+        "v_BaudC": "600|1200|2400|4800|9600|19200|38400|57600|115200|230400|460800|921600",
+
+        "v_Cen_9x8": "^\\d{1,6}(\\.\\d{0,2})?$",
+
+        "v_Num_0_1": "^[0-1]$",
+        "v_Num_0_2": "^[0-2]$",
+        "v_Num_0_4": "^[0-4]$",
+        "v_Num_0_8": "^[0-8]$",
+        "v_Num_0_9": "^[0-9]$",
+        "v_Num_0_15": "^([0-9]|1[0-5])$",
+        "v_Num_0_16": "^([0-9]|1[0-6])$",
+        "v_Num_0_50": "^([0-9]|[1-4][0-9]|50)$",
+        "v_Num_0_31": "^([0-9]|[1-2][0-9]|3[0-1])$",
+        "v_Num_0_255": "^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$",
+        "v_Num_0_999": "[0-9]{1,3}",
+
+        "v_Num_20_90": "^([2-8][0-9]|90)$",
+
+        "v_Num_9x14": "^[1-9][0-9]{0,13}$",
+
+        "v_Prc_99_99": "^\\d{1,2}(\\.\\d{0,2})?$",
+        "v_Pswd": "[0-9]{1,6}",
+
+        "v_Qty_999999_999": "^\\d{1,6}(\\.\\d{0,3})?$",
+
+        "v_Str9": "^.{0,9}$",
+        "v_Str12": "^.{0,12}$",
+        "v_Str20": "^.{0,20}$",
+        "v_Str30": "^.{0,30}$",
+        "v_Str29": "^.{0,29}$",
+        "v_Str32": "^.{0,32}$",
+
+        "v_Dummy": ".*"
+    },
+
+    "en": {
+        "err": {
+            "x01": "The price is not specified",
+            "x02": "The quantity is not specified",
+            "x03": "The department is not specified",
+            "x04": "The group is not specified",
+            "x31": "User already registered",
+            "x32": "Invalid password",
+            "x33": "Invalid table number",
+            "x34": "Table access denied",
+            "x35": "Default not found",
+            "x36": "Invalid index",
+            "x37": "Invalid field",
+            "x38": "Table overflow",
+            "x39": "Invalid length of binary data",
+            "x3A": "Attempt to modify read only field",
+            "x3B": "Invalid field value",
+            "x3C": "PLU exists",
+            "x3D": "PLU has non-empty report",
+            "x3E": "Query is disbled",
+            "x3F": "Invalid bookmark",
+            "x40": "Key not found",
+            "x41": "Procedure already running",
+            "x42": "PLU quantity is negative",
+            "x43": "Redirection to read from the card is enabled",
+            "x87": "Fiscal memory error",
+            "x88": "Memory card error",
+            "x89": "Memory card overflow",
+            "x8A": "No control receipt paper",
+            "x8B": "No receipt paper",
+            "x8C": "Fiscal memory overflow",
+            "x8D": "Forbidden the issuance of change",
+            "x92": "Print error",
+            "x9C": "User display is disabled",
+            "xA3": "Operation terminated on device side",
+            "xA4": "ef_BegSlipChk Slip Receipt is open",
+            "xA5": "ef_NoFindZ1Rep Z1 report not found",
+            "xA6": "ef_NoSlipPaper End of slip document occured",
+            "xA7": "ef_MMCDisable MMC is disabled",
+            "xA8": "ef_FMBadNum   Bad Fiscal memory number",
+            "xA9": "ef_FMNotEmpty Fiscal memory is not empty",
+            "xB5": "ef_BegVatFact VAT form is opened",
+            "xB6": "ef_RestDisb Restaraunt mode is disabled",
+            "xB7": "ef_NoOpenTable Table is not opened",
+            "xB8": "ef_OverOrder Order count overflow",
+            "xB9": "ef_BegRestrn Restaurant bill already started",
+            "xBA": "ef_BadNTable Wrong table number",
+            "xBB": "ef_IsWrk Electronic journal is not empty",
+            "xBC": "ef_TrainMode    Training mode",
+            "xBD": "ef_BadCurrDate   Wrong current date",
+            "xBE": "ef_ChDateDisable Change of date/time is disabled",
+            "xBF": "ef_ServTimer Service timer is out",
+            "xC0": "ef_PlatTerm Error in work with NSMEP terminal",
+            "xC1": "ef_BadTax Bad tax number",
+            "xC2": "ef_BadProcParam Bad procedure parameter",
+            "xC3": "ef_NoFisPrnMode Fiscal printer mode is not started",
+            "xC4": "ef_DiffTaxName changed Tax or Name",
+            "xC5": "Required personalization",
+            "xC6": "No exchange with the server NSMEP for 72 hours",
+            "xC7": "Forbidden zeroing data EKL",
+            "xC8": "Forbidden work with GPRS modem",
+            "xCC": "Started return operation",
+            "xCF": "Z1 report is not empty",
+            "xD0": "Not to make money collection",
+            "xD1": "The cash drawer is not closed",
+            "xD2": "The printing of the journal is interrupted",
+            "xD3": "Date change or the end of the shift is reached",
+            "xD4": "The default percent extra charges/discounts are not specified",
+            "xD5": "The default extra charges/discounts are not specified",
+            "xD6": "The daily report is not cleared",
+            "xD7": "Z1 report is already printed out (Z1 report is empty) ",
+            "xD8": "The canceling of the PLU which has subtotals/extra charges/discounts is not allowed",
+            "xD9": "There was no selling of the PLU with given code in the current check",
+            "xDA": "There is not anything to cancel by the command \"VoidLast\"",
+            "xDB": "A negative sum of PLU selling",
+            "xDC": "Invalid percent value",
+            "xDD": "There was not any selling yet",
+            "xDE": "The extra charges/discounts are disbled",
+            "xDF": "Invalid sum of the payment",
+            "xE0": "Using Client Code is disabled for this kind of payment",
+            "xE1": "Invalid sum of the payment",
+            "xE2": "The check payment is in progress",
+            "xE3": "The PLU is sold out",
+            "xE4": "The group could not be changed",
+            "xE5": "Invalid group",
+            "xE6": "The department could not be changed",
+            "xE7": "Invalid department",
+            "xE8": "Product of price and quantity is zero",
+            "xE9": "Internal sum overflow",
+            "xEA": "A fractional quantity is not allowed",
+            "xEB": "Invalid quantity",
+            "xEC": "The price could not be changed",
+            "xED": "Invalid price",
+            "xEE": "PLU does not exist",
+            "xEF": "The deposit/withdrawal of the money is begun",
+            "xF0": "Not empty check (contains sellings)",
+            "xF1": "Not existing or disabled payment type",
+            "xF2": "Record field overflow",
+            "xF3": "A negative sum of the Z1 report",
+            "xF4": "A negative sum of the check",
+            "xF5": "Check overflow",
+            "xF6": "Daily report overflow",
+            "xF7": "The check for copy is not found",
+            "xF8": "The payment for the check is not completed",
+            "xF9": "The cashier is not registered",
+            "xFA": "Logged in cashier has no rights to perform this operation",
+            "xFB": "The non-fiscal check is not opened",
+            "xFC": "The check is not opened",
+            "xFD": "The non-fiscal check is already opened",
+            "xFE": "The check is already opened",
+            "xFF": "E-journal overflow"
+        },
+        "tbl": {
+            "Time": {
+                "label": "Cash register time",
+                "Time": {
+                    "label": "Time"
+                },
+                "Date": {
+                    "label": "Date"
+                }
+            },
+            "QUser": {
+                "label": "User Query",
+                "id": {
+                    "label": "Query number"
+                },
+                "User": {
+                    "label": "User number"
+                }
+            },
+            "Com": {
+                "label": "Serial ports",
+                "id": {
+                    "label": "Port number"
+                },
+                "Device": {
+                    "label": "Device number",
+                    "labels": [
+                        {"val":0,"label":"unused"},
+                        {"val":1,"label":"scales Leningrad"},
+                        {"val":3,"label":"barcode reader"},
+                        {"val":4,"label":"POS terminal"},
+                        {"val":5,"label":"barcode reader (text)"},
+                        {"val":6,"label":"scales CAS"},
+                        {"val":7,"label":"customer display"},
+                        {"val":8,"label":"scales Tiger"},
+                        {"val":9,"label":"scales UNS"},
+                        {"val":10,"label":"scales AT"},
+                        {"val":11,"label":"scales WildCat"},
+                        {"val":12,"label":"scales Масса-К"},
+                        {"val":13,"label":"scales Axis A250"},
+                        {"val":14,"label":"scales MoTEX"}
+                    ]
+                },
+                "Baud": {
+                    "label": "Baud rate"
+                },
+                "Param": {
+                    "label": "Port parameter"
+                }
+            },
+
+            "ComExt": {
+                "label": "HTTP Com setup",
+                "Base Port": {
+                    "label": "Base Port Number"
+                },
+                "NIFIdx": {
+                    "label": "NIF Index"
+                }
+            },
+
+            "Net": {
+                "label": "Quantity of barcode filters",
+                "NtEnb": {
+                    "label": "Type of network interface"
+                },
+                "NtNum": {
+                    "label": "Network number"
+                },
+                "NtBaud": {
+                    "label": "Baud rate"
+                },
+                "Query": {
+                    "label": "Reserved"
+                },
+                "LgNum": {
+                    "label": "Logical number"
+                },
+                "WBar": {
+                    "label": "Quantity of barcode filters"
+                },
+                "NetPsw": {
+                    "label": "Reserved"
+                },
+                "ComPsw": {
+                    "label": "Reserved"
+                }
+            },
+            "Hdr": {
+                "label": "Receipt Header",
+                "id": {
+                    "label": "Line number"
+                },
+                "Param": {
+                    "label": "Printing parameter",
+                    "labels":[
+                        {"val":0,"label":"disabled"},
+                        {"val":1,"label":"print"},
+                        {"val":2,"label":"double height"}
+                    ]
+                },
+                "Line": {
+                    "label": "Header Line"
+                }
+            },
+            "Ftr": {
+                "label": "Promotional messages",
+                "id": {
+                    "label": "Line number"
+                },
+                "Param": {
+                    "label": "Printing parameter",
+                    "labels":[
+                        {"val":0,"label":"disabled"},
+                        {"val":1,"label":"print"},
+                        {"val":2,"label":"double height"}
+                    ]
+                },
+                "Line": {
+                    "label": "Footer Line"
+                }
+            },
+            "Oper": {
+                "label": "Operators",
+                "id": {
+                    "label": "Operator number"
+                },
+                "Name": {
+                    "label": "Operator name"
+                },
+                "Pswd": {
+                    "label": "Operator password"
+                }
+            },
+            "Dep": {
+                "label": "Departments",
+                "id": {
+                    "label": "Department number"
+                },
+                "Name": {
+                    "label": "Name"
+                }
+            },
+            "Grp": {
+                "label": "Items groups",
+                "id": {
+                    "label": "Group number"
+                },
+                "Name": {
+                    "label": "Group name"
+                }
+            },
+            "Dsc": {
+                "label": "Discounts and markups",
+                "NcDsb": {
+                    "label": "Reserved"
+                },
+                "Nac": {
+                    "label": "Value of markup"
+                },
+                "SkDsb": {
+                    "label": "Reserved"
+                },
+                "Skd": {
+                    "label": "Value of discount"
+                },
+                "PNDsb": {
+                    "label": "Reserved"
+                },
+                "PNac": {
+                    "label": "Percent of markup"
+                },
+                "PSDsb": {
+                    "label": "Reserved"
+                },
+                "PSkd": {
+                    "label": "Percent of discount"
+                }
+            },
+            "Pay": {
+                "label": "Payments types",
+                "id": {
+                    "label": "Number"
+                },
+                "Param": {
+                    "label": "Parameter",
+                    "labels":[
+                        {"val":0,"label":"enable payment type"},
+                        {"val":1,"label":"allowed the issuance of rest"},
+                        {"val":2,"label":"need to enter client code"},
+                        {"val":3,"label":"cashless payment type"},
+                        {"val":4,"label":"allowed a refund"},
+                        {"val":5,"label":"card terminal used"},
+                        {"val":6,"label":"payment sum required"}
+                    ]
+                },
+                "Name": {
+                    "label": "Name"
+                }
+            },
+            "Adm": {
+                "label": "Administrative settings",
+                "ParPrg": {
+                    "label": "Programmer password"
+                },
+                "OtcPrg": {
+                    "label": "Reports password"
+                },
+                "NumOpr": {
+                    "label": "Quantity of active operators"
+                },
+                "CurTim": {
+                    "label": "Current time"
+                },
+                "PrContr": {
+                    "label": "Printing contrast"
+                },
+                "PrEqual": {
+                    "label": "Printing equalization"
+                },
+                "ScrCntr": {
+                    "label": "Contrast of screen"
+                }
+            },
+            "Flg": {
+                "label": "Flags of cash register",
+                "NFoot": {
+                    "label": "Quantity of active footer lines"
+                },
+                "AutoOff": {
+                    "label": "Parameter of automatic off "
+                },
+                "PrintOff": {
+                    "label": "Parameters of printing",
+                    "labels": [
+                        {"val":0,"label":"no print in training mode"},
+                        {"val":1,"label":"print header just after end of receipt"}
+                    ]
+                },
+                "Flg1": {
+                    "label": "Flags",
+                    "labels": [
+                        {"val":0,"label":"watch of remaining amount"},
+                        {"val":1,"label":"no change PLU base from keyboard"},
+                        {"val":2,"label":"PLU item weight must be entered"},
+                        {"val":3,"label":"no receipt copy"},
+                        {"val":4,"label":"no PLU report sorting"},
+                        {"val":6,"label":"switch of sound (keyboard, errors)"},
+                        {"val":8,"label":"zero price allowed"},
+                        {"val":9,"label":"delete 0 amount PLU after Z1"},
+                        {"val":10,"label":"delete all PLU after Z1"},
+                        {"val":13,"label":"small font when journal printing"},
+                        {"val":14,"label":"display light off"}
+                    ]
+                },
+                "LowVolt": {
+                    "label": "Reserved"
+                },
+                "Feed": {
+                    "label": "Number of rows between receipts"
+                },
+                "Flg3": {
+                    "label": "Receipt options",
+                    "labels": [
+                        {"val":0,"label":"print PLU code"},
+                        {"val":1,"label":"print department name"},
+                        {"val":2,"label":"print department number"},
+                        {"val":6,"label":"no operator name printing"},
+                        {"val":8,"label":"no logo printing"},
+                        {"val":16,"label":"sound instead 1..30 errors"}
+                    ]
+                }
+            },
+            "Tax": {
+                "label": "VAT values",
+                "id": {
+                    "label": "VAT id"
+                },
+                "Prc": {
+                    "label": "VAT value"
+                },
+                "Extra": {
+                    "label": "Excise value"
+                },
+                "SMode": {
+                    "label": "Type of tax",
+                    "labels": [
+                        {"val":0,"label":"VAT and Extra from turnover"},
+                        {"val":1,"label":"VAT from turnover and from Extra"},
+                        {"val":2,"label":"Extra from turnover and from VAT"}
+                    ]
+                }
+            },
+            "Fsk": {
+                "label": "Price point position",
+                "SNumSign": {
+                    "label": "Serial number letters"
+                },
+                "FisNum": {
+                    "label": "VAT number"
+                },
+                "NumPnt": {
+                    "label": "Pointer position"
+                },
+                "NumChk": {
+                    "label": "Receipt number"
+                },
+                "TaxOff": {
+                    "label": "Tax mode",
+                    "labels": [
+                        {"val":0,"label":"VAT included in the price"},
+                        {"val":1,"label":"VAT not included in the price"}
+                    ]
+                },
+                "SerNum": {
+                    "label": "Serial number of cash register"
+                }
+            },
+            "PLU": {
+                "label": "PLU",
+                "Code": {
+                    "label": "Code"
+                },
+                "Name": {
+                    "label": "Name"
+                },
+                "Price": {
+                    "label": "Price"
+                },
+                "Dep": {
+                    "label": "Department"
+                },
+                "Grp": {
+                    "label": "Group"
+                },
+                "Qty": {
+                    "label": "Quantity"
+                },
+                "Flg": {
+                    "label": "Flag",
+                    "labels":[
+                        {"val":0,"label":"price changeable"},
+                        {"val":1,"label":"fractional amount only"},
+                        {"val":2,"label":"disable sales with zero amount"},
+                        {"val":4,"label":"receipt closed after sale"},
+                        {"val":5,"label":"return only"},
+                        {"val":6,"label":"sale only"}
+                    ]
+                }
+            },
+            "Host": {
+                "label": "TCP extended parameters",
+                "Name": {
+                    "label": "DHCP name"
+                },
+                "TimeOut": {
+                    "label": "TimeOut"
+                }
+            },
+            "ModemCfg": {
+                "label": "Configuration of GPRS modem",
+                "APN": {
+                    "label": "access point name"
+                },
+                "APNUser": {
+                    "label": "User name"
+                },
+                "APNPswd": {
+                    "label": "User password"
+                },
+                "DNS1": {
+                    "label": "DNS server 1"
+                },
+                "DNS2": {
+                    "label": "DNS server 2"
+                },
+                "PIN": {
+                    "label": "PIN code of Sim card"
+                }
+            },
+            "TCP": {
+                "label": "TCP settings",
+                "id": {
+                    "label": "#"
+                },
+                "Addr": {
+                    "label": "IP address"
+                },
+                "Gate": {
+                    "label": "Gateway"
+                },
+                "Mask": {
+                    "label": "Network mask"
+                },
+                "DNS": {
+                    "label": "DNS server address"
+                },
+                "MAC": {
+                    "label": "MAC address"
+                },
+                "AdptFlg": {
+                    "label": "Flags",
+                    "labels":[
+                        {"val":0,"label":"10Mbps"},
+                        {"val":1,"label":"100Mbps"},
+                        {"val":2,"label":"1000Mbps"},
+                        {"val":3,"label":"full duplex"},
+                        {"val":4,"label":"automatic mode"},
+                        {"val":5,"label":"enable MDI/MDI-X"},
+                        {"val":8,"label":"keep alive off. (for Linux connection)"}
+                    ]
+                }
+            },
+            "SysLog":{
+                "label":"Syslog Client",
+                "Addr":{
+                    "label":"Syslog server address",
+                    "help":"Example: <b>192.168.8.1</b> or <b>syslog.server.org</b>"
+                },
+                "Port":{
+                    "label":"Syslog server port",
+                    "help":"Example: <b>514</b>"
+                },
+                "Priority":{
+                    "label":"Syslog priority",
+                    "labels":[
+                        {"val":0,"label":"fatal errors"},
+                        {"val":1,"label":"alerts"},
+                        {"val":2,"label":"Critical errors"},
+                        {"val":3,"label":"Errors"},
+                        {"val":4,"label":"Warnings"},
+                        {"val":5,"label":"Notice"},
+                        {"val":6,"label":"Info"},
+                        {"val":7,"label":"Debug"},
+                        {"val":8,"label":"Kernel level messages"},
+                        {"val":9,"label":"User level messages"},
+                        {"val":10,"label":"Mail system"},
+                        {"val":11,"label":"System daemons"},
+                        {"val":12,"label":"security/authorization"},
+                        {"val":13,"label":"syslog mesages"},
+                        {"val":14,"label":"printer subsystem messages"},
+                        {"val":15,"label":"network news subsystem messages"},
+                        {"val":16,"label":"UUCP subsystem"},
+                        {"val":17,"label":"clock subsystem"},
+                        {"val":18,"label":"security/authorization1"},
+                        {"val":19,"label":"FTP"},
+                        {"val":20,"label":"NTP"},
+                        {"val":21,"label":"log audit"},
+                        {"val":22,"label":"log alert"},
+                        {"val":23,"label":"clock daemon"},
+                        {"val":24,"label":"local0"},
+                        {"val":25,"label":"local1"},
+                        {"val":26,"label":"local2"},
+                        {"val":27,"label":"local3"},
+                        {"val":28,"label":"local4"},
+                        {"val":29,"label":"local5"},
+                        {"val":30,"label":"local6"},
+                        {"val":31,"label":"local7"}
+                    ],
+                    "help":"Priority according SysLog RFC. All used enabled:<b>4294967295</b>. Для отключения некоторых типов сообщений от этого числа надо отнять <b>8</b>(ошибки), <b>16</b>(предупреждения), <b>128</b>(отладка)"
+                },
+                "Trans":{
+                    "label":"Unusal?",
+                    "help":""
+                }
+            }
+        }
+    },
+    "ru": {
+        "err": {
+            "x01": "Цена не указана",
+            "x02": "Количество не указано",
+            "x03": "Отдел не указан",
+            "x04": "Группа не указана",
+            "x31": "Пользователь уже зарегистрирован",
+            "x32": "Неверный пароль",
+            "x33": "Неверный номер таблицы",
+            "x34": "Доступ к таблице запрещен",
+            "x35": "Умолчание не найдено",
+            "x36": "Неверный индекс",
+            "x37": "Неверное поле",
+            "x38": "Таблица переполнена",
+            "x39": "Неверная длина двоичных данных",
+            "x3A": "Попытка модификации поля только для чтения",
+            "x3B": "Неверное значение поля",
+            "x3C": "Товар уже существует",
+            "x3D": "По товару были продажи",
+            "x3E": "Запрос запрещен",
+            "x3F": "Неверная закладка",
+            "x40": "Ключ не найден",
+            "x41": "Процедура уже исполняется",
+            "x42": "Количество товара отрицательно",
+            "x43": "Включено перенаправление с карты памяти",
+            "x44": "501 отчет не пуст",
+            "x87": "Ошибка фискальной памяти",
+            "x88": "Ошибка карты памяти",
+            "x89": "Переполнение карты памяти",
+            "x8A": "Нет бумаги для контрольной ленты",
+            "x8B": "Нет бумаги для чековой ленты",
+            "x8C": "Переполнение фискальной памяти",
+            "x8D": "Выдача сдачи запрещена",
+            "x92": "Ошибка печати",
+            "xA5": "Дневной отчет не найден",
+            "xA7": "MMC запрещено",
+            "xBA": "Неверный номер таблицы",
+            "xBB": "Лента не пуста",
+            "xBC": "Режим тренировки",
+            "xBD": "Текущая дата неверна",
+            "xBE": "Запрещено изменение времени",
+            "xBF": "Истек сервисный таймер",
+            "xC0": "Ошибка работы с терминалом НСМЕП",
+            "xC1": "Неверный номер налога",
+            "xC2": "Неверный параметр у процедуры",
+            "xC3": "Режим фискального принтера не активен",
+            "xC4": "Изменялось название товара или его налог",
+            "xC5": "Необходима персонализация",
+            "xC6": "Отсутствует обмен с сервером НСМЭП на протяжении 72 часов",
+            "xC7": "Запрещено обнуление данных ЭКЛ",
+            "xC8": "Запрещена работа с GPRS модемом",
+            "xCC": "Начата операция возврата",
+            "xCF": "Не выведен отчет Z1",
+            "xD0": "Не сделана инкассация денег",
+            "xD1": "Сейф не закрыт",
+            "xD2": "Печать ленты прервана",
+            "xD3": "Достигнут конец текущей смены, или изменилась дата",
+            "xD4": "Не указано значение процентной скидки по умолчанию",
+            "xD5": "Не указано значение скидки по умолчанию",
+            "xD6": "Дневной отчет не выведен",
+            "xD7": "Дневной отчет уже выведен (и пуст)",
+            "xD8": "Нельзя отменить товар на который сделана скидка без ее предварительной отмены",
+            "xD9": "Товар не продавался в этом чеке",
+            "xDA": "Нечего отменять",
+            "xDB": "Отрицательная сумма продажи товара",
+            "xDC": "Неверный процент",
+            "xDD": "Нет ни одной продажи",
+            "xDE": "Скидки запрещены",
+            "xDF": "Неверная сумма платежа",
+            "xE0": "Тип оплаты не предполагает введения кода клиента",
+            "xE1": "Неверная сумма платежа",
+            "xE2": "Идет оплата чека",
+            "xE3": "Товар закончился",
+            "xE4": "Номер группы не может меняться",
+            "xE5": "Неверная группа",
+            "xE6": "Номер отдела не может меняться",
+            "xE7": "Неверный отдел",
+            "xE8": "Нулевое произведение количества на цену",
+            "xE9": "Переполнение внутренних сумм",
+            "xEA": "Дробное количество запрещено",
+            "xEB": "Неверное количество",
+            "xEC": "Цена не может быть изменена",
+            "xED": "Неверная цена",
+            "xEE": "Товар не существует",
+            "xEF": "Начат чек внесения-изъятия денег",
+            "xF0": "Чек содержит продажи",
+            "xF1": "Не существующий или запрещенный тип оплаты",
+            "xF2": "Поле в строке переполнено",
+            "xF3": "Отрицательная сумма по дневному отчету",
+            "xF4": "Отрицательная сумма по чеку",
+            "xF5": "Чек переполнен",
+            "xF6": "Дневной отчет переполнен",
+            "xF7": "Чек для копии не найден",
+            "xF8": "Оплата чека не завершена",
+            "xF9": "Кассир не зарегистрирован",
+            "xFA": "У кассира нет прав на эту операцию",
+            "xFB": "Нефискальный чек не открыт",
+            "xFC": "Чек не открыт",
+            "xFD": "Нефискальный чек уже открыт",
+            "xFE": "Чек уже открыт",
+            "xFF": "Переполнение ленты"
+        },
+        "tbl": {
+            "Time": {
+                "label": "Время кассы",
+                "Time": {
+                    "label": "Время"
+                },
+                "Date": {
+                    "label": "Дата"
+                }
+            },
+            "QUser": {
+                "label": "Запросы",
+                "id": {
+                    "label": "№"
+                },
+                "User": {
+                    "label": "Пользователь, который получает запрос"
+                }
+            },
+            "Com": {
+                "label": "Порты",
+                "id": {
+                    "label": "№"
+                },
+                "Device": {
+                    "label": "Тип устройства",
+                    "labels": [
+                        {"val":0,"label":"не использовать порт"},
+                        {"val":1,"label":"весы с ленинградским протоколом"},
+                        {"val":3,"label":"сканер ШК"},
+                        {"val":4,"label":"платежный терминал"},
+                        {"val":5,"label":"сканер ШК текстовый"},
+                        {"val":6,"label":"весы CAS"},
+                        {"val":7,"label":"индикатор клиента"},
+                        {"val":8,"label":"весы с протоколом Tiger"},
+                        {"val":9,"label":"весы UNS"},
+                        {"val":10,"label":"весы AT"},
+                        {"val":11,"label":"весы WildCat"},
+                        {"val":12,"label":"весы Масса-К"},
+                        {"val":13,"label":"весы Axis A250"},
+                        {"val":14,"label":"весы MoTEX"}
+                    ]
+                },
+                "Baud": {
+                    "label": "Частота обмена"
+                },
+                "Param": {
+                    "label": "Параметр порта"
+                }
+            },
+            "ComExt": {
+                "label": "HTTP Com",
+                "Base Port": {
+                    "label": "Номер основного порта"
+                },
+                "NIFIdx": {
+                    "label": "Номер сетевого интерфейса"
+                }
+            },
+            "Net": {
+                "label": "Количество весовых штрихкодов",
+                "NtEnb": {
+                    "label": "Тип сети"
+                },
+                "NtNum": {
+                    "label": "Сетевой номер"
+                },
+                "NtBaud": {
+                    "label": "Частота обмена"
+                },
+                "Query": {
+                    "label": "Зарезервировано"
+                },
+                "LgNum": {
+                    "label": "Логический номер"
+                },
+                "WBar": {
+                    "label": "Количество весовых штрихкодов"
+                },
+                "NetPsw": {
+                    "label": "Зарезервировано"
+                },
+                "ComPsw": {
+                    "label": "Зарезервировано"
+                }
+            },
+            "Hdr": {
+                "label": "Заголовок чека",
+                "id": {
+                    "label": "№"
+                },
+                "Param": {
+                    "label": "Параметр печати",
+                    "labels":[
+                        {"val":0,"label":"нет"},
+                        {"val":1,"label":"печать"},
+                        {"val":2,"label":"двойная высота"}
+                    ]
+                },
+                "Line": {
+                    "label": "Строка"
+                }
+            },
+            "Ftr": {
+                "label": "Рекламные сообщения",
+                "id": {
+                    "label": "№"
+                },
+                "Param": {
+                    "label": "Параметр печати",
+                    "labels":[
+                        {"val":0,"label":"нет"},
+                        {"val":1,"label":"печать"},
+                        {"val":2,"label":"двойная высота"}
+                    ]
+                },
+                "Line": {
+                    "label": "Строка"
+                }
+            },
+            "Oper": {
+                "label": "Операторы",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Имя"
+                },
+                "Pswd": {
+                    "label": "Пароль"
+                }
+            },
+            "Dep": {
+                "label": "Отделы",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Название"
+                },
+                "Tax": {
+                    "label": "Налог"
+                },
+                "Price": {
+                    "label": "Цена"
+                },
+                "MaxPrice": {
+                    "label": "Максимальная цена"
+                },
+                "Sngl": {
+                    "label": "Параметр"
+                },
+                "RPrice": {
+                    "label": "Обратная цена"
+                }
+            },
+            "Grp": {
+                "label": "Группы товаров",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Название"
+                }
+            },
+            "Dsc": {
+                "label": "Скидки и наценки по умолчанию",
+                "NcDsb": {
+                    "label": "Наценка запрещена",
+                    "labels":"'Наценка запрещена'"
+                },
+                "Nac": {
+                    "label": "Величина наценки"
+                },
+                "SkDsb": {
+                    "label": "Скидка запрещена",
+                    "labels":"'Скидка запрещена'"
+                },
+                "Skd": {
+                    "label": "Величина скидки"
+                },
+                "PNDsb": {
+                    "label": "Процентная наценка запрещена",
+                    "labels":"'Процентная наценка запрещена'"
+                },
+                "PNac": {
+                    "label": "Процент наценки"
+                },
+                "PSDsb": {
+                    "label": "Процентная скидка запрещена",
+                    "labels":"'Процентная скидка запрещена'"
+                },
+                "PSkd": {
+                    "label": "Процент скидки"
+                }
+            },
+            "Pay": {
+                "label": "Типы оплаты",
+                "id": {
+                    "label": "№"
+                },
+                "Param": {
+                    "label": "Параметр",
+                    "labels":[
+                        {"val":0,"label":"разрешить вид оплаты"},
+                        {"val":1,"label":"возможна сдача"},
+                        {"val":2,"label":"нужен ввод кода клиента"},
+                        {"val":3,"label":"безналичная оплата"},
+                        {"val":4,"label":"возможна выплата"},
+                        {"val":5,"label":"оплата платежным терминалом"},
+                        {"val":6,"label":"указывать сумму при оплате"}
+                    ]
+                },
+                "Name": {
+                    "label": "Название"
+                }
+            },
+            "Adm": {
+                "label": "Опции",
+                "ParPrg": {
+                    "label": "Пароль для программирования"
+                },
+                "OtcPrg": {
+                    "label": "Пароль для отчетов"
+                },
+                "NumOpr": {
+                    "label": "Количество активных операторов"
+                },
+                "CurTim": {
+                    "label": "Текущее время"
+                },
+                "PrContr": {
+                    "label": "Контрастность печати"
+                },
+                "PrEqual": {
+                    "label": "Равномерность печати"
+                },
+                "SWT": {
+                    "label": "Летнее/зимнее время"
+                },
+                "ScrCntr": {
+                    "label": "Контрастность экрана"
+                }
+            },
+            "Flg": {
+                "label": "Флаги",
+                "NFoot": {
+                    "label": "Количество активных строк в окончании чека"
+                },
+                "AutoOff": {
+                    "label": "Автоотключение"
+                },
+                "PrintOff": {
+                    "label": "Параметры печати",
+                    "labels": [
+                        {"val":0,"label":"выключить принтер в режиме тренировки"},
+                        {"val":1,"label":"печать заголовка после предыдущего чека"}
+                    ]
+                },
+                "Flg1": {
+                    "label": "Флажки",
+                    "labels": [
+                        {"val":0,"label":"следить за запасом товара"},
+                        {"val":1,"label":"запретить программирование товаров в кассе"},
+                        {"val":2,"label":"контролировать количество в весовых товарах"},
+                        {"val":3,"label":"запретить копию чека"},
+                        {"val":4,"label":"запретить сортировку в отчетах по товарам"},
+                        {"val":6,"label":"выключить звуковые сигналы"},
+                        {"val":8,"label":"разрешить нулевую цену"},
+                        {"val":9,"label":"удалять товары c запасом 0 после Z1"},
+                        {"val":10,"label":"удалять все товары после Z1"},
+                        {"val":13,"label":"печать ЭКЛ мелким шрифтом"},
+                        {"val":14,"label":"выключить подсветку дисплея"}
+                    ]
+                },
+                "LowVolt": {
+                    "label": "Зарезервировано"
+                },
+                "Feed": {
+                    "label": "Количество строк между чеками"
+                },
+                "Flg3": {
+                    "label": "Вид чека",
+                    "labels": [
+                        {"val":0,"label":"печатать код товара"},
+                        {"val":1,"label":"печатать название отдела"},
+                        {"val":2,"label":"печатать номер отдела"},
+                        {"val":6,"label":"не печатать имя кассира"},
+                        {"val":8,"label":"не печатать лого"},
+                        {"val":16,"label":"выдавать звук вместо ошибок 1..30"}
+                    ]
+                },
+                "MaxChkSum": {
+                    "label": "Максимальная сумма чека"
+                }
+            },
+            "Tax": {
+                "label": "Налоги",
+                "id": {
+                    "label": "№"
+                },
+                "Prc": {
+                    "label": "Процент"
+                },
+                "Extra": {
+                    "label": "Процент сбора"
+                },
+                "SMode": {
+                    "label": "Тип налогообложения",
+                    "labels": [
+                        {"val":0,"label":"налог и сбор на базу налогообложения"},
+                        {"val":1,"label":"налог на базу налогообложения и на сбор"},
+                        {"val":2,"label":"сбор на базу налогообложения и на налог"}
+                    ]
+                }
+            },
+            "Fsk": {
+                "label": "Позиция точки",
+                "SNumSign": {
+                    "label": "Буквы заводского номера"
+                },
+                "FisNum": {
+                    "label": "Фискальный номер"
+                },
+                "NumPnt": {
+                    "label": "Позиция точки в суммах"
+                },
+                "NumChk": {
+                    "label": "Номер чека"
+                },
+                "TaxOff": {
+                    "label": "Режим налогообложения",
+                    "labels": [
+                        {"val":0,"label":"НДС включен в цену"},
+                        {"val":1,"label":"НДС не включен в цену"}
+                    ]
+                },
+                "SerNum": {
+                    "label": "Заводской номер"
+                }
+            },
+            "PLU": {
+                "label": "Товары",
+                "Code": {
+                    "label": "Код"
+                },
+                "Name": {
+                    "label": "Название"
+                },
+                "Price": {
+                    "label": "Цена"
+                },
+                "Dep": {
+                    "label": "Отдел"
+                },
+                "Grp": {
+                    "label": "Группа"
+                },
+                "Qty": {
+                    "label": "Количество"
+                },
+                "Flg": {
+                    "label": "Опции",
+                    "labels":[
+                        {"val":0,"label":"цена может меняться"},
+                        {"val":1,"label":"только дробное количество"},
+                        {"val":2,"label":"следить за остатком"},
+                        {"val":4,"label":"закрывать чек"},
+                        {"val":5,"label":"только возврат"},
+                        {"val":6,"label":"только продажа"}
+                    ]
+                }
+            },
+            "ExDisc": {
+                "label": "Скидки",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Название"
+                },
+                "Param": {
+                    "label": "Параметр"
+                },
+                "Value": {
+                    "label": "Величина"
+                },
+                "BarCode": {
+                    "label": "Штрихкод"
+                }
+            },
+            "TCP": {
+                "label": "Параметры TCP",
+                "id": {
+                    "label": "№"
+                },
+                "Addr": {
+                    "label": "IP адрес"
+                },
+                "Gate": {
+                    "label": "Шлюз"
+                },
+                "Mask": {
+                    "label": "Маска"
+                },
+                "DNS": {
+                    "label": "Адрес DNS сервера"
+                },
+                "MAC": {
+                    "label": "#MAC адрес"
+                },
+                "AdptFlg": {
+                    "label": "Флаги",
+                    "labels":[
+                        {"val":0,"label":"10Mbps"},
+                        {"val":1,"label":"100Mbps"},
+                        {"val":2,"label":"1000Mbps"},
+                        {"val":3,"label":"полный дуплекс"},
+                        {"val":4,"label":"автоматический режим"},
+                        {"val":5,"label":"разрешить MDI/MDI-X"},
+                        {"val":8,"label":"отключить keep alive. (необходимо для работы в Linux)"}
+                    ]
+
+                }
+            },
+            "Host": {
+                "label": "Хост",
+                "Name": {
+                    "label": "Имя"
+                },
+                "TimeOut": {
+                    "label": "#TimeOut"
+                }
+            },
+            "WBar": {
+                "label": "Весовые штрихкоды",
+                "id": {
+                    "label": "№"
+                },
+                "BCode": {
+                    "label": "Код",
+                    "help":""
+                },
+                "BFltr": {
+                    "label": "Маска кода",
+                    "help":""
+                }
+            },
+            "Dir":{
+                "label":"Клавиши прямой продажи",
+                "Klav": {
+                    "label": "Клавиша"
+                },
+                "Code": {
+                    "label": "Код товара"
+                }
+            },
+            "ModemCfg": {
+                "label": "Настройки GPRS модема",
+                "APN": {
+                    "label": "APN"
+                },
+                "APNUser": {
+                    "label": "Пользователь"
+                },
+                "APNPswd": {
+                    "label": "Пароль"
+                },
+                "DNS1": {
+                    "label": "DNS сервер 1"
+                },
+                "DNS2": {
+                    "label": "DNS сервер 2"
+                },
+                "PIN": {
+                    "label": "PIN код"
+                }
+            },
+            "CCard": {
+                "label": "#Customer card configuration",
+                "id": {
+                    "label": "#id of cards diapason"
+                },
+                "BNum": {
+                    "label": "#Begin number of card"
+                },
+                "ENum": {
+                    "label": "#End number of card"
+                },
+                "DscPrm1": {
+                    "label": "#Discount parameter 1"
+                },
+                "DscPrm2": {
+                    "label": "#Discount value"
+                },
+                "L1Prm": {
+                    "label": "#Line 1 parameter"
+                },
+                "L2Prm": {
+                    "label": "#Line 2 parameter"
+                }
+            },
+            "CCLine": {
+                "label": "#Customer comments",
+                "id": {
+                    "label": "#number of cards diapason"
+                },
+                "Line1": {
+                    "label": "#Comment line 1"
+                },
+                "Line2": {
+                    "label": "#Comment line 2"
+                }
+            },
+            "SysLog":{
+                "label":"Клиент Syslog",
+                "Addr":{
+                    "label":"Адрес сервера Syslog",
+                    "help":"Например: <b>192.168.8.1</b> или <b>syslog.server.org</b>"
+                },
+                "Port":{
+                    "label":"Порт сервера",
+                    "help":"Например: <b>514</b>"
+                },
+                "Priority":{
+                    "label":"Типы выводимых сообщений",
+                    "labels":[
+                        {"val":0,"label":"fatal errors"},
+                        {"val":1,"label":"alerts"},
+                        {"val":2,"label":"Critical errors"},
+                        {"val":3,"label":"Errors"},
+                        {"val":4,"label":"Warnings"},
+                        {"val":5,"label":"Notice"},
+                        {"val":6,"label":"Info"},
+                        {"val":7,"label":"Debug"},
+                        {"val":8,"label":"Kernel level messages"},
+                        {"val":9,"label":"User level messages"},
+                        {"val":10,"label":"Mail system"},
+                        {"val":11,"label":"System daemons"},
+                        {"val":12,"label":"security/authorization"},
+                        {"val":13,"label":"syslog mesages"},
+                        {"val":14,"label":"printer subsystem messages"},
+                        {"val":15,"label":"network news subsystem messages"},
+                        {"val":16,"label":"UUCP subsystem"},
+                        {"val":17,"label":"clock subsystem"},
+                        {"val":18,"label":"security/authorization1"},
+                        {"val":19,"label":"FTP"},
+                        {"val":20,"label":"NTP"},
+                        {"val":21,"label":"log audit"},
+                        {"val":22,"label":"log alert"},
+                        {"val":23,"label":"clock daemon"},
+                        {"val":24,"label":"local0"},
+                        {"val":25,"label":"local1"},
+                        {"val":26,"label":"local2"},
+                        {"val":27,"label":"local3"},
+                        {"val":28,"label":"local4"},
+                        {"val":29,"label":"local5"},
+                        {"val":30,"label":"local6"},
+                        {"val":31,"label":"local7"}
+                    ],
+                    "help":"Priority по стандарту SysLog. Включить все:<b>4294967295</b>. Для отключения некоторых типов сообщений от этого числа надо отнять <b>8</b>(ошибки), <b>16</b>(предупреждения), <b>128</b>(отладка)"
+                },
+                "Trans":{
+                    "label":"Unusal?",
+                    "help":""
+                }
+            },
+            "NSMEP": {
+                "label":"Настройки модема",
+                "Addr":{
+                    "label":"Адрес экваера",
+                    "help":"IP адрес или имя. Например: <b>rro.interplat.ua</b> или <b>rro.ukrcard.com.ua</b>"
+                },
+                "Port":{
+                    "label":"Порт экваера",
+                    "help":"Например: <b>30583</b>"
+                },
+                "PackSize":{
+                    "label":"Размер пакета",
+                    "help":"Максимальный размер пакета для обмена данными с экваером. Может быть от <b>5000</b> до <b>16777216</b> байт. Рекомендованное значение <b>50000</b>. В случае плохого качества связи может быть уменьшено до <b>10000-25000</b>"
+                }
+            }
+        }
+
+    },
+    "uk": {
+        "err": {
+            "x01": "Не вказано ціну",
+            "x02": "Не вказано кількість",
+            "x03": "Не вказано відділ",
+            "x04": "Не вказано групу",
+            "x31": "Користувача вже зареєстровано",
+            "x32": "Хибний пароль",
+            "x33": "Хибний номер таблиці",
+            "x34": "Доступ заборонено",
+            "x35": "Замовчування не знайдене",
+            "x36": "Хибний індекс",
+            "x37": "Хибне поле",
+            "x38": "Немає місця у таблиці",
+            "x39": "Хибна довжина бінарних даних",
+            "x3A": "Намагання модифікувати поле тільки для читання",
+            "x3B": "Хибне значення поля",
+            "x3C": "Товар існує",
+            "x3D": "Є продажі цього товару",
+            "x3E": "Запит заборонено",
+            "x3F": "Хибна закладка",
+            "x40": "Ключ не знайдений",
+            "x41": "Процедура вже виконується",
+            "x42": "Від’ємна кількість товару",
+            "x43": "Ввімкнене перенаправлення з карти пам’яті",
+            "x87": "Помилка фіскальної пам’яті",
+            "x88": "Помилка карти пам’яті",
+            "x89": "Переповнення карти пам’яті",
+            "x8B": "Немає паперу",
+            "x8D": "Видача решти заборонена",
+            "x92": "Помилка друку",
+            "xA5": "Z1 звіт не знайдено",
+            "xA7": "Картка ММС заборонена",
+            "xA8": "Хибний номер фіскальної пам’яті",
+            "xA9": "Фіскальна пам’ять не порожня",
+            "xB3": "Хибна оплата",
+            "xB5": "Форму VAT вже вiдкрито",
+            "xB6": "Ресторанний режим заборонено",
+            "xB7": "Стіл не відкрито",
+            "xB8": "Кількість замовленнь перевищила максимальну",
+            "xB9": "Ресторанний чек вже почато",
+            "xBA": "Хибний номер таблиці",
+            "xBB": "Електронна стрічка має бути порожньою",
+            "xBC": "Режим тренування",
+            "xBD": "Поточна дата хибна",
+            "xBE": "Дату-час змінювати заборонено",
+            "xBF": "Час без сервісного обслуговування закінчився",
+            "xC0": "Помилка обміну з терміналом НСМЕП",
+            "xC1": "Хибний номер податку",
+            "xC2": "Хибний параметер процедури",
+            "xC3": "Режим фіскального прінтера не активований",
+            "xC4": "Податок чи ім’я товару було змінено на протязі дня",
+            "xC5": "Необхідна персоналізація",
+            "xC6": "Відсутній обмін з сервером НСМЕП на протязі 72 годин",
+            "xC7": "Не дозволено обнулення данних ЕКС",
+            "xC8": "Не дозволена робота з GPRS модемом",
+            "xCC": "Розпочато операцію повернення",
+            "xCF": "Не виведений звіт Z1",
+            "xD0": "Не зроблена інкасація коштів",
+            "xD1": "Сейф не зачинено",
+            "xD2": "Друк журналу перервано",
+            "xD3": "Дата змінилася або закінчилася зміна",
+            "xD4": "Процентна знижка по замовчуванню не наведена",
+            "xD5": "Знижка по замовчуванню не наведена",
+            "xD6": "Добовий звіт не пустий",
+            "xD7": "Z1 звіт вже виведений",
+            "xD8": "Відміна продажу товару з активною знижкою неможлива",
+            "xD9": "В чеку відсутні продаж цього товару",
+            "xDA": "В чеку відсутні операції для скасування",
+            "xDB": "Від’ємна сума продажу товару",
+            "xDC": "Хибне значення відсотку",
+            "xDD": "Немає жодного продажу",
+            "xDE": "Знижки заборонені",
+            "xDF": "Невірна сума оплати",
+            "xE0": "Використання коду клієнта заборонене для цього типу оплати",
+            "xE1": "Хибна сума оплати",
+            "xE2": "Тривіє оплата чеку",
+            "xE3": "Товар вичерпався",
+            "xE4": "Група не може бути змінена",
+            "xE5": "Хибна група",
+            "xE6": "Відділ не можебути змінений",
+            "xE7": "Хибний відділ",
+            "xE8": "Нульова кількість чи ціна товару",
+            "xE9": "Переповнення внутрішньої суми",
+            "xEA": "Дробове значення кількості не дозволене",
+            "xEB": "Хибна кількість",
+            "xEC": "Ціна не може бути змінена",
+            "xED": "Хибна ціна",
+            "xEE": "Товар не існує",
+            "xEF": "Почалися операції внесення-винесення коштів",
+            "xF0": "В чеку відбувався подаж товару",
+            "xF1": "Неіснуючий чи заборонений вид оплати",
+            "xF2": "Поле в запису переповнене",
+            "xF3": "Від’ємна сума у Z1 звіті",
+            "xF4": "Від’ємна сума по чеку",
+            "xF5": "Переповнення чеку",
+            "xF6": "Переповнення денного звіту",
+            "xF7": "Чеку для копії не знайдено",
+            "xF8": "Повну оплату чеку не виконано",
+            "xF9": "Касир не зареєстрований",
+            "xFA": "Операцію не дозволено поточному касиру",
+            "xFB": "Нефіскальний чек не відкрито",
+            "xFC": "Чек не відкрито",
+            "xFD": "Нефіскальний чек вже відкрито",
+            "xFE": "Чек вже відкрито",
+            "xFF": "Електронна стрічка заповнена"
+        },
+        "tbl": {
+            "Time": {
+                "label": "Час апарату",
+                "Time": {
+                    "label": "Час"
+                },
+                "Date": {
+                    "label": "Дата"
+                },
+                "SumDate": {
+                    "label": "Дата влітку"
+                },
+                "SumTime": {
+                    "label": "Час влітку"
+                },
+                "WinDate": {
+                    "label": "Дата взимку"
+                },
+                "WinTime": {
+                    "label": "Час взимку"
+                }
+            },
+            "QUser": {
+                "label": "Запити",
+                "id": {
+                    "label": "№"
+                },
+                "User": {
+                    "label": "Користувач"
+                }
+            },
+            "Com": {
+                "label": "Послідовні порти",
+                "id": {
+                    "label": "№"
+                },
+                "Device": {
+                    "label": "Тип пристрою",
+                    "labels": [
+                        {"val":0,"label":"не використовується"},
+                        {"val":1,"label":"ваги з ленінградським протоколом"},
+                        {"val":3,"label":"сканер ШК"},
+                        {"val":4,"label":"платіжний термінал"},
+                        {"val":5,"label":"сканер ШК текстовий"},
+                        {"val":6,"label":"ваги CAS"},
+                        {"val":7,"label":"індикатор клієнта"},
+                        {"val":8,"label":"ваги з протоколом Tiger"},
+                        {"val":9,"label":"ваги UNS"},
+                        {"val":10,"label":"ваги AT"},
+                        {"val":11,"label":"ваги WildCat"},
+                        {"val":12,"label":"ваги Масса-К"},
+                        {"val":13,"label":"ваги Axis A250"},
+                        {"val":14,"label":"ваги MoTEX"}
+                    ]
+                },
+                "Baud": {
+                    "label": "Частота обміну"
+                },
+                "Param": {
+                    "label": "Параметр порту"
+                }
+            },
+            "ComExt": {
+                "label": "HTTP Com",
+                "BasePort": {
+                    "label": "Номер основного порту"
+                },
+                "NIFIdx": {
+                    "label": "Номер мережевого інтерфейсу"
+                }
+            },
+            "Net": {
+                "label": "Кількість вагових штрихкодів",
+                "NtEnb": {
+                    "label": "Тип мережі"
+                },
+                "NtNum": {
+                    "label": "Номер у мережі"
+                },
+                "NtBaud": {
+                    "label": "Частота обміну"
+                },
+                "Query": {
+                    "label": "Зарезервовано"
+                },
+                "LgNum": {
+                    "label": "Логічний номер"
+                },
+                "WBar": {
+                    "label": "Кількість активних фільтрів для вагових штрихкодів"
+                },
+                "NetPsw": {
+                    "label": "Зарезервовано"
+                },
+                "ComPsw": {
+                    "label": "Зарезервовано"
+                }
+            },
+            "Hdr": {
+                "label": "Заголовок чеку",
+                "id": {
+                    "label": "№"
+                },
+                "Param": {
+                    "label": "Параметр друку",
+                    "labels":[
+                        {"val":0,"label":"заборона"},
+                        {"val":1,"label":"друк"},
+                        {"val":2,"label":"подвійна висота"}
+                    ]
+                },
+                "Line": {
+                    "label": "Рядок"
+                }
+            },
+            "Ftr": {
+                "label": "Рекламні повідомлення",
+                "id": {
+                    "label": "№"
+                },
+                "Param": {
+                    "label": "Параметер друку",
+                    "labels":[
+                        {"val":0,"label":"заборона"},
+                        {"val":1,"label":"друк"},
+                        {"val":2,"label":"подвійна висота"}
+                    ]
+                },
+                "Line": {
+                    "label": "Рядок"
+                }
+            },
+            "Oper": {
+                "label": "Оператори",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Ім’я"
+                },
+                "Pswd": {
+                    "label": "Пароль"
+                }
+            },
+            "Dep": {
+                "label": "Відділи",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Назва"
+                },
+                "Tax": {
+                    "label": "Податок"
+                },
+                "Price": {
+                    "label": "Ціна"
+                },
+                "MaxPrice": {
+                    "label": "Максимальна ціна"
+                },
+                "Sngl": {
+                    "label": "Параметер"
+                },
+                "RPrice": {
+                    "label": "Зворотня ціна"
+                }
+            },
+            "Grp": {
+                "label": "Групи",
+                "id": {
+                    "label": "№"
+                },
+                "Name": {
+                    "label": "Назва"
+                }
+            },
+            "Dsc": {
+                "label": "Знижки та націнки",
+                "NcDsb": {
+                    "label": "Заборона націнки",
+                    "labels":"'Заборона націнки'"
+                },
+                "Nac": {
+                    "label": "Розмір націнки"
+                },
+                "SkDsb": {
+                    "label": "Заборона знижки",
+                    "labels":"'Заборона знижки'"
+                },
+                "Skd": {
+                    "label": "Розмір знижки"
+                },
+                "PNDsb": {
+                    "label": "Заборона відсоткової націнки",
+                    "labels":"'Заборона відсоткової націнки'"
+                },
+                "PNac": {
+                    "label": "Відсоток націнки"
+                },
+                "PSDsb": {
+                    "label": "Заборона відсоткової знижки",
+                    "labels":"'Заборона відсоткової знижки'"
+                },
+                "PSkd": {
+                    "label": "Відсоток знижки"
+                }
+            },
+            "Pay": {
+                "label": "Види оплати",
+                "id": {
+                    "label": "№"
+                },
+                "Param": {
+                    "label": "Параметр",
+                    "labels":[
+                        {"val":0,"label":"дозволити вид оплати"},
+                        {"val":1,"label":"можлива видача решти"},
+                        {"val":2,"label":"потрібен ввод кода клієнта"},
+                        {"val":3,"label":"безготівковий вид оплати"},
+                        {"val":4,"label":"дозволено виплату коштів"},
+                        {"val":5,"label":"оплата платіжним терміналом"},
+                        {"val":6,"label":"вказувати суму при оплаті"}
+                    ]
+                },
+                "Name": {
+                    "label": "Назва"
+                }
+            },
+            "Adm": {
+                "label": "Адміністративні налаштування",
+                "ParPrg": {
+                    "label": "Пароль програмування"
+                },
+                "OtcPrg": {
+                    "label": "Пароль звітів"
+                },
+                "NumOpr": {
+                    "label": "Кількість активних операторів"
+                },
+                "CurTim": {
+                    "label": "Поточний час"
+                },
+                "PrContr": {
+                    "label": "Контраст друку"
+                },
+                "PrEqual": {
+                    "label": "Рівномірність друку"
+                },
+                "SWT": {
+                    "label": "Зимовий-літній час"
+                },
+                "ScrCntr": {
+                    "label": "Контраст екрану"
+                }
+            },
+            "Flg": {
+                "label": "Прапорці",
+                "NFoot": {
+                    "label": "Кількість активних рядків у закінченні чеку"
+                },
+                "AutoOff": {
+                    "label": "Автовимикання"
+                },
+                "PrintOff": {
+                    "label": "Параметри друку",
+                    "labels": [
+                        {"val":0,"label":"вимкнути принтер в режимі тренування"},
+                        {"val":1,"label":"друк заголовку після попереднього чеку"}
+                    ]
+                },
+                "Flg1": {
+                    "label": "Прапорці",
+                    "labels": [
+                        {"val":0,"label":"слідкувати за залишком"},
+                        {"val":1,"label":"заборонити програмування товарiв з каси"},
+                        {"val":2,"label":"контролювати кількість у вагових товарах"},
+                        {"val":3,"label":"заборонити копію чеку"},
+                        {"val":4,"label":"вимкнути сортування для звітів по товарам"},
+                        {"val":6,"label":"вимкнути звук клавiш та помилок"},
+                        {"val":8,"label":"дозволити нульову ціну"},
+                        {"val":9,"label":"видаляти товари з нульовою кiлькiстю по Z1"},
+                        {"val":10,"label":"видаляти усi товари по Z1"},
+                        {"val":13,"label":"стрічка дрібним шрифтом"},
+                        {"val":14,"label":"вимикнути підсвічування дисплея"}
+                    ]
+                },
+                "LowVolt": {
+                    "label": "Зарезервовано"
+                },
+                "Feed": {
+                    "label": "Кількість рядків між чеками"
+                },
+                "Flg3": {
+                    "label": "Друк чеку",
+                    "labels": [
+                        {"val":0,"label":"друкувати код товара"},
+                        {"val":1,"label":"друкувати назву вiддiлу"},
+                        {"val":2,"label":"друкувати номер вiддiлу"},
+                        {"val":6,"label":"не друкувати ім’я касира"},
+                        {"val":8,"label":"не друкувати лого"},
+                        {"val":16,"label":"видавати звук замiсть помилок 1..30"}
+                    ]
+                },
+                "MaxChkSum": {
+                    "label": "Максимальна сума чеку"
+                }
+            },
+            "Tax": {
+                "label": "Податки",
+                "id": {
+                    "label": "№"
+                },
+                "Prc": {
+                    "label": "Відсоток податку"
+                },
+                "Extra": {
+                    "label": "Відсоток збору"
+                },
+                "SMode": {
+                    "label": "Тип оподаткування",
+                    "labels": [
+                        {"val":0,"label":"податок та збір на базу оподаткування"},
+                        {"val":1,"label":"податок на базу оподаткування та на збір"},
+                        {"val":2,"label":"збір на базу оподаткування та на податок"}
+                    ]
+                }
+            },
+            "Fsk": {
+                "label": "Позиція крапки",
+                "SNumSign": {
+                    "label": "Літери серійного номеру"
+                },
+                "FisNum": {
+                    "label": "Фіскальний номер"
+                },
+                "NumPnt": {
+                    "label": "Позиція крапки у грошових сумах"
+                },
+                "NumChk": {
+                    "label": "Поточний номер чеку"
+                },
+                "TaxOff": {
+                    "label": "Режим оподаткування",
+                    "labels": [
+                        {"val":0,"label":"ПДВ включено в ціну"},
+                        {"val":1,"label":"ПДВ не включено в ціну"}
+                    ]
+                },
+                "SerNum": {
+                    "label": "Серійний номер"
+                }
+            },
+            "PLU": {
+                "label": "PLU",
+                "Code": {
+                    "label": "Код"
+                },
+                "Name": {
+                    "label": "Назва"
+                },
+                "Price": {
+                    "label": "Ціна"
+                },
+                "Dep": {
+                    "label": "Відділ"
+                },
+                "Grp": {
+                    "label": "Група"
+                },
+                "Qty": {
+                    "label": "Кількість"
+                },
+                "Flg": {
+                    "label": "Прапорці",
+                    "labels":[
+                        {"val":0,"label":"ціна може змінюватись"},
+                        {"val":1,"label":"тільки дробова кількість"},
+                        {"val":2,"label":"слідкувати за залишком"},
+                        {"val":4,"label":"завершувати чек"},
+                        {"val":5,"label":"тільки повернення"},
+                        {"val":6,"label":"повернення заборонене"}
+                    ]
+                }
+            },
+            "TCP": {
+                "label": "Протокол TCP",
+                "id": {
+                    "label": "№"
+                },
+                "Addr": {
+                    "label": "IP адреса"
+                },
+                "Gate": {
+                    "label": "Шлюз"
+                },
+                "Mask": {
+                    "label": "Маска мережі"
+                },
+                "DNS": {
+                    "label": "Адреса сервера DNS"
+                },
+                "MAC": {
+                    "label": "Адреса MAC"
+                },
+                "AdptFlg": {
+                    "label": "Прапорці",
+                    "labels":[
+                        {"val":0,"label":"10Mbps"},
+                        {"val":1,"label":"100Mbps"},
+                        {"val":2,"label":"1000Mbps"},
+                        {"val":3,"label":"повний дуплекс"},
+                        {"val":4,"label":"автоматичний режим"},
+                        {"val":5,"label":"дозволити MDI/MDI-X"},
+                        {"val":8,"label":"вимкнути keep alive. (необхідно для роботи в Linux)"}
+                    ]
+                }
+            },
+            "Host": {
+                "label": "Назва пристрою",
+                "Name": {
+                    "label": "Ім’я",
+                    "help": "Назва пристрою у мережі"
+                }
+            },
+            "WBar": {
+                "label": "Вагові штрихкоди",
+                "id": {
+                    "label": "№"
+                },
+                "BCode": {
+                    "label": "Код",
+                    "help":""
+                },
+                "BFltr": {
+                    "label": "Маска",
+                    "help":""
+                }
+            },
+
+            "Dir":{
+                "label":"Клавишi прямого продажу",
+                "Klav": {
+                    "label": "Клавiша"
+                },
+                "Code": {
+                    "label": "Код товару"
+                }
+            },
+
+            "NSMEP": {
+                "label":"Налаштування модему",
+                "Addr":{
+                    "label":"Адреса еквайєра",
+                    "help":"IP адреса або ім'я. Наприклад: <b>rro.interplat.ua</b> чи <b>rro.ukrcard.com.ua</b>"
+                },
+                "Port":{
+                    "label":"Порт еквайєра",
+                    "help":"Наприклад: <b>30583</b>"
+                },
+                "PackSize":{
+                    "label":"Розмір пакету",
+                    "help":"Максимальний розмір пакету для обміну даними з еквайєром. Може бути від <b>5000</b> до <b>16777216</b> байтів. Рекомендоване значення <b>50000</b>. У випадку обміну через неякісний GPRS зв'язок значення може бути зменьшене до <b>10000-25000</b>"
+                }
+            },
+            "ModemCfg": {
+                "label": "Налаштування модему GPRS",
+                "APN": {
+                    "label": "Ім’я APN"
+                },
+                "APNUser": {
+                    "label": "Користувач"
+                },
+                "APNPswd": {
+                    "label": "Пароль"
+                },
+                "DNS1": {
+                    "label": "Адреса DNS сервера 1"
+                },
+                "DNS2": {
+                    "label": "Адреса DNS сервера 2"
+                },
+                "PIN": {
+                    "label": "#PIN код SIM картки"
+                }
+            },
+            "SysLog":{
+                "label":"Клієнт Syslog",
+                "Addr":{
+                    "label":"Адреса сервера Syslog",
+                    "help":"Наприклад: <b>192.168.8.1</b> чи <b>syslog.server.org</b>"
+                },
+                "Port":{
+                    "label":"Порт сервера",
+                    "help":"Наприклад: <b>514</b>"
+                },
+                "Priority":{
+                    "label":"Типи повідомлень, що виводяться",
+                    "labels":[
+                        {"val":0,"label":"fatal errors"},
+                        {"val":1,"label":"alerts"},
+                        {"val":2,"label":"Critical errors"},
+                        {"val":3,"label":"Errors"},
+                        {"val":4,"label":"Warnings"},
+                        {"val":5,"label":"Notice"},
+                        {"val":6,"label":"Info"},
+                        {"val":7,"label":"Debug"},
+                        {"val":8,"label":"Kernel level messages"},
+                        {"val":9,"label":"User level messages"},
+                        {"val":10,"label":"Mail system"},
+                        {"val":11,"label":"System daemons"},
+                        {"val":12,"label":"security/authorization"},
+                        {"val":13,"label":"syslog mesages"},
+                        {"val":14,"label":"printer subsystem messages"},
+                        {"val":15,"label":"network news subsystem messages"},
+                        {"val":16,"label":"UUCP subsystem"},
+                        {"val":17,"label":"clock subsystem"},
+                        {"val":18,"label":"security/authorization1"},
+                        {"val":19,"label":"FTP"},
+                        {"val":20,"label":"NTP"},
+                        {"val":21,"label":"log audit"},
+                        {"val":22,"label":"log alert"},
+                        {"val":23,"label":"clock daemon"},
+                        {"val":24,"label":"local0"},
+                        {"val":25,"label":"local1"},
+                        {"val":26,"label":"local2"},
+                        {"val":27,"label":"local3"},
+                        {"val":28,"label":"local4"},
+                        {"val":29,"label":"local5"},
+                        {"val":30,"label":"local6"},
+                        {"val":31,"label":"local7"}
+                    ],
+                    "help":"Priority за стандартом SysLog. Ввімкнути все:<b>4294967295</b>. Для вимкнення окремих типів повідомлень від цього числа треба відняти <b>8</b>(помилки), <b>16</b>(попередження), <b>128</b>(налагодження)"
+                },
+                "Trans":{
+                    "label":"Unusal?",
+                    "help":""
+                }
+            }
+
+        }
+    }
+}

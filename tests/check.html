@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Модный переключатель — Пепелсбей.net</title>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <style>
+        body {
+            padding:80px 100px;
+            background:#F7F7F7;
+            color:#555;
+            font:15px/1.6 Tahoma, sans-serif;
+        }
+        p {
+            margin:0;
+        }
+        a {
+            color:#118BF5;
+            text-decoration:none;
+        }
+
+        /* Switch */
+        .switch,
+        .switch-label,
+        .switch-slider {
+            width:100px;
+            height:44px;
+        }
+        .switch {
+            position:relative;
+            display:inline-block;
+            margin:0 40px 40px 0;
+        }
+        .switch-check {
+            position:absolute;
+            opacity:0;
+        }
+        .switch-label,
+        .switch-slider {
+            position:absolute;
+            top:0;
+        }
+        .switch-label {
+            left:0;
+            text-indent:-9999px;
+        }
+        .switch-slider {
+            border-radius:22px;
+            box-shadow:
+            0 0 0 2px rgba(0, 0, 0, 0.1) inset,
+            0 0 4px rgba(0, 0, 0, 0.5) inset,
+            0 5px 4px 1px rgba(0, 0, 0, 0.3) inset,
+            0 22px 0 rgba(0, 0, 0, 0.07) inset;
+            -webkit-transition:width 0.2s linear;
+            -moz-transition:width 0.2s linear;
+            -o-transition:width 0.2s linear;
+            transition:width 0.2s linear;
+        }
+        .switch-slider-on {
+            left:0;
+            width:44px;
+            background:#FFF url(on.svg) 75% 10px no-repeat;
+        }
+        .switch-slider-off {
+            right:0;
+            background:#FFF url(off.svg) 55px 10px no-repeat;
+        }
+        .switch-slider-off:after {
+            position:absolute;
+            top:1px;
+            left:1px;
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#E5E5E5;
+            background:-webkit-linear-gradient(#D0D0D0, #FDFDFD);
+            background:-moz-linear-gradient(#D0D0D0, #FDFDFD);
+            background:-o-linear-gradient(#D0D0D0, #FDFDFD);
+            background:linear-gradient(#D0D0D0, #FDFDFD);
+            box-shadow:
+            0 0 2px 2px #FFF inset,
+            0 0 4px 1px rgba(0, 0, 0, 0.6);
+            content:'';
+        }
+        .switch-label:active .switch-slider-off:after,
+        .switch-check:focus + .switch-label .switch-slider-off:after {
+            background:#D5D5D5;
+            background:-webkit-linear-gradient(#C8C8C8, #E4E4E4);
+            background:-moz-linear-gradient(#C8C8C8, #E4E4E4);
+            background:-o-linear-gradient(#C8C8C8, #E4E4E4);
+            background:linear-gradient(#C8C8C8, #E4E4E4);
+        }
+        .switch-check:checked + .switch-label .switch-slider-on {
+            width:100px;
+        }
+        .switch-check:checked + .switch-label .switch-slider-off {
+            width:44px;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-2"><button class="btn btn-default">Back</button></div>
+    <div class="col-sm-8"><h1>Fiscal Memory Reports</h1></div>
+    <div class="switch col-sm-2">
+        <input type="checkbox" class="switch-check" id="query-type">
+        <label for="query-type" class="switch-label">
+            <span class="switch-slider switch-slider-on"></span>
+            <span class="switch-slider switch-slider-off"></span>
+        </label>
+    </div>
+</div>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="from" class="col-sm-2 control-label">From:</label>
+        <div class="col-sm-10">
+            <input name="f" type="date" id="from" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="to" class="col-sm-2 control-label">To:</label>
+        <div class="col-sm-10">
+            <input name="t" type="date" id="to" class="form-control"/>
+            <span class="help-block">dd-mm-yyyy<br/>0&lt;nnnn&lt;5000</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default">Full</button>
+            <button class="btn btn-default">Short</button>
+            <button class="btn btn-default" disabled>Save</button>
+            <button class="btn btn-default">Binary</button>
+        </div>
+    </div>
+    <!--div class="form-group">
+        <td><label for="short">Short:</label></td>
+        <td> <input name="s" type="checkbox" id="short"/></td>
+        <td>&nbsp;</td>
+    </div-->
+</form>
+    <pre>
+        ---------------------------------------------------------------------<br>
+        =====================================================================<br>
+        ---------------------------------------------------------------------<br>
+        =====================================================================<br>
+    </pre>
+
+<p>Пример переключателя из интерфейса iOS на основе чекбокса к заметке «<a href="http://pepelsbey.net/2012/08/stylish-switch/">Модный переключатель</a>» на сайте Пепелсбей.net.</p>
+<script src="../js/jquery.js"></script>
+<script type="text/javascript">
+    var zMin = 1;
+    var zMax = 800;
+    var zMinDate = new Date(2013,2,16);
+    var zMaxDate = new Date(2014,6,12);
+
+    var vMin = zMin;
+    var vMax = zMax;
+    var vMinDate = zMinDate;
+    var vMaxDate = zMaxDate;
+
+    var is_number = false;
+    var is_date = false;
+
+    function toStringDate(v) {
+        var d = v.getDate()+'-';
+        if (d.length==2) d = '0'+d;
+        var m = v.getMonth()+'-';
+        if (m.length==2) m = '0'+m;
+        return d+m+ v.getFullYear();
+    }
+
+    function setDate(elem, date) {
+        if (is_date) { elem.valueAsDate = date;
+        } else {elem.value=toStringDate(date);
+        }
+    }
+
+    function setDateFields() {
+        var attr = is_date?{type:'date'}:{type:'text',pattern:"\\d{2}-\\d{2}-\\d{4}"}
+        setDate($('#from').attr(attr)[0],vMinDate);
+        setDate($('#to').attr(attr)[0],vMaxDate);
+    }
+
+    function setNumberFields() {
+        var attr = is_number?{type:'number',min:zMin,max:zMax}:{type:'text',pattern:"\\d{4}"};
+        $('#from').attr(attr).val(vMin);
+        $('#to').attr(attr).val(vMax);
+    }
+
+    function getDate(e) {
+        var testDate;
+        if (is_date) { testDate = e.valueAsDate;
+        } else {
+            var entry = e.value;
+            var mo,day, yr;
+            var re = /^\d{2}[\/-]\d{2}[\/-]\d{4}$/;
+            if (!re.test(entry)) return false;
+            var delimChar = (entry.indexOf("/") != -1) ? "/" : "-";
+            var deliml = entry.indexOf(delimChar);
+            var delim2 = entry.lastIndexOf(delimChar);
+            day = parseInt(entry.substring(0, deliml), 10);
+            mo = parseInt(entry.substring(deliml+1, delim2), 10);
+            yr = parseInt(entry.substring(delim2+1), 10);
+            testDate = new Date(yr, mo-1, day);
+            if (testDate.getDate() != day)     { return false;
+            }
+            if (testDate.getMonth() + 1 != mo) { return false;
+            }
+            if (testDate.getFullYear() != yr)  { return false;
+            }
+        }
+        if (testDate) {
+            if (testDate<zMinDate) {
+                testDate=zMinDate;
+                if (is_date) { e.valueAsDate = zMinDate;
+                } else {e.value=toStringDate(zMinDate);
+                }
+            }
+            if (testDate>zMaxDate) {testDate=e.valueAsDate=zMaxDate;}
+        }
+        return testDate;
+    }
+    function getNumber(e) {
+        var value;
+        if (is_number) { value = e.valueAsNumber;
+        } else { value = parseInt(e.value);
+        }
+        if (value) {
+            if (value<zMin) {value=e.valueAsNumber=zMin;}
+            if (value>zMax) {value=e.valueAsNumber=zMax;}
+        }
+        return value;
+    }
+
+    function validateInput(e) {
+        var elem = e.target;
+        var isFrom = elem.id=='from';
+        var elemNext = $(isFrom?'#to':'#from')[0];
+        var value=false;
+        var date_format = elem.type;
+        if (date_format=="text") {
+            date_format = $('#query-type').is(':checked');
+        } else date_format = date_format=="date";
+        var valid = (!('validity' in elem)) || elem.checkValidity();
+        if (valid) {
+            var valueNext = false;
+            if (date_format) {
+                value = getDate(elem);
+                valueNext = getDate(elemNext);
+            } else {
+                value = getNumber(elem);
+                valueNext = getNumber(elemNext);
+            }
+            valid = value;
+        }
+        if (valid) {
+            if (isFrom) {
+                if (value>valueNext) {
+                    elem.value=elemNext.value;
+                }
+                if (date_format) {vMinDate=getDate(elem);
+                } else {vMin=getNumber(elem);
+                }
+            } else {
+                if (value<valueNext) {
+                    elem.value=elemNext.value;
+                }
+                if (date_format) {vMaxDate=getDate(elem);
+                } else {vMax=getNumber(elem);
+                }
+            }
+            $(elem).parents('.form-group').addClass('has-success').removeClass('has-error');
+        } else {
+            $(elem).parents('.form-group').removeClass('has-success').addClass('has-error');
+        }
+    }
+
+    $(function(){
+        //-----------------------------------------------------
+        var chkInput = function() {
+            var i = document.createElement("input");
+            i.setAttribute("type", "number");
+            is_number = i.type!="text";
+            i.setAttribute("type","date");
+            is_date = i.type!="text";
+        };
+        chkInput();
+        setNumberFields();
+        //-----------------------------------------------------
+        $('#from').on('blur',validateInput);
+        $('#to').on('blur',validateInput);
+        $('#query-type').on('change',function(ev) {
+            if (ev.target.checked) { setDateFields();
+            } else { setNumberFields();
+            }
+        });
+    });
+</script>
+</body>
+</html>

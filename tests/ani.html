@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>animate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <style>
+        .loading {
+            display: inline-block;
+            margin: 5em;
+            border-width: 30px;
+            border-radius: 50%;
+            -webkit-animation: spin 1s linear infinite;
+            -moz-animation: spin 1s linear infinite;
+            -o-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        .load {
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        .style-1 {
+            border-style: solid;
+            border-color: #444 transparent;
+        }
+
+        .style-2 {
+            border-style: double;
+            border-color: #444 transparent;
+        }
+
+        .style-3 {
+            border-style: double;
+            border-color: #444 #fff #fff;
+        }
+
+        @-webkit-keyframes spin {
+            100% { -webkit-transform: rotate(359deg); }
+        }
+
+        @keyframes spin {
+            100% {  transform: rotate(359deg); }
+        }
+
+        /* Base styles */
+        html {
+            background: #eee url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/billie_holiday.png');
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="Refresh">
+    <span class="glyphicon glyphicon-refresh"></span></button>
+
+<span class="loading style-1"></span>
+
+<span class="loading style-2"></span>
+
+<span class="loading style-3"></span>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+    var b = $('button');
+    b.click(function(){
+        b.attr('disabled','disabled').children('span').addClass('load');
+        setTimeout(function(){b.removeAttr('disabled').children('span').removeClass('load');},5000);
+    })
+</script>
+</body>
+</html>

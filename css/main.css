@@ -1,0 +1,17 @@
+.loading {
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+@-webkit-keyframes spin {100% { -webkit-transform: rotate(359deg); }}
+@keyframes spin {100% {  transform: rotate(359deg); }}
+
+a img:hover {-webkit-transform: scale(1.05);transform: scale(1.05);}
+a img:active {-webkit-transform: scale(1);transform: scale(1);}
+
+@media(max-width:767px){
+    .affix {
+        position: static;
+        width: auto;
+        top: 0;
+    }
+}

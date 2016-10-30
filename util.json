@@ -1,0 +1,59 @@
+{
+    "prj":{
+        "current":"uk",
+        "params": {
+            "uk": {
+                "bin_dir": "..\\binukr\\",
+                "prj_file":"web.uk.ctl",
+                "web_id":  "DE6879B1C2B3486689B6DAB497C985CA",
+                "bin_file":"uk.bin"
+            },
+            "sk": {
+                "bin_dir": "..\\binsk\\",
+                "prj_file":"web.sk.ctl",
+                "web_id":  "90A5F0BF67B9488b9C2299D2AFF11557",
+                "bin_file":"sk.bin"
+            },
+            "ro": {
+                "bin_dir": "..\\binro\\",
+                "prj_file":"web.ro.ctl",
+                "web_id":  "6f2e7598645345759ca8619dbf8a1c59",
+                "bin_file":"ro.bin"
+            }
+        }
+    },
+    "location": {
+        "current":"home",
+        "params": {
+            "work":{
+                "addr":"192.168.0.120"
+            },
+            "home": {
+                "addr": "localhost:8080"
+            }
+        }
+    },
+
+    "env": {
+        "current":"windows",
+        "params":{
+            "windows": {
+                "ht2bin":"D:\\Projects\\ht2bin\\ht2bin.py",
+                "packer":"D:\\Projects\\tests\\verinc\\packer.py",
+                "ecr_upload":"D:\\Projects\\tests\\ecrdwl\\ecr_upload.py",
+                "dwl":"D:\\UTIL\\dwl.py",
+                "py":"python.exe"
+            },
+            "linux": {
+                "ht2bin":"/mnt/d/Projects/ht2bin/ht2bin.py",
+                "packer":"/mnt/d/Projects/tests/verinc/packer.py",
+                "ecr_upload":"/mnt/d/Projects/tests/ecrdwl/ecr_upload.py",
+                "dwl":"/mnt/d/UTIL/dwl.py",
+                "py":"python3"
+            }
+        }
+    },
+    "comment_file":"dwl.txt",
+    "ver_file":"dwl.ver",
+    "tmasks":["index.html","main/*.js"]
+}

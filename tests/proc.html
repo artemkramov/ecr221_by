@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Proc Test</title>
+</head>
+<body>
+<textarea id="chk" rows=10 cols=50></textarea>
+<form>
+    <input type="text" value="/cgi/chk" id="url"/>
+    <input type="file" id="f"/>
+    <select id="req_type">
+        <option value="GET">GET</option>
+        <option value="POST" selected>POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+        <option value="PATCH">PATCH</option>
+    </select>
+</form>
+<button id="chksend">Send</button>
+<div id="chkres"></div>
+<script type="text/javascript" src="base.js"></script>
+<script type="text/javascript">
+    function printError(stat,txt) { id('chkres').innerHTML = 'Error '+stat+' ('+txt+')';}
+    function printOK(txt) {id('chkres').innerHTML = txt}
+
+    id('chksend').onclick = function() {
+        var request = HTTP.newRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState == 4) {
+                if (request.status == 200) { printOK(request.responseText);
+                } else { printError(request.status, request.statusText);
+                }
+            }
+        }
+        var t = id('req_type');
+        var rt = t.options[t.selectedIndex].value;
+        var qt = (rt=='GET')?'GET':'POST';
+        request.open(qt, id('url').value);
+        if (request.overrideMimeType) { request.overrideMimeType("text/plain");
+        } else { request.setRequestHeader("Content-Type","text/plain");
+        }
+        switch(rt) {
+            case 'PUT':request.setRequestHeader("X-HTTP-Method-Override","PUT");break;
+            case 'DELETE':request.setRequestHeader("X-HTTP-Method-Override","DELETE");break;
+            case 'PATCH':request.setRequestHeader("X-HTTP-Method-Override","PATCH");break;
+        }
+        if (qt=='GET') {
+            request.send();
+            return;
+        }
+        var file = id('f').files[0];
+        if (file) {
+            var r = new FileReader();
+            r.onload = function(e) { request.send(new Uint8Array(e.target.result)); }
+            r.onerror = function(e) { printError(0,"reading file fails");}
+            r.readAsArrayBuffer(file);
+            return;
+        }
+        request.send(id('chk').value);
+    }
+    id('chk').onchange=function() { id('f').value='';}
+    id('f').onchange=function() {id('chk').value='';}
+
+</script>
+</body>
+</html>

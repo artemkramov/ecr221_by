@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JQuery dynamic load</title>
+</head>
+<body>
+<progress id="ld"></progress>
+<div id="modalDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="dialogLabel" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var attempt = 1;
+    var resources = [
+        [0,"tmpl.html","",0],
+        [0,"/js/jquery.min.js","https://code.jquery.com/jquery-2.1.1.min.js",'$'],
+        [0,"/js/sprintf.js","//cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.2/sprintf.min.js",'sprintf'],
+        [0,"/js/bootstrap.js","//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"],
+        [0,"/js/underscore.js","//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js",'_'],
+        [0,"/js/backbone.js","//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js",'Backbone'],
+        [0,"/js/backgrid.js","//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.js",'Backgrid'],
+        [0,"/js/backgrid-select-all.js",""],
+        [0,"/css/bootstrap.css","//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css",0],
+        [0,"/css/backgrid.css","//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.css",0],
+        [0,"/css/backgrid-select-all.css","",0],
+        [0,"/js/main.dbg.js","",'appStart'],
+        [0,"/css/main.css","",0]
+    ];
+
+    function load_resource() {
+        var alldone = true;
+        for (var res in resources) {
+            res = resources[res];
+            if (res[0] == 0) {
+                res[0]=2;
+                loader_res(res);
+                return;
+            }
+            if (res[0]!=3) alldone=false;
+        }
+        if (alldone) console.log('all done');
+    }
+
+    function ae(el, add) { return el.appendChild(document.createElement(add));
+    }
+
+    function onerrorres(n,res) {
+        return function() {
+            n.parentNode.removeChild(n);
+            console.log('resource', res[1],'error');
+            loader_res(res);
+        };
+    }
+
+    function onloadres(n,res) {
+        return function() {
+            if (res[3] && !(res[3] in window)) { onerrorres(n,res)(); return;
+            }
+            res[0]=3;
+            pbar.value++;
+            console.log('resource', res[1],'loaded');
+            load_resource();
+        };
+    }
+
+    function loader_res(res) {
+        if (!res[2]) res[0]=1;
+        if (res[1].indexOf('js')==1) { //js file
+            var j = ae(document.body,'script');
+            j.type = "text/javascript";
+            j.onload=onloadres(j,res);
+            j.onerror=onerrorres(j,res);
+            j.src = res[res[0]];
+        } else if (res[1].indexOf('css')==1) { // css file
+            var cs = ae(document.head,'link');
+            cs.rel = "stylesheet";
+            cs.type = "text/css";
+            cs.onload = onloadres(cs,res);
+            cs.onerror=onerrorres(cs,res);
+            cs.href= res[res[0]];
+        } else { //html file
+            var impPlace = ae(document.body,'div');
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        impPlace.innerHTML=xhr.responseText;
+                        onloadres(impPlace,res)();
+                    } else onerrorres(impPlace,res)();
+                }
+            };
+            xhr.open("GET", res[res[0]]);
+            xhr.send(null);
+        }
+        res[0]=1;
+    }
+
+    var pbar = document.getElementById('ld');
+    pbar.max = resources.length;
+    pbar.value = 0;
+    load_resource();
+
+</script>
+</body>
+</html>

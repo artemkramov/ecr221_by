@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Counters</title>
+</head>
+<body>
+    <a href="http://google.com" id="ref">Google</a><br>
+<span id="disp">Click or die!</span><br><span id="cnt"></span>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    cnt = $('#cnt');
+    function formatTime(t) { return [t.getMinutes(),'min.', t.getSeconds(),'sec'].join(' ');
+    }
+    function setFinalValue() {
+        $('#ref').attr('href',"http://bing.com").html('Bing');
+        $('#disp').html('You are lose :(!');
+        cnt.html('');
+    }
+    function setValues(interval) {
+        if (interval==0) {
+            setFinalValue();
+            return;
+        }
+        counter = new Date(interval);
+        cnt.html(formatTime(counter));
+        hnd = setInterval(function(){
+            if (counter.getTime()) {
+                counter= new Date(counter.getTime()-1000);
+                cnt.html(formatTime(counter));
+            } else clearInterval(hnd);
+        },1000);
+        setTimeout(setFinalValue,interval);
+    }
+    setValues(10*1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<script type="text/template" id="gprs-state">
+    <table class="table table-striped">
+        <caption><h2><%=t('GPRS modem')%></h2></caption>
+        <tr><td><%=t('State')%></td><td><%=stateTxt%></td></tr>
+        <%if (state==1) {%>
+            <tr><td><%=t('Provider')%></td><td><%=oper%></td></tr>
+            <tr><td><%=t('Signal power')%></td><td><%=signTxt%>&nbsp;<meter value="<%=sign%>" max="31"><%=sign%></meter></td></tr>
+            <tr><td><%=t('Signal errors')%></td><td><%=errTxt%>&nbsp;<meter value="<%=err%>" max="7"><%=err%></meter></td></tr>
+            <tr><td><%=t('Modem type')%></td><td><%=type%></td></tr>
+            <tr><td><%=t('Firmware version')%></td><td><%=ver%></td></tr>
+            <tr><td><%=t('IP address')%></td><td><%=ip%></td></tr>
+            <tr><td><%=t('Tel.Number')%></td><td><%=num%></td></tr>
+        <%}%>
+    </table>
+    <button class="btn btn-primary<%if (state==1) print(' active btn-danger')%>"
+            aria-pressed="<%=(state==1)?'"true"':'"false"'%>"
+            id="pwr" data-toggle="tooltip" title="<%=t(state==1?'Off':'On')%>">
+        <span class="glyphicon glyphicon-off"></span>
+    </button>&nbsp;
+    <button id="refr" class="btn btn-default" data-toggle="tooltip" title="<%=t('Refresh')%>">
+        <span class="glyphicon glyphicon-refresh"></span></button>
+    <a class="btn btn-default" href="#" data-toggle="tooltip" title="<%=t('Back')%>">
+        <span class="glyphicon glyphicon-arrow-left"></span></a>
+    <%if (state==1) {%>
+        <form class="form-inline">
+            <legend><%=t('USSD:')%></legend>
+            <input type="text" id="gprs_txt" name="gprs_txt"/>
+            <button class="btn btn-default" data-loading-text="<%=t('Waiting...')%>" id="ussd"><%=t('Call USSD')%></button>
+        </form>
+        <div id="ussd_res">&nbsp;</div>
+    <%}%>
+</script>

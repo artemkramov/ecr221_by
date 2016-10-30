@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf8>
+    <title>ECR App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <link href="css/backgrid.css" rel="stylesheet" media="screen"/>
+    <link href="css/backgrid-select-all.css" rel="stylesheet" media="screen"/>
+    <style>
+        /*.chk div div:last-child {text-align: right;}
+        .comm div {text-align: left;}
+        .prom div:first-child:after { content:'ПРОМ'}
+        .void div {text-decoration: line-through;}
+        .sale div:nth-child(2), .salekol div:nth-child(2), .endchk div:last-child, .dsk div:last-child  {font-style: italic;}
+        .dsk.prc div:nth-child(2), .prom div:last-child {font-weight: bold;}
+        .opl div:last-child {font-style: italic; font-weight: bold;}
+        .chk {background-color: #FCFCFC; padding: 25px;}
+        .ret.chk {background-color: #F5E5E5;}*/
+
+        .loading {
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+        @-webkit-keyframes spin {100% { -webkit-transform: rotate(359deg); }}
+        @keyframes spin {100% {  transform: rotate(359deg); }}
+
+        a img:hover {-webkit-transform: scale(1.05);transform: scale(1.05);}
+        a img:active {-webkit-transform: scale(1);transform: scale(1);}
+
+        @media(max-width:767px){
+            .affix {
+                position: static;
+                width: auto;
+                top: 0;
+            }
+        }
+        /* Switch */
+        .switch,.switch-label,.switch-slider { width:100px; height:44px; }
+        .switch { position:relative; display:inline-block; margin:0 40px 40px 0; }
+        .switch-check { position:absolute; opacity:0; }
+        .switch-label,.switch-slider { position:absolute; top:0;}
+        .switch-label { left:0; text-indent:-9999px;}
+        .switch-slider {
+            border-radius:22px;
+            box-shadow:
+            0 0 0 2px rgba(0, 0, 0, 0.1) inset,
+            0 0 4px rgba(0, 0, 0, 0.5) inset,
+            0 5px 4px 1px rgba(0, 0, 0, 0.3) inset,
+            0 22px 0 rgba(0, 0, 0, 0.07) inset;
+            -webkit-transition:width 0.2s linear;
+            -moz-transition:width 0.2s linear;
+            -o-transition:width 0.2s linear;
+            transition:width 0.2s linear;
+        }
+        .switch-slider-on {
+            left:0;
+            width:44px;
+            background:#FFF url(img/on.svg) 75% 5px no-repeat;
+        }
+        .switch-slider-off {
+            right:0;
+            background:#FFF url(img/off.svg) 55px 10px no-repeat;
+        }
+        .switch-slider-off:after {
+            position:absolute;
+            top:1px;
+            left:1px;
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#E5E5E5;
+            background:-webkit-linear-gradient(#D0D0D0, #FDFDFD);
+            background:-moz-linear-gradient(#D0D0D0, #FDFDFD);
+            background:-o-linear-gradient(#D0D0D0, #FDFDFD);
+            background:linear-gradient(#D0D0D0, #FDFDFD);
+            box-shadow:
+            0 0 2px 2px #FFF inset,
+            0 0 4px 1px rgba(0, 0, 0, 0.6);
+            content:'';
+        }
+        .switch-label:active .switch-slider-off:after,
+        .switch-check:focus + .switch-label .switch-slider-off:after {
+            background:#D5D5D5;
+            background:-webkit-linear-gradient(#C8C8C8, #E4E4E4);
+            background:-moz-linear-gradient(#C8C8C8, #E4E4E4);
+            background:-o-linear-gradient(#C8C8C8, #E4E4E4);
+            background:linear-gradient(#C8C8C8, #E4E4E4);
+        }
+        .switch-check:checked + .switch-label .switch-slider-on { width:100px; }
+        .switch-check:checked + .switch-label .switch-slider-off { width:44px; }
+    </style>
+
+</head>
+<body>
+<div id="logPlace"></div>
+<div id="content" class="container"></div>
+<div id="modalDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialogLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 id="dialogLabel" class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/template" id="fiscal-cell">
+    <tbody>
+    <%if (fiscalize) {%>
+        <tr><th><%=t('Fiscalized')%>:</th><td><%
+            var d = dateStr(fiscalize);
+            print((d=="true")?t('yes'):d);
+        %></td></tr>
+        <tr><th><%=t('Last report')%>:</th><td>#<%=[lastRep,t('on'),dateStr(lastTime)].join(' ')%></td></tr>
+    <%} else {%>
+        <tr><td><%=t('Fiscalized')%>:</td><td><%=t('None')%></td></tr>
+    <%}%>
+    </tbody>
+</script>
+
+<script type="text/template" id="network-cell">
+    <tbody>
+    <%_.each(models,function(model) {%>
+        <tr>
+            <td><%=model.get('name')%></td>
+            <td>
+                <%
+                var addr = model.get('addr');
+                if (addr) {
+                    print(['<b>',t('Active'),'.</b> IP:',IP2Str(addr)].join(''));
+                } else print(t('Done'));
+                %>
+            </td>
+        </tr>
+    <%});%>
+    </tbody>
+</script>
+
+<script type="text/template" id="fiscal-view">
+    <div class="row">
+        <div class="col-sm-2">
+            <a class="btn btn-default" href="#" data-toggle="tooltip" title="<%=t('Back')%>">
+            <span class="glyphicon glyphicon-arrow-left"></span></a>
+        </div>
+        <div class="col-sm-8"><h1><%=t('Fiscal Memory Reports')%></h1></div>
+        <div class="switch col-sm-2">
+            <input type="checkbox" class="switch-check" id="query-type">
+            <label for="query-type" class="switch-label">
+                <span class="switch-slider switch-slider-on"></span>
+                <span class="switch-slider switch-slider-off"></span>
+            </label>
+        </div>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="from" class="col-sm-2 control-label"><%=t('From')%>:</label>
+            <div class="col-sm-10">
+                <input name="f" type="date" id="from" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="to" class="col-sm-2 control-label"><%=t('To')%>:</label>
+            <div class="col-sm-10">
+                <input name="t" type="date" id="to" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" data-ev="full"><span class="glyphicon glyphicon-resize-full"></span><%=t('Full')%></button>
+                <button class="btn btn-default" data-ev="short"><span class="glyphicon glyphicon-resize-small"></span><%=t('Short')%></button>
+                <button id="save" class="btn btn-default" data-ev="save" disabled> <span class="glyphicon glyphicon-save"></span><%=t('Save')%></button>
+                <a href="/cgi/fiscmem.bin" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span><%=t('Binary')%></a>
+            </div>
+        </div>
+    </form>
+    <pre id="fmrep"></pre>
+    <div hidden> <a id="dwl" download="fmreport.txt"/></div>
+</script>
+
+<script type="text/template" id="left-col">
+    <ul class="nav nav-pills nav-stacked">
+    <%_.each(models,function(model,idx) {%>
+        <li <%=(idx==modelIdx)?'class="active"':''%>><a href="<%=model.lnk%>"><%=t(model.name)%></a></li>
+    <%});%>
+        <li><a href="#"><%=t('Back')%></a></li>
+    </ul>
+</script>
+
+<script type="text/template" id="table-left-col">
+    <div class="visible-lg visible-md">
+        <ul class="nav nav-pills nav-stacked">
+            <%_.each(models,function(model,idx) {%>
+            <li><a href="#<%=model.get('id')%>"><%=model.get('name')%></a></li>
+            <%});%>
+        </ul>
+    </div>
+</script>
+
+<script type="text/template" id="impex-view">
+    <a class="btn btn-default" href="#" data-toggle="tooltip" title="<%=t('Back')%>">
+        <span class="glyphicon glyphicon-arrow-left"></span></a>
+    <div class="btn-group">
+        <button class="export btn btn-default" draggable="true" data-toggle="tooltip" title="<%=t('Export')%>"><span class="glyphicon glyphicon-export"></span></button>
+        <button class="import btn btn-default"><span class="glyphicon glyphicon-import" data-toggle="tooltip" title="<%=t('Import')%>"></span></button>
+    </div>
+    <div hidden> <a class="csv" download="tables.csv"/>
+    <input type="file" class="icsv"/></div>
+</script>
+
+<script type="text/template" id="form-template">
+    <form id="<%=id%>" data-fid="<%=id%>" autocomplete="on" class="form-horizontal">
+        <% _.each( elems, function( el ){
+        if (('renderable' in el) && !el.renderable) return;%>
+        <div class="form-group">
+            <%if ((el.type!='radio') && (el.type!='checkbox')) {
+            if ('label' in el) print('<label class="col-md-2 control-label">'+el.label+'</label>');
+            print('<div class="col-md-6">');
+            }
+            switch(el.type) {
+            case 'select-one': {%>
+            <select name="<%=el.name%>" class="form-control" <%if (('editable' in el) && (el.editable==false)) print('disabled')%>>
+                <% _.each(extractLabels(el.labels), function(label,no) { %>
+                <option value="<%=no%>"><%=label%></option>
+                <%});%>
+            </select>
+            <%  } break;
+            case 'select-multiple': {%>
+            <select multiple name="<%=el.name%>" class="form-control" <%if (('editable' in el) && (el.editable==false)) print('disabled')%>>
+                <% _.each(extractLabels(el.labels), function(label,no) { %>
+                <option value="<%=no%>"><%=label%></option>
+                <%});%>
+            </select>
+            <%  } break;
+            case 'radio': { _.each(extractLabels(el.labels), function(label,no) { %>
+            <div class="radio col-md-offset-2 col-md-6">
+                <label><input type="radio" name="<%=el.name%>" value="<%=no%>" <%if (('editable' in el) && (el.editable==false)) print(' disabled')%>/><%=label%></label>
+            </div>
+            <%  });} break;
+            case 'checkbox': {%>
+            <% _.each(extractLabels(el.labels), function(label,no) { %>
+            <div class="checkbox col-md-offset-2 col-md-6">
+                <label><input type="checkbox" name="<%=el.name%>" value="<%=no%>" <%if (('editable' in el) && (el.editable==false)) print(' disabled')%>/><%=label%></label>
+            </div>
+            <%  });} break;
+            default: { %>
+            <input type="<%=el.type%>" name="<%=el.name%>" class="form-control" <%if ('attr' in el) print(el.attr);
+            if (('editable' in el) && (el.editable==false)) print(' disabled');
+            if ('pattern' in el) {
+                var p = schema.regex(el.pattern);
+                if (p.length && (p!='.*')) print(' pattern="'+p+'"');
+            }
+            if ((el.type=='range')||(el.type=='number')) {
+                if ('min' in el) print(' min="'+el.min+'"');
+                if ('max' in el) print(' max="'+el.max+'"');
+                if ('step' in el) print(' step="'+el.step+'"');
+            }
+            if (el.type=='time') print(' step="1"');
+            if ('placeholder' in el) print(' placeholder="'+el.placeholder+'"');%>>
+            <%  } break;
+            }
+            if ((el.type!='radio') && (el.type!='checkbox')) print('</div>');
+            if ('help' in el) print('<span class="help-block">'+el.help+'</span>');%>
+        </div>
+        <% }); %>
+        <div class="form-group"><div class="btn-group col-md-offset-2">
+            <button class="btn btn-default" data-loading-text="<%=t('Saving...')%>"><%=t('Save')%></button>
+            <input type="reset" value="reset" class="btn btn-default"/>
+        </div></div>
+    </form>
+</script>
+
+<script type="text/template" id="form-bar-template">
+    <div class="btn-group tblctrl">
+    <button class="btn btn-default" data-ev="first" data-toggle="tooltip" title="<%=t('First')%>">
+        <span class="glyphicon glyphicon-step-backward"></span></button>
+    <button class="btn btn-default" data-ev="prev" data-toggle="tooltip" title="<%=t('Previous')%>">
+        <span class="glyphicon glyphicon-chevron-left"></span></button>
+    <button class="btn btn-default" data-ev="next" data-toggle="tooltip" title="<%=t('Next')%>">
+        <span class="glyphicon glyphicon-chevron-right"></span></button>
+    <button class="btn btn-default" data-ev="last" data-toggle="tooltip" title="<%=t('Last')%>">
+        <span class="glyphicon glyphicon-step-forward"></span></button>
+    </div>
+    <button class="btn btn-default btntbl tblctrl" data-toggle="tooltip" title="<%=t('Table Mode')%>">
+        <span class="glyphicon glyphicon-th-large"></span></button>
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+        <span class="glyphicon glyphicon-refresh"></span></button>
+</script>
+
+<script type="text/template" id="plu-form-bar-template">
+    <button class="btn btn-default" data-ev="del-all" data-toggle="tooltip" title="<%=t('Delete All')%>">
+        <span class="glyphicon glyphicon-remove"></span></button>
+    <div class="btn-group">
+        <button class="btn btn-default" data-ev="ins" data-toggle="tooltip" title="<%=t('Insert Row')%>">
+            <span class="glyphicon glyphicon-plus"></span></button>
+        <button class="btn btn-default" data-ev="del" data-toggle="tooltip" title="<%=t('Delete Row')%>">
+            <span class="glyphicon glyphicon-minus"></span></button>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-default" data-ev="first" data-toggle="tooltip" title="<%=t('First')%>">
+            <span class="glyphicon glyphicon-step-backward"></span></button>
+        <button class="btn btn-default" data-ev="prev" data-toggle="tooltip" title="<%=t('Previous')%>">
+            <span class="glyphicon glyphicon-chevron-left"></span></button>
+        <button class="btn btn-default" data-ev="next" data-toggle="tooltip" title="<%=t('Next')%>">
+            <span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button class="btn btn-default" data-ev="last" data-toggle="tooltip" title="<%=t('Last')%>">
+            <span class="glyphicon glyphicon-step-forward"></span></button>
+    </div>
+    <button class="btn btn-default btntbl" data-toggle="tooltip" title="<%=t('Table Mode')%>">
+        <span class="glyphicon glyphicon-th-large"></span></button>
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+        <span class="glyphicon glyphicon-refresh"></span></button>
+</script>
+
+
+<script type="text/template" id="table-bar-template">
+    <button class="btn btn-default btnfrm" data-toggle="tooltip" title="<%=t('Form Mode')%>">
+        <span class="glyphicon glyphicon-th-list"></span></button>
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+        <span class="glyphicon glyphicon-refresh"></span></button>
+</script>
+
+<script type="text/template" id="plu-table-bar-template">
+    <button class="btn btn-default" data-ev="del-all" data-toggle="tooltip" title="<%=t('Delete All')%>">
+        <span class="glyphicon glyphicon-remove"></span></button>
+    <div class="btn-group">
+        <button class="btn btn-default" data-ev="ins" data-toggle="tooltip" title="<%=t('Insert Row')%>">
+            <span class="glyphicon glyphicon-plus"></span></button>
+        <button class="btn btn-default" data-ev="del" disabled="disabled" data-toggle="tooltip" title="<%=t('Delete Selected Rows')%>">
+            <span class="glyphicon glyphicon-minus"></span></button>
+    </div>
+    <button class="btn btn-default btnfrm" data-toggle="tooltip" title="<%=t('Form Mode')%>">
+        <span class="glyphicon glyphicon-th-list"></span></button>
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+        <span class="glyphicon glyphicon-refresh"></span></button>
+</script>
+
+
+<script type="text/template" id="status-tbl">
+    <h1><%=name%><small> <%=t('Model')%>: <%=model%> <%=t('Serial#')%>: <%=serial%>  <%
+        if (!online) print('<span class="label label-danger">Offline</span>');
+        %></small></h1>
+    <table class="table table-striped">
+        <tr><td><b><%=t('ECR time')%></b></td><td><%=dateStr(time)%></td></tr>
+        <tr><td><b><%=t('Fiscal#')%></b></td><td><%=dev_fn%></td></tr>
+        <tr><td><b><%=t('Taxes#')%></b></td><td><%=dev_nn%></td></tr>
+        <tr><td><b><%=t('FW date')%></b></td><td><%=dev_dat%></td></tr>
+        <tr><td><b><%=t('Version')%></b></td><td><%=dev_ver%></td></tr>
+        <tr><td><b><%=t('ID_DEV')%></b></td><td><%=decHexStr(dev_id)%></td></tr>
+    </table>
+</script>
+
+<script type="text/template" id="log">
+    <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <details open>
+        <summary>Log</summary>
+        <div style="height: 100px; overflow: auto; resize: vertical" id="logtxt"></div>
+    </details>
+</script>
+
+<script type="text/template" id="dummy-template">
+
+
+</script>
+
+<script type="text/template" id="modem-state">
+    <table class="table table-striped">
+        <caption><h2><%=t('Modem')%></h2></caption>
+        <tr><td><%=t('Personalized with ID_SAM')%></td><td><%=decHexStr(pers_sam_id)%></td></tr>
+        <tr><td><%=t('Modem state')%></td><td><%=modemStateDecode(dev_state)%></td></tr>
+        <tr><td><%=t('Connection period')%></td><td><%=afterTime(tmo)%></td></tr>
+        <tr><td><%=t('Connect after')%></td><td><%=afterTime(ct)%></td></tr>
+        <tr><td><%=t('Block after')%></td><td><%=afterTime(bt)%></td></tr>
+    </table>
+
+    <button class="btn btn-default" id="do_conn"><%=t('Exchange')%></button>
+    <button class="btn btn-info" id="do_log"><%=t('Log')%></button>
+
+    <table class="table table-striped">
+        <caption><h2><%=t('SAM')%></h2></caption>
+        <tr><td><%=t('Card#')%></td><td><%=card_no%></td></tr>
+        <tr><td><%=t('ID_SAM')%></td><td><%=decHexStr(sam_id)%></td></tr>
+        <tr><td><%=t('Acquirer ID')%></td><td><%=eq_id%></td></tr>
+        <tr><td><%=t('Paired with ID_DEV')%></td><td><%=decHexStr(sam_dev_id)%></td></tr>
+    </table>
+
+    <button class="btn btn-default" id="sam_switch"><%print(t((card_no=='-')?'On':'Off'))%></button>
+    <button class="btn btn-primary" id="sam_wr">SAM personalization</button>
+    <button class="btn btn-primary" id="pers_do">Personalization</button>
+</script>
+
+<script type="text/template" id="modem-docs">
+<div class="row">
+    <div class="jumbotron col-md-12"><h2><%=t('Last document DI')%> <b><span><%=CurrDI%></span></b></h2></div>
+</div>
+<div class="row">
+    <div class="well col-md-6">
+        <form id="docs" name="docs" class="form-horizontal">
+            <legend><%=t('Check document:')%></legend>
+            <div class="form-group"><label class="control-label" for="doc_di">DI:</label>
+                <input type="number" class="form-control" id="doc_di" name="doc_di"/>
+            </div>
+            <div class="form-group">
+                <button id="check" class="btn btn-primary"><%=t('Check')%></button>
+            </div>
+            <div id="msg" class="alert alert-info"><%=t('Enter DI or get it from receipt# or Z report#')%></div>
+        </form>
+    </div>
+    <div class="well col-md-6">
+        <form id="dif" name="dif" class="form-horizontal">
+            <legend><%=t('Get DI')%></legend>
+            <div class="form-group"><label class="control-label" for="doc_z"><%=t('Z#:')%></label>
+                <input class="form-control" type="number" id="doc_z" name="doc_z"/>
+            </div>
+            <div class="form-group"><label class="control-label" for="doc_chk"><%=t('Receipt#:')%></label>
+                <input class="form-control" type="number" id="doc_chk" name="doc_chk"/>
+            </div>
+            <div class="control-group"><div class="controls">
+                <button id="di_chk" class="btn btn-default"><%=t('Receipt DI')%></button>
+                <button id="di_z"   class="btn btn-default"><%=t('Report DI')%></button>
+            </div></div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="well col-md-12"><pre id="di_xml"></pre></div>
+</div>
+</script>
+
+<script type="text/template" id="date-time">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="checkbox">
+                <label> <input type="checkbox" checked> <%=t('Use computer time')%> </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" id="date-group">
+        <label for="d" class="col-sm-2 control-label">Date</label>
+        <%if (is_type['datetime-local']) {%>
+        <div class="col-sm-10">
+            <input type="datetime-local" class="form-control" id="d" step="1">
+        </div>
+        <%} else {%>
+        <div class="col-sm-4">
+            <input type="date" class="form-control" id="d" placeholder="DD-MM-YYYY" pattern:"\d{2}-\d{2}-\d{4}">
+        </div>
+        <div class="col-sm-4">
+            <input type="time" class="form-control" id="t" step="1" placeholder="HH:MM:SS" pattern:"\d{2}:\d{2}:\d{2}">
+        </div>
+        <%}%>
+    </div>
+</script>
+
+
+<script type="text/template" id="fisc-time">
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary">Set</button>
+                <button class="btn btn-danger">Fix</button>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/template" id="fisc-reset">
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="receiptNo" class="col-sm-2 control-label"><%=t('Receipt#')%></label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="receiptNo">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="diNo" class="col-sm-2 control-label"><%=t('DI')%></label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="diNo">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary"><%=t('Reset')%></button>
+                <button class="btn btn-default"><%=t('Reset SD')%></button>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/template" id="impex-err">
+    <li class="list-group-item">
+        <h4 class="list-group-item-heading"><%=d.msg%></h4>
+        <p class="list-group-item-text">
+            <%=d.file?"<b>File:</b>"+d.file:""%>
+            <%=d.tbl?"<b>Table:</b>"+d.tbl:""%>
+            <%=d.row?"<b>Index:</b>"+d.row:""%>
+        </p>
+    </li>
+</script>
+<!--script type="text/template" id="sales-cell">
+    <tbody>
+    <tr><td>Report#:</td><td><%=zno%></td></tr>
+    <tr><td>Total:</td><td><%=total%></td></tr>
+    <tr><td>Taxes:</td><td><%=taxes%></td></tr>
+    <tr><td>Discounts:</td><td><%=discounts%></td></tr>
+    <tr><td>In safe:</td><td><%=insafe%></td></tr>
+    </tbody>
+</script>
+<script type="text/template" id="receipts-cell">
+    <tbody>
+    <tr><th colspan="2">Receipts</th></tr>
+    <tr><td>Sales:</td><td><%=receipts%></td></tr>
+    <tr><td>Returns:</td><td><%=returns%></td></tr>
+    <tr><th colspan="2">Last receipt</th></tr>
+    <tr><td>#:</td><td><%=lrNo%></td></tr>
+    <tr><td>Sum:</td><td><%=lrSum%></td></tr>
+    <tr><td>Time:</td><td><%=dateStr(lrTime)%></td></tr>
+    </tbody>
+</script-->
+<!--script type="text/template" id="sales-sum">
+    <table class="table table-striped">
+        <thead>
+        <caption><h2>Продаж</h2></caption>
+        <tr><th>Податок</th><th>Ставка</th><th>Реалізація</th><th>Податок</th><th>Повернення</th><th>Податок</th><th>Загалом</th><th>Податок</th></tr>
+        </thead>
+        <tbody>
+        <%
+        var sums = [0.0,0.0,0.0,0.0]
+        _.each(sales,function(r) {
+            if (r.txSum)  sums[0]+=r.txSum;
+            if (r.txTx)   sums[1]+=r.txTx;
+            if (r.txrSum) sums[2]+=r.txrSum;
+            if (r.txrTx)  sums[3]+=r.txrTx;%>
+        <tr>
+            <td><%=r.txLet%></td><td><%=r.txPrc%></td>
+            <td><%=notZ(r.txSum)%></td><td><%=notZ(r.txTx)%></td>
+            <td><%=notZ(r.txrSum)%></td><td><%=notZ(r.txrTx)%></td>
+            <td><%=notZ(r.txSum+r.txrSum)%></td><td><%=notZ(r.txTx+r.txrTx)%></td>
+        </tr>
+        <%});%>
+        <tr class="success">
+            <td>Всього</td><td>&nbsp;</td><td><%=notZ(sums[0])%></td><td><%=notZ(sums[1])%></td>
+            <td><%=notZ(sums[2])%></td><td><%=notZ(sums[3])%></td>
+            <td><%=notZ(sums[0]+sums[2])%></td><td><%=notZ(sums[1]+sums[3])%></td></tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <caption><h2>Оплата</h2></caption>
+        <tr><th>Вид</th><th>Реалізація</th><th>Повернення</th><th>Загалом</th></tr>
+        </thead>
+        <tbody>
+        <%
+        sums = [0.0,0.0,0.0,0.0]
+        _.each(money,function(r) {
+        if (r.sumIn)  sums[0+(r.inSafe?0:2)]+=r.sumIn;
+        if (r.sumOut) sums[1+(r.inSafe?0:2)]+=r.sumOut;
+        %>
+        <tr><td><%=r.name%></td><td><%=notZ(r.sumIn)%></td><td><%=notZ(r.sumOut)%></td><td><%=notZ(r.sumIn+r.sumOut)%></td></tr>
+        <%});%>
+        <tr class="success"><td>В сейфі</td><td><%=notZ(sums[0])%></td><td><%=notZ(sums[1])%></td><td><%=notZ(sums[0]+sums[1])%></td></tr>
+        <tr class="success"><td>Безготівкові</td><td><%=notZ(sums[2])%></td><td><%=notZ(sums[3])%></td><td><%=notZ(sums[2]+sums[3])%></td></tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <caption><h2>Операції</h2></caption>
+        <tr><th>Вид</th><th>Кількість</th><th>Сума</th></tr>
+        </thead>
+        <tbody>
+        <%_.each(oper,function(r) {%>
+        <tr><td><%=r.name%></td><td><%=notZ(r.ops,"n")%></td><td><%=notZ(r.sum)%></td></tr>
+        <%});%>
+        </tbody>
+    </table>
+</script>
+
+<script type="text/template" id="chk-sel">
+    <form role="form">
+        <legend>Чеки</legend>
+        <fieldset><div class="form-group">
+            <select class="form-control">
+            </select>
+        </div></fieldset></form>
+</script>
+<script type="text/template" id="chk-filter">
+    <form role="form">
+        <legend>Фильтр</legend>
+        <fieldset>
+            <div class="form-group">
+                <label for="chk-flt-code">Код товара:</label>
+                <input id="chk-flt-сode" type="text" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="chk-flt-name">Название товара:</label>
+                <input id="chk-flt-name" type="text" class="form-control"/>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            <button id="chk-flt-flt" class="btn btn-primary col-md-6">Фильтр</button>
+            <button id="chk-flt-clr" class="btn col-md-5 col-md-offset-1">Отмена</button>
+        </div>
+    </form>
+</script>
+<script type="text/template" id="chk-view">
+    <div id="chk<%=no%>" class="<%=classChk(type)%>">
+        <hr>
+        <h3>Чек №<%=no%></h3>
+        <%
+        _.each(rows,function(row) {
+        switch(row.type) {
+        case CHKR.SALE: {%>
+        <div class="<%=(row.kol?'salekol':'sale')+(row.void?' void':'')+' row'%>">
+            <div class="col-md-3"><%=row.code%></div><div class="col-md-3"><%=row.name%></div>
+            <%if (row.kol) print('<div class="col-md-3">'+row.kol.toFixed(3)+'*'+row.cen.toFixed(2)+'</div>');%>
+            <div class="col-md-<%=row.kol?3:6%>"><%=row.sum.toFixed(2)%> <%=row.tax%></div>
+        </div>
+        <%} break;
+        case CHKR.COMM: {%>
+        <div class="<%='comm'+(row.void?' void':'')%>"><q>"<%=row.comm%>"</q></div>
+        <%} break;
+        case CHKR.PROM: {%>
+        <div class="<%='prom'+(row.void?' void':'')+' row'%>">
+            <div class="col-md-6"></div>
+            <div class="col-md-6"><%=row.sum.toFixed(2)%></div>
+        </div>
+        <%} break;
+        case CHKR.DSK: {%>
+        <div class="<%='dsk'+(row.prc?' prc':'')+(row.void?' void':'')+' row'%>">
+            <div class="col-md-<%=row.prc?3:6%>"><%=(row.sum>0)?'Наценка':'Скидка'%></div>
+            <%if (row.prc) print('<div class="col-md-3">'+row.prc+'%</div>');%>
+            <div class="col-md-6"><%=row.sum.toFixed(2)%></div>
+        </div>
+        <%} break;
+        case CHKR.INOUT: {%>
+        <div class="<%='inout'+(row.void?' void':'')+' row'%>">
+            <div class="col-md-6"><%=((row.sum>0)?'Внесение ':'Изъятие ')+row.name%></div>
+            <div class="col-md-6"><%=row.sum.toFixed(2)%></div>
+        </div>
+        <%  } break; }
+        });
+        if (typeof(voidChk)=="undefined") {%>
+        <div class="endchk row">
+            <div class="col-md-3"><%='Касса '+ecr_no%></div>
+            <div class="col-md-3"><%='Чек №'+no%></div>
+            <div class="col-md-6"><%=dat.toLocaleString()%></div></div>
+        <%}%>
+    </div>
+</script-->
+
+<script src="js/jquery.js"></script>
+<script src="js/sprintf.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
+<script src="js/backgrid.js"></script>
+<script src="js/backgrid-select-all.js"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script type="text/javascript"> $(appStart); </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+[
+    {
+        "id":"Time",
+        "elems": [
+            {"type":"time", "name":"Time","editable":0, "pattern":"v_Time"},
+            {"type":"date", "name":"Date","editable":0, "pattern":"v_Date"}
+        ]
+    },
+
+    {
+        "id":"WBar",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"number", "name":"BCode", "pattern":"v_9x3"},
+            {"type":"number", "name":"BFltr"}
+        ]
+    },
+
+    {
+        "id":"QUser",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"number", "name":"User"}
+        ]
+    },
+
+    {
+        "id":"Com",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"number", "name":"Device", "pattern":"v_Dev"},
+            {"type":"number", "name":"Baud", "pattern":"v_BaudC"}
+        ]
+    },
+
+    {
+        "id":"Net",
+        "prefix":"cfg",
+        "elems": [
+            {"type":"number","name":"id","editable":0, "renderable":0},
+            {"type":"number", "name":"NtEnb", "pattern":"v_TNet"},
+            {"type":"number", "name":"NtNum", "pattern":"v_NNet"},
+            {"type":"number", "name":"NtBaud", "pattern":"v_BaudN"},
+            {"type":"number", "name":"Query"},
+            {"type":"number", "name":"LgNum"},
+            {"type":"number", "name":"WBar", "pattern":"v_NFlt"},
+            {"type":"number", "name":"NetPsw","editable":0},
+            {"type":"number", "name":"ComPsw","editable":0}
+        ]
+    },
+
+    {
+        "id":"Hdr",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"number", "name":"Param", "pattern":"v_2"},
+            {"type":"text", "name":"Line", "pattern":"v_StrHdr"}
+        ]
+    },
+
+    {
+        "id":"Ftr",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"number", "name":"Param", "pattern":"v_2"},
+            {"type":"text", "name":"Line", "pattern":"v_StrFtr"}
+        ]
+    },
+
+    {
+        "id":"Oper",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"text", "name":"Name", "pattern":"v_StrOper"},
+            {"type":"number", "name":"Pswd", "pattern":"v_Pswd"}
+        ]
+    },
+
+    {
+        "id":"Dep",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"text", "name":"Name", "pattern":"v_StrDep"}
+        ]
+    },
+
+    {
+        "id":"Grp",
+        "prefix":"cfg",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"text", "name":"Name", "pattern":"v_StrGrp"}
+        ]
+    },
+
+    {
+        "id":"Dsc",
+        "prefix":"cfg",
+        "elems": [
+            {"type":"number", "name":"id","editable":0, "renderable":0},
+            {"type":"checkbox", "name":"NcDsb", "labels":"'disable markup'"},
+            {"type":"summ", "name":"Nac", "pattern":"v_9x9"},
+            {"type":"checkbox", "name":"SkDsb", "labels":"'disable discount'"},
+            {"type":"summ", "name":"Skd", "pattern":"v_9x9"},
+            {"type":"checkbox", "name":"PNDsb", "labels":"'disable %markup'"},
+            {"type":"percent", "name":"PNac", "pattern":"v_9x4"},
+            {"type":"checkbox", "name":"PSDsb", "labels":"'disable %discount'"},
+            {"type":"percent", "name":"PSkd", "pattern":"v_9x4"}
+        ]
+    },
+
+    {
+        "id":"Pay",
+        "prefix":"cfg",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"number", "name":"Param" },
+            {"type":"text", "name":"Name","pattern":"v_StrPay"}
+        ]
+    },
+
+    {
+        "id":"Adm",
+        "prefix":"cfg",
+        "elems": [
+            {"type":"number", "name":"id","editable":0, "renderable":0},
+            {"type":"number", "name":"ParPrg", "pattern":"v_Pswd"},
+            {"type":"number", "name":"OtcPrg", "pattern":"v_Pswd"},
+            {"type":"number", "name":"NumOpr", "pattern":"v_NOpr"},
+            {"type":"time", "name":"CurTim", "pattern":"v_Time"},
+            {"type":"number", "name":"PrContr", "pattern":"v_Cntr"},
+            {"type":"number", "name":"PrEqual", "pattern":"v_Eql"}
+        ]
+    },
+
+    {
+        "id":"Flg",
+        "prefix":"cfg",
+        "elems": [
+            {"type":"number","name":"ID","editable":0, "renderable":0},
+            {"type":"number", "name":"Lang", "pattern":"v_Lang"},
+            {"type":"number", "name":"AutoOff", "pattern":"v_Flg"},
+            {"type":"number", "name":"PrintOff"},
+            {"type":"number", "name":"Flg1"},
+            {"type":"number", "name":"Flg2"},
+            {"type":"number", "name":"Feed", "pattern":"v_Feed"},
+            {"type":"number", "name":"Flg3"}
+        ]
+    },
+
+    {
+        "id":"Tax",
+        "prefix":"cfg",
+        "tbl":1,
+        "elems": [
+            {"type":"number", "name":"id","editable":0},
+            {"type":"percent", "name":"Prc", "pattern":"v_TxPrc"},
+            {"type":"percent", "name":"Extra", "pattern":"v_TxPrcSbr"}
+        ]
+    },
+
+    {
+        "id":"Fsk",
+        "elems": [
+            {"type":"number", "name":"NumPnt","editable":0},
+            {"type":"number", "name":"NumChk","editable":0}
+        ]
+    },
+
+    {
+        "id":"PLU",
+        "key":"Code",
+        "tbl":1,
+        "insertable":1,
+        "elems": [
+            {"type":"number","name":"Code", "pattern":"v_Code"},
+            {"type":"text", "name":"Name", "pattern":"v_StrPLU"},
+            {"type":"summ", "name":"Price", "pattern":"v_9x8"},
+            {"type":"number", "name":"Dep", "pattern":"v_NDep"},
+            {"type":"number", "name":"Grp", "pattern":"v_NGrp"},
+            {"type":"number", "name":"Tax", "pattern":"v_NTax"},
+            {"type":"qty", "name":"Qty", "pattern":"v_9x9"},
+            {"type":"number", "name":"Flg", "pattern":"v_PlFlg"}
+        ]
+    },
+
+    {
+        "id":"Host",
+        "prefix":"net",
+        "elems": [
+            {"type":"text", "name":"Name", "pattern":"v_StrDHCP"}
+        ]
+    },
+
+    {
+        "id":"TCP",
+        "prefix":"net",
+        "key":"id",
+        "tbl":1,
+        "elems": [
+            {"type":"number","name":"id","editable":0},
+            {"type":"text", "name":"Addr", "pattern":"v_IP4"},
+            {"type":"text", "name":"Gate", "pattern":"v_IP4"},
+            {"type":"text", "name":"Mask", "pattern":"v_IP4"},
+            {"type":"text", "name":"DNS", "pattern":"v_IP4"},
+            {"type":"text", "name":"MAC", "pattern":"v_MAC"},
+            {"type":"number", "name":"AdptFlg"}
+        ]
+    },
+
+    {
+        "id":"NSMEP",
+        "elems": [
+            {"type":"text", "name":"Addr" },
+            {"type":"number", "name":"Port"},
+            {"type":"number", "name":"PackSize"}
+        ]
+    },
+
+    {
+        "id":"SysLog",
+        "prefix":"net",
+        "elems": [
+            {"type":"text", "name":"Addr" },
+            {"type":"number", "name":"Port"},
+            {"type":"number", "name":"Priority"},
+            {"type":"number", "name":"Trans"}
+        ]
+    }
+
+]

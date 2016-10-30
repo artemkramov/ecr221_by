@@ -1,0 +1,53 @@
+<script type="text/template" id="status-tbl">
+    <h1><%=name%><small> <%=t('Model')%>: <%=model%> <%=t('Serial#')%>: <%=serial%>  <%
+        if (!online) print('<span class="label label-danger">Offline</span>');
+        %></small></h1><button class="btn btn-default pull-right"><%=t('Logout')%></button>
+    <table class="table table-striped">
+        <tr><td><b><%=t('ECR time')%></b></td><td><%=dateStr(time)%></td></tr>
+        <tr><td><b><%=t('Fiscal#')%></b></td><td><%=dev_fn%></td></tr>
+        <tr><td><b><%=t('Taxes#')%></b></td><td><%=dev_nn%></td></tr>
+        <tr><td><b><%=t('Version')%></b></td><td><%=dev_ver%></td></tr>
+    </table>
+</script>
+
+<script type="text/template" id="fiscal-view">
+    <div class="row">
+        <div class="col-sm-2">
+            <a class="btn btn-default" href="#" data-toggle="tooltip" title="<%=t('Back')%>">
+                <span class="glyphicon glyphicon-arrow-left"></span></a>
+        </div>
+        <div class="col-sm-8"><h1><%=t('Fiscal Memory Reports')%></h1></div>
+        <div class="switch col-sm-2">
+            <input type="checkbox" class="switch-check" id="query-type">
+            <label for="query-type" class="switch-label">
+                <span class="switch-slider switch-slider-on"></span>
+                <span class="switch-slider switch-slider-off"></span>
+            </label>
+        </div>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="from" class="col-sm-2 control-label"><%=t('From')%>:</label>
+            <div class="col-sm-10">
+                <input name="f" type="date" id="from" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="to" class="col-sm-2 control-label"><%=t('To')%>:</label>
+            <div class="col-sm-10">
+                <input name="t" type="date" id="to" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" data-ev="full"><span class="glyphicon glyphicon-resize-full"></span><%=t('Full')%></button>
+                <button class="btn btn-default" data-ev="short"><span class="glyphicon glyphicon-resize-small"></span><%=t('Short')%></button>
+                <button id="save" class="btn btn-default" data-ev="save" disabled> <span class="glyphicon glyphicon-save"></span><%=t('Save')%></button>
+                <a href="/cgi/fiscmem.bin" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span><%=t('Binary')%></a>
+            </div>
+        </div>
+    </form>
+    <pre id="fmrep"></pre>
+    <div hidden> <a id="dwl" download="fmreport.txt"/></div>
+</script>
+
