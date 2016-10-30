@@ -1,59 +1,39 @@
 <script type="text/template" id="modem-state">
-    <table class="table table-striped">
-        <caption><h2><%=t('Modem')%></h2></caption>
-        <tr><td><%=t('Personalized with ID_SAM')%></td><td><%=decHexStr(pers_sam_id)%></td></tr>
-        <tr><td><%=t('Modem state')%></td><td><%=modemStateDecode(dev_state)%></td></tr>
-        <tr><td><%=t('Connection period')%></td><td><%=afterTime(tmo)%></td></tr>
-        <tr><td><%=t('Connect after')%></td><td><%=afterTime(ct)%></td></tr>
-        <tr><td><%=t('Block after')%></td><td><%=afterTime(bt)%></td></tr>
-    </table>
 
-    <button class="btn btn-default" id="do_conn"><%=t('Exchange')%></button>
-    <button class="btn btn-info" id="do_log"><%=t('Log')%></button>
-
-    <table class="table table-striped">
-        <caption><h2><%=t('SAM')%></h2></caption>
-        <tr><td><%=t('Card#')%></td><td><%=card_no%></td></tr>
-        <tr><td><%=t('ID_SAM')%></td><td><%=decHexStr(sam_id)%></td></tr>
-        <tr><td><%=t('Acquirer ID')%></td><td><%=eq_id%></td></tr>
-        <tr><td><%=t('Paired with ID_DEV')%></td><td><%=decHexStr(sam_dev_id)%></td></tr>
-    </table>
-
-    <button class="btn btn-default" id="sam_switch"><%print(t((card_no=='-')?'On':'Off'))%></button>
-    <button class="btn btn-primary" id="sam_wr"><%=t('SAM personalization')%></button>
-    <button class="btn btn-primary" id="pers_do"><%=t('Personalization')%></button>
 </script>
 
 <script type="text/template" id="modem-docs">
     <div class="row">
-        <div class="jumbotron col-md-12"><h2><%=t('Last document DI')%> <b><span><%=CurrDI%></span></b></h2></div>
+        <div class="jumbotron col-md-12"><h2><%= t('Last document DI') %> <b><span><%= CurrDI %></span></b></h2></div>
     </div>
     <div class="row">
         <div class="well col-md-6">
             <form id="docs" name="docs" class="form-horizontal">
-                <legend><%=t('Check document:')%></legend>
+                <legend><%= t('Check document:') %></legend>
                 <div class="form-group"><label class="control-label" for="doc_di">DI:</label>
                     <input type="number" class="form-control" id="doc_di" name="doc_di"/>
                 </div>
                 <div class="form-group">
-                    <button id="check" class="btn btn-primary"><%=t('Check')%></button>
+                    <button id="check" class="btn btn-primary"><%= t('Check') %></button>
                 </div>
                 <div id="msg" class="alert alert-info"></div>
             </form>
         </div>
         <div class="well col-md-6">
             <form id="dif" name="dif" class="form-horizontal">
-                <legend><%=t('Get DI')%></legend>
-                <div class="form-group"><label class="control-label" for="doc_z"><%=t('Z#')%></label>
+                <legend><%= t('Get DI') %></legend>
+                <div class="form-group"><label class="control-label" for="doc_z"><%= t('Z#') %></label>
                     <input class="form-control" type="number" id="doc_z" name="doc_z"/>
                 </div>
-                <div class="form-group"><label class="control-label" for="doc_chk"><%=t('Receipt#')%></label>
+                <div class="form-group"><label class="control-label" for="doc_chk"><%= t('Receipt#') %></label>
                     <input class="form-control" type="number" id="doc_chk" name="doc_chk"/>
                 </div>
-                <div class="control-group"><div class="controls">
-                    <button id="di_chk" class="btn btn-default">Чеки</button>
-                    <button id="di_z"   class="btn btn-default">Звіт</button>
-                </div></div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="di_chk" class="btn btn-default">Чеки</button>
+                        <button id="di_z" class="btn btn-default">Звіт</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -63,58 +43,84 @@
 </script>
 
 <script type="text/template" id="di-doc">
-    <div class="panel panel-default" id="di<%=di%>">
-        <div class="panel-heading"><h3 class="panel-title"></h3> DI=<%=di%></div>
-        <div class="panel-body"><%=t('Loading...')%></div>
-        <div class="panel-footer"><%=t('Loading...')%></div>
+    <div class="panel panel-default" id="di<%= di %>">
+        <div class="panel-heading"><h3 class="panel-title"></h3> DI=<%= di %></div>
+        <div class="panel-body"><%= t('Loading...') %></div>
+        <div class="panel-footer"><%= t('Loading...') %></div>
     </div>
 </script>
 
 <script type="text/template" id="status-tbl">
-    <h1><%=name%><small> <%=t('Model')%>: <%=model%> <%=t('Serial#')%>: <%=serial%>  <%
-        if (!online) print('<span class="label label-danger">Offline</span>');
-        %></small></h1><button class="btn btn-default pull-right"><%=t('Logout')%></button>
-    <table class="table table-striped">
-        <tr><td><b><%=t('ECR time')%></b></td><td><%=dateStr(time)%></td></tr>
-        <tr><td><b><%=t('Fiscal#')%></b></td><td><%=dev_fn%></td></tr>
-        <tr><td><b><%=t('Taxes#')%></b></td><td><%=dev_nn%></td></tr>
-        <tr><td><b><%=t('FW date')%></b></td><td><%=dev_dat%></td></tr>
-        <tr><td><b><%=t('Version')%></b></td><td><%=dev_ver%></td></tr>
-        <tr><td><b><%=t('ID_DEV')%></b></td><td><%=decHexStr(dev_id)%></td></tr>
+    <h1><%= name %>
+        <small> <%= t('Model') %>: <%= model %> <%= t('Serial#') %>: <%= serial %>
+            <%
+            if (!online) print('<span class="label label-danger">Offline</span>');
+            %>
+        </small>
+    </h1>
+    <button class="btn btn-default pull-right"><%= t('Logout') %></button>
+    <table class="table table-striped table-status">
+        <tr>
+            <td><b><%= t('ECR time') %></b></td>
+            <td><%= dateStr(time) %></td>
+        </tr>
+        <tr>
+            <td><b><%= t('FW date') %></b></td>
+            <td><%= dev_dat %></td>
+        </tr>
+        <tr>
+            <td><b><%= t('Version') %></b></td>
+            <td><%= dev_ver %></td>
+        </tr>
     </table>
 </script>
 
 <script type="text/template" id="reports-tmpl">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><%=t('Day report')%></h3>
+            <h3 class="panel-title"><%= t('Day report') %></h3>
         </div>
         <div class="panel-body">
-            <button type="button" class="btn btn-default btn-lg btn-block" id="xr" data-loading-text="<%=t('Wait...')%>"><%=t('X-Report')%></button>
-            <button type="button" class="btn btn-default btn-lg btn-block" id="zr" data-loading-text="<%=t('Wait...')%>"><%=t('Z-Report')%></button>
+            <button type="button" class="btn btn-default btn-lg btn-block" id="xr"
+                    data-loading-text="<%= t('Wait...') %>"><%= t('X-Report') %></button>
+            <button type="button" class="btn btn-default btn-lg btn-block" id="zr"
+                    data-loading-text="<%= t('Wait...') %>"><%= t('Z-Report') %></button>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><%=t('Fiscal reports')%></h3>
+            <h3 class="panel-title"><%= t('Fiscal reports') %></h3>
         </div>
         <div class="panel-body">
-            <h3><%=t('By number')%></h3>
+            <h3><%= t('By number') %></h3>
+
             <form class="form-inline">
-                <div class="form-group"><label for="fromN"><%=t('From')+': '%></label><input type="number" class="form-control" id="fromN"></div>
-                <div class="form-group"><label for="toN"><%=t('To')+': '%></label><input type="number" class="form-control" id="toN"></div>
-                <button type="submit" class="btn btn-default" id="pN" data-loading-text="<%=t('Wait...')%>"><%=t('Print')%></button>
+                <div class="form-group"><label for="fromN"><%= t('From')+': ' %></label><input type="number"
+                                                                                               class="form-control"
+                                                                                               id="fromN"></div>
+                <div class="form-group"><label for="toN"><%= t('To')+': ' %></label><input type="number"
+                                                                                           class="form-control"
+                                                                                           id="toN"></div>
+                <button type="submit" class="btn btn-default" id="pN"
+                        data-loading-text="<%= t('Wait...') %>"><%= t('Print') %></button>
             </form>
-            <h3><%=t('By date')%></h3>
+            <h3><%= t('By date') %></h3>
+
             <form class="form-inline">
-                <div class="form-group"><label for="fromD"><%=t('From')+': '%></label><input type="date" class="form-control" id="fromD"></div>
-                <div class="form-group"><label for="toD"><%=t('To')+': '%></label><input type="date" class="form-control" id="toD"></div>
-                <button type="submit" class="btn btn-default" id="pD" data-loading-text="<%=t('Wait...')%>"><%=t('Print')%></button>
+                <div class="form-group"><label for="fromD"><%= t('From')+': ' %></label><input type="date"
+                                                                                               class="form-control"
+                                                                                               id="fromD"></div>
+                <div class="form-group"><label for="toD"><%= t('To')+': ' %></label><input type="date"
+                                                                                           class="form-control"
+                                                                                           id="toD"></div>
+                <button type="submit" class="btn btn-default" id="pD"
+                        data-loading-text="<%= t('Wait...') %>"><%= t('Print') %></button>
             </form>
             <form class="form-inline">
-                <div class="form-group"><input type="checkbox" class="form-control" id="isShort"><%=t('Short')%></div>
+                <div class="form-group"><input type="checkbox" class="form-control" id="isShort"><%= t('Short') %></div>
             </form>
         </div>
     </div>
-    <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> <%=t('Back')%></a>
+    <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"
+                                                            aria-hidden="true"></span> <%= t('Back') %></a>
 </script>
