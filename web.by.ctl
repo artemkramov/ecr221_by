@@ -62,6 +62,10 @@ Name=css/bootstrap-theme.css
 File=css/bootstrap-theme.min.css
 Content-Type=text/css
 
+Name=css/backgrid-paginator.min.css
+File=css/backgrid-paginator.min.css
+Content-Type=text/css
+
 Name=css/main.css
 File=css/main.css
 Content-Type=text/css
@@ -98,6 +102,14 @@ Content-Type=application/javascript
 
 Name=js/sprintf.js
 File=js/sprintf.js
+Content-Type=application/javascript
+
+Name=js/backgrid-paginator.min.js
+File=js/backgrid-paginator.min.js
+Content-Type=application/javascript
+
+Name=js/backbone-pageable.min.js
+File=js/backbone-pageable.min.js
 Content-Type=application/javascript
 
 #image files

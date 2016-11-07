@@ -29,3 +29,6 @@ a img:active {-webkit-transform: scale(1);transform: scale(1);}
 .table-status {
     margin-top: 20px;
 }
+.backgrid-pagination-cell {
+    display: table-cell !important;
+}

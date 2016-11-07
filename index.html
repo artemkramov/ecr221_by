@@ -32,20 +32,23 @@
     var pbar = document.getElementById('ld');
     var lnkbar = document.getElementById('lnb');
     var resources = [
-        [0, "/css/bootstrap.css", "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css", 0],
+        [0, "/css/bootstrap.css", "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css", 0, 1],
         [0, "tmpl.html", "", 0],
-        [0, "/js/jquery.js", "https://code.jquery.com/jquery-2.1.3.min.js", '$'],
-        [0, "/js/sprintf.js", "//cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.2/sprintf.min.js", 'sprintf'],
-        [0, "/js/bootstrap.js", "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"],
-        [0, "/js/underscore.js", "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js", '_'],
-        [0, "/js/backbone.js", "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js", 'Backbone'],
-        [0, "/js/backgrid.js", "//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.js", 'Backgrid'],
-        [0, "/js/backgrid-select-all.js", ""],
-        [0, "/css/backgrid.css", "//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.css", 0],
-        [0, "/css/backgrid-select-all.css", "", 0],
+        [0, "/js/jquery.js", "https://code.jquery.com/jquery-2.1.3.min.js", '$', 1],
+        [0, "/js/sprintf.js", "//cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.2/sprintf.min.js", 'sprintf', 1],
+        [0, "/js/bootstrap.js", "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js", 0, 1],
+        [0, "/js/underscore.js", "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js", '_', 1],
+        [0, "/js/backbone.js", "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js", 'Backbone', 1],
+        [0, "/js/backgrid.js", "//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.js", 'Backgrid', 1],
+        [0, "/js/backgrid-select-all.js", "", 0, 1],
+        [0, "/js/backgrid-paginator.min.js", "/js/backgrid-paginator.min.js", 0, 1],
+        [0, "/js/backbone-pageable.min.js", "/js/backbone-pageable.min.js", 0, 1],
+        [0, "/css/backgrid.css", "//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.css", 0, 1],
+        [0, "/css/backgrid-paginator.min.css", "/css/backgrid-paginator.min.css", 0, 1],
+        [0, "/css/backgrid-select-all.css", "", 0, 1],
         [0, "/js/main.js", "", 'appStart'],
         [0, "/css/main.css", "", 0],
-        [0, "/css/bootstrap-theme.css", "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap-theme.min.css", 0],
+        [0, "/css/bootstrap-theme.css", "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap-theme.min.css", 0, 1],
     ];
 
     function loadResource() {
@@ -100,7 +103,7 @@
     }
 
     function loaderResult(res) {
-        var noCacheLabel = '?' + new Date().getTime();
+        var noCacheLabel = res[4] ? '' : '?' + new Date().getTime();
         if (!res[2]) res[0] = 1;
         if (res[1].indexOf('js') == 1) { //js file
             var j = appendElement(document.body, 'script');

@@ -201,8 +201,8 @@ var Schema = Backbone.Collection.extend({
 		//var dsc = Backbone.Model.extend({urlRoot:'/'});
 		//this.descr = new dsc({id:'desc'});
 		this.fetch().done(function () {
-			$.get('/desc').done(function (desc) {
-				$.get('/desc-ext').done(function (ext) {
+			$.get('/desc?' + new Date().getTime()).done(function (desc) {
+				$.get('/desc-ext?' + new Date().getTime()).done(function (ext) {
 					$.extend(true, desc, ext);
 				}).always(function () {
 					$this.descr = new Backbone.Model();

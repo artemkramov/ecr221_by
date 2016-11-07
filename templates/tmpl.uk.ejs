@@ -58,19 +58,13 @@
             %>
         </small>
     </h1>
-    <button class="btn btn-default pull-right"><%= t('Logout') %></button>
+    <div class="clearfix">
+        <button class="btn btn-default pull-right"><%= t('Logout') %></button>
+    </div>
     <table class="table table-striped table-status">
         <tr>
             <td><b><%= t('ECR time') %></b></td>
             <td><%= dateStr(time) %></td>
-        </tr>
-        <tr>
-            <td><b><%= t('FW date') %></b></td>
-            <td><%= dev_dat %></td>
-        </tr>
-        <tr>
-            <td><b><%= t('Version') %></b></td>
-            <td><%= dev_ver %></td>
         </tr>
     </table>
 </script>
@@ -95,24 +89,24 @@
             <h3><%= t('By number') %></h3>
 
             <form class="form-inline">
-                <div class="form-group"><label for="fromN"><%= t('From')+': ' %></label><input type="number"
-                                                                                               class="form-control"
-                                                                                               id="fromN"></div>
-                <div class="form-group"><label for="toN"><%= t('To')+': ' %></label><input type="number"
-                                                                                           class="form-control"
-                                                                                           id="toN"></div>
+                <div class="form-group"><label for="fromN"><%= t('From') + ': ' %></label><input type="number"
+                                                                                                 class="form-control"
+                                                                                                 id="fromN"></div>
+                <div class="form-group"><label for="toN"><%= t('To') + ': ' %></label><input type="number"
+                                                                                             class="form-control"
+                                                                                             id="toN"></div>
                 <button type="submit" class="btn btn-default" id="pN"
                         data-loading-text="<%= t('Wait...') %>"><%= t('Print') %></button>
             </form>
             <h3><%= t('By date') %></h3>
 
             <form class="form-inline">
-                <div class="form-group"><label for="fromD"><%= t('From')+': ' %></label><input type="date"
-                                                                                               class="form-control"
-                                                                                               id="fromD"></div>
-                <div class="form-group"><label for="toD"><%= t('To')+': ' %></label><input type="date"
-                                                                                           class="form-control"
-                                                                                           id="toD"></div>
+                <div class="form-group"><label for="fromD"><%= t('From') + ': ' %></label><input type="date"
+                                                                                                 class="form-control"
+                                                                                                 id="fromD"></div>
+                <div class="form-group"><label for="toD"><%= t('To') + ': ' %></label><input type="date"
+                                                                                             class="form-control"
+                                                                                             id="toD"></div>
                 <button type="submit" class="btn btn-default" id="pD"
                         data-loading-text="<%= t('Wait...') %>"><%= t('Print') %></button>
             </form>

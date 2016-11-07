@@ -253,24 +253,18 @@ var FiscDo = PageView.extend({
 		'click #fsc': 'fiscalize'
 	},
 	initialize: function () {
-		this.header = new TableContainer({
-			model:   schema.get('Hdr'),
-			tblMode: true,
-			show:    true
-		});
-		this.taxes  = new TableContainer({
+		this.taxes = new TableContainer({
 			model:   schema.get('Tax'),
 			tblMode: true,
 			show:    true
 		});
-		this.fsk    = new TableContainer({
+		this.fsk   = new TableContainer({
 			model:   schema.get('Fsk'),
 			tblMode: false,
 			show:    true
 		});
 	},
 	remove:     function () {
-		this.header.remove();
 		this.taxes.remove();
 		this.fsk.remove();
 		PageView.prototype.remove.call(this);
@@ -279,15 +273,23 @@ var FiscDo = PageView.extend({
 		this.initialize();
 		this.delegateEvents();
 		this.$el.html('');
-		this.$el.append(this.header.render().$el);
 		this.$el.append(this.taxes.render().$el);
 		this.$el.append(this.fsk.render().$el);
-		var tmpl = "<button type='button' id='%s' class='btn btn-%s' data-loading-text='%s'>%s</button>\n";
-		this.$el.append(_.reduce([
-				['hd', 'default', t('Wait...'), t('Save Headers')],
-				['tx', 'default', t('Wait...'), t('Save Taxes')],
-				['fsc', 'primary', t('Wait...'), t('Fiscalize')]],
-			function (memo, el) {
+		var tmpl          = "<button type='button' id='%s' class='btn btn-%s' data-loading-text='%s'>%s</button>\n";
+		/**
+		 * The buttons on the bottom of the page
+		 * @type {*[]}
+		 */
+		var buttonsBottom = [['fsc', 'primary', t('Wait...'), t('Fiscalize')]];
+		/**
+		 * If the device is fiscalized then remove "Fiscalize" button
+		 * Else remove two other buttons
+		 */
+		if (fiscalCell.get("fiscalize")) {
+			buttonsBottom = [['hd', 'default', t('Wait...'), t('Reregistration')],
+				['tx', 'default', t('Wait...'), t('Save Taxes')]];
+		}
+		this.$el.append(_.reduce(buttonsBottom, function (memo, el) {
 				el[2] = t(el[2]);
 				return memo + vsprintf(tmpl, el);
 			}, ""
@@ -394,7 +396,6 @@ var FiscReset = TimeForm.extend({
 	render:   function () {
 		TimeForm.prototype.render.apply(this, arguments);
 		this.$('#receiptNo').val(ecrStatus.get('chkId'));
-		this.$('#diNo').val(ecrStatus.get('CurrDI'));
 		return this;
 	},
 	doReset:  function (e) {
@@ -403,7 +404,7 @@ var FiscReset = TimeForm.extend({
 		callProc({
 			addr: '/cgi/proc/resetram',
 			btn:  e.target
-		}, this.$('#receiptNo').val(), this.timeView.getISODate(), this.$('#diNo').val());
+		}, this.$('#receiptNo').val(), this.timeView.getISODate());
 		return false;
 	},
 	resetSD:  function (e) {
