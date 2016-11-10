@@ -71,7 +71,13 @@ var FiscalCell = Backbone.Model.extend({
 					$this.unset('firstTime');
 				}
 			}
-			$this.set('fiscalize', $this.has('firstRep'));
+
+		});
+		$.getJSON('/cgi/state', function (response) {
+			if (_.isObject(response) && !_.isUndefined(response.Fiscalization)) {
+				var isFiscalized = parseInt(response.Fiscalization);
+				$this.set('fiscalize', isFiscalized);
+			}
 		});
 		$.getJSON("/cgi/tbl/FDay?s=-1", function (data, status) {
 			if (_.isArray(data)) data = data[0];

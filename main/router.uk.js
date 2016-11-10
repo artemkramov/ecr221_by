@@ -102,7 +102,6 @@ var AppRouter = Backbone.Router.extend({
 });
 
 var appStart = function () {
-	modemState = new ModemStatus();
 	ecrStatus  = new ECRStatus();
 	gprsExists = false;
 	//var pluCell = new Backbone.Model({size:0});
@@ -195,18 +194,7 @@ var appStart = function () {
 					})
 			}));
 		}
-		modemPages   = [
-			{lnk: '#modem/state', name: 'State', page: new ModemState({model: modemState})},
-			{
-				lnk: "#modem/settings", name: 'Settings', page: new TableContainer({
-				model:     schema.get('NSMEP'),
-				className: 'col-md-10',
-				tblMode:   false,
-				show:      true
-			})
-			},
-			{lnk: "#modem/docs", name: 'Documents', page: new ModemDocs()}
-		];
+		modemPages   = [];
 		fiscalPages  = [
 			{lnk: '#fm/fisc', name: 'Fiscalization', page: new FiscDo()},
 			{lnk: '#fm/time', name: 'Time', page: new FiscTime()},
