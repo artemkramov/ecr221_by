@@ -129,7 +129,9 @@
       "Adjust white point of image": "Настройка границы белого",
       "Logo": "Лого",
       "Set": "Встановить",
-      "Reregistration": "Перерегистрация"
+      "Reregistration": "Перерегистрация",
+      "Warning": "Предупреждение",
+      "Are you you want to perform this operation?": "Вы уверены, что хотите произвести эту операцию?"
     }
   }
 }

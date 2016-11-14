@@ -135,6 +135,52 @@ var Modal = Backbone.View.extend({
 	}
 });
 
+var ConfirmModal = Modal.extend({
+
+	callbackConfirm: function () {
+	},
+
+	autoClose: false,
+
+	setCallback:  function (callback) {
+		this.callbackConfirm = callback;
+		this.setButtons(this.buttons());
+	},
+	buttons:      function () {
+		return {
+			confirm: [t('yes'), 'primary'],
+			cancel:  [t('None'), 'danger']
+		};
+	},
+	click:        function (ev) {
+		var buttonType = 'handle-' + $(ev.target).data('ev').toString();
+		buttonType     = toCamelCase(buttonType);
+		if (!_.isUndefined(this[buttonType]) && _.isFunction(this[buttonType])) {
+			this[buttonType]();
+			this.setButtons({});
+		}
+	},
+	cancel:     function () {
+		this.$el.off('click', '.modal-footer button');
+		events.trigger('clickDlg', 'hide');
+	},
+	handleCancel: function () {
+		this.$el.off('click', '.modal-footer button');
+		this.hide();
+	},
+	handleConfirm: function() {
+		if (_.isFunction(this.callbackConfirm)) {
+			if (this.autoClose) {
+				this.hide();
+			}
+			$('body').removeClass('modal-open');
+			this.callbackConfirm();
+			this.$el.off('click', '.modal-footer button');
+		}
+	}
+
+});
+
 // </editor-fold>
 
 // <editor-fold desc="----------------------Main Screen Views--------------------------">

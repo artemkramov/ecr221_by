@@ -301,39 +301,48 @@ var FiscDo = PageView.extend({
 		var currDate = new Date();
 		ecrDate.setHours(0, 0, 0, 0);
 		currDate.setHours(0, 0, 0, 0);
-		if (ecrDate.valueOf() == currDate.valueOf()) {
-			proc(e);
-			return;
-		}
-		var modal = new Modal();
-		modal.set({
-			header: t('Date Warning!!!'),
-			body:   sprintf(t('<p>This operation will create fiscal record with date <b>%s</b></p>') +
-				t('<p>So, ECR can not be used until this date. </p>') +
-				t('<p>Are you sure to continue?</p>'), toStringDate(ecrDate))
-		});
-		modal.show();
-		modal.waitClick({
-			next:   ['Continue', 'danger'],
-			cancel: 'Close'
-		}).always(function (btn) {
-			if (btn == 'next') proc(e);
-			modal.hide();
-		});
+		proc(e);
 	},
 	saveHdr:    function (e) {
 		e.preventDefault();
-		this.checkTime(this.doHdr, e);
+		var self         = this;
+		var confirmModal = new ConfirmModal();
+		confirmModal.set({
+			header: t('Warning'),
+			body:   t('Are you you want to perform this operation?')
+		});
+		confirmModal.setCallback(function () {
+			self.checkTime(self.doHdr, e);
+		});
+		confirmModal.show();
 		return false;
 	},
 	saveTax:    function (e) {
 		e.preventDefault();
-		this.checkTime(this.doTax, e);
+		var self         = this;
+		var confirmModal = new ConfirmModal();
+		confirmModal.set({
+			header: t('Warning'),
+			body:   t('Are you you want to perform this operation?')
+		});
+		confirmModal.setCallback(function () {
+			self.checkTime(self.doTax, e);
+		});
+		confirmModal.show();
 		return false;
 	},
 	fiscalize:  function (e) {
 		e.preventDefault();
-		this.checkTime(this.doFisc, e);
+		var self         = this;
+		var confirmModal = new ConfirmModal();
+		confirmModal.set({
+			header: t('Warning'),
+			body:   t('Are you you want to perform this operation?')
+		});
+		confirmModal.setCallback(function () {
+			self.checkTime(self.doFisc, e);
+		});
+		confirmModal.show();
 		return false;
 	},
 	doHdr:      function (e) {
