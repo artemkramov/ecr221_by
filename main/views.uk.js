@@ -252,7 +252,12 @@ var FiscDo = PageView.extend({
 		'click #tx':  'saveTax',
 		'click #fsc': 'fiscalize'
 	},
-	initialize: function () {
+	remove:     function () {
+		this.taxes.remove();
+		this.fsk.remove();
+		PageView.prototype.remove.call(this);
+	},
+	render:     function () {
 		this.taxes = new TableContainer({
 			model:   schema.get('Tax'),
 			tblMode: true,
@@ -263,14 +268,6 @@ var FiscDo = PageView.extend({
 			tblMode: false,
 			show:    true
 		});
-	},
-	remove:     function () {
-		this.taxes.remove();
-		this.fsk.remove();
-		PageView.prototype.remove.call(this);
-	},
-	render:     function () {
-		this.initialize();
 		this.delegateEvents();
 		this.$el.html('');
 		this.$el.append(this.taxes.render().$el);

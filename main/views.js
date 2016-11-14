@@ -9,6 +9,7 @@
  * Creates one elemView per collection item and insert it to appendEl
  */
 var CollectionView = Backbone.View.extend({
+	subView: {},
 	initialize: function (args) {
 		if (args && args.elemView) this.elemView = args.elemView;
 		this.initEl();
@@ -20,8 +21,8 @@ var CollectionView = Backbone.View.extend({
 		this.appendEl = this.$el;
 	},
 	addElem:    function (f) {
-		var view = new this.elemView({model: f});
-		this.appendEl.append(view.render().$el);
+		this.subView = new this.elemView({model: f});
+		this.appendEl.append(this.subView.render().$el);
 	},
 	addAll:     function () {
 		this.initEl();
@@ -31,6 +32,9 @@ var CollectionView = Backbone.View.extend({
 		this.addAll();
 		//this.model.each(this.addElem,this);
 		return this;
+	},
+	remove: function() {
+		this.subView.remove();
 	}
 });
 
@@ -409,6 +413,9 @@ var PageScreen = Backbone.View.extend({
 		row.append(this.leftCol.render().$el);
 		row.append(this.page.render().$el);
 		return this;
+	},
+	remove: function () {
+		this.page.remove();
 	}
 });
 
@@ -1459,6 +1466,9 @@ var TableContainer = Backbone.View.extend({
 	showData:       function () {
 		this.showContent = false;
 		this.content.$el.show();
+	},
+	remove: function () {
+		this.content.remove();
 	}
 });
 
@@ -1472,6 +1482,9 @@ var GroupTable = PageScreen.extend({
 			className: 'col-md-10',
 			elemView:  TableContainer
 		});
+	},
+	remove: function () {
+		this.page.remove();
 	}
 });
 //</editor-fold>
