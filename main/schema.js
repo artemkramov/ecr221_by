@@ -3,7 +3,7 @@
  */
 
 var Schema = Backbone.Collection.extend({
-	url:           '/cgi/tbl',
+	url:           '/cgi/tbl?v=' + (new Date().getTime()),
 	initialize:    function () {
 		this.cache = {};
 	},

@@ -9,7 +9,7 @@
  * Creates one elemView per collection item and insert it to appendEl
  */
 var CollectionView = Backbone.View.extend({
-	subView: {},
+	subView:    {},
 	initialize: function (args) {
 		if (args && args.elemView) this.elemView = args.elemView;
 		this.initEl();
@@ -33,7 +33,7 @@ var CollectionView = Backbone.View.extend({
 		//this.model.each(this.addElem,this);
 		return this;
 	},
-	remove: function() {
+	remove:     function () {
 		this.subView.remove();
 	}
 });
@@ -146,17 +146,17 @@ var ConfirmModal = Modal.extend({
 
 	autoClose: false,
 
-	setCallback:  function (callback) {
+	setCallback:   function (callback) {
 		this.callbackConfirm = callback;
 		this.setButtons(this.buttons());
 	},
-	buttons:      function () {
+	buttons:       function () {
 		return {
 			confirm: [t('yes'), 'primary'],
 			cancel:  [t('None'), 'danger']
 		};
 	},
-	click:        function (ev) {
+	click:         function (ev) {
 		var buttonType = 'handle-' + $(ev.target).data('ev').toString();
 		buttonType     = toCamelCase(buttonType);
 		if (!_.isUndefined(this[buttonType]) && _.isFunction(this[buttonType])) {
@@ -164,15 +164,15 @@ var ConfirmModal = Modal.extend({
 			this.setButtons({});
 		}
 	},
-	cancel:     function () {
+	cancel:        function () {
 		this.$el.off('click', '.modal-footer button');
 		events.trigger('clickDlg', 'hide');
 	},
-	handleCancel: function () {
+	handleCancel:  function () {
 		this.$el.off('click', '.modal-footer button');
 		this.hide();
 	},
-	handleConfirm: function() {
+	handleConfirm: function () {
 		if (_.isFunction(this.callbackConfirm)) {
 			if (this.autoClose) {
 				this.hide();
@@ -608,6 +608,7 @@ var FormDisplay = Backbone.View.extend({
 		this.$('button.btn').button('loading');
 		var $this = this;
 		var o     = this.formInObj();
+		console.log('data', this.data);
 		this.data.save(o, {patch: true, silent: true})
 			.always(function () {
 				$('button.btn', $this.$el).button('reset');
@@ -1467,7 +1468,7 @@ var TableContainer = Backbone.View.extend({
 		this.showContent = false;
 		this.content.$el.show();
 	},
-	remove: function () {
+	remove:         function () {
 		this.content.remove();
 	}
 });
@@ -1483,7 +1484,7 @@ var GroupTable = PageScreen.extend({
 			elemView:  TableContainer
 		});
 	},
-	remove: function () {
+	remove:     function () {
 		this.page.remove();
 	}
 });

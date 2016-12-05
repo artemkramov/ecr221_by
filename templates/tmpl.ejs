@@ -1,14 +1,24 @@
 <script type="text/template" id="fiscal-cell">
     <tbody>
-    <%if (fiscalize) {%>
-    <tr><th><%=t('Fiscalized')%>:</th><td><%
-        var d = dateStr(fiscalize);
-        print((d=="true")?t('yes'):d);
-        %></td></tr>
-    <tr><th><%=t('Last report')%>:</th><td>#<%=[lastRep,t('on'),dateStr(lastTime,'d')].join(' ')%></td></tr>
-    <%} else {%>
-    <tr><td><%=t('Fiscalized')%>:</td><td><%=t('None')%></td></tr>
-    <%}%>
+    <% if (fiscalize) { %>
+    <tr>
+        <th><%= t('Fiscalized') %>:</th>
+        <td>
+            <%= t('yes') %>
+        </td>
+    </tr>
+    <% if (!_.isUndefined(lastRep) && !_.isUndefined(lastTime)) { %>
+    <tr>
+        <th><%= t('Last report') %>:</th>
+        <td>#<%= [lastRep, t('on'), dateStr(lastTime, 'd')].join(' ') %></td>
+    </tr>
+    <% } %>
+    <% } else { %>
+    <tr>
+        <td><%= t('Fiscalized') %>:</td>
+        <td><%= t('None') %></td>
+    </tr>
+    <% } %>
     </tbody>
 </script>
 

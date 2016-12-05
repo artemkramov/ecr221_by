@@ -458,7 +458,7 @@ var ReportPage = Backbone.View.extend({
 		callProc({
 			addr: '/cgi/proc/printfmreport',
 			btn:  e.target
-		}, $('#isShort').prop('checked') ? 3 : 1, toStringDate(getDate('fromD'), 'y-m-d'), toStringDate(getDate('toD'), 'y-m-d'), 1, 1);
+		}, $('#isShort').prop('checked') ? 3 : 1, toStringDate(getDate('fromD', true), 'y-m-d'), toStringDate(getDate('toD', true), 'y-m-d'), 1, 1);
 		return false;
 	}
 });

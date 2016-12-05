@@ -22,6 +22,7 @@ var AppRouter = Backbone.Router.extend({
 		}
 		if (callback) callback.apply(this, args);
 		$('#content').html('').append(this.view.render().$el);
+		initWidgets();
 	},
 	mainScr: function () {
 		this.view = new MainScreenView({inrow: 2, cells: mainScreenCells});
@@ -108,9 +109,9 @@ var appStart = function () {
 	fiscalCell  = new FiscalCell({
 		firstRep:  1,
 		firstTime: new Date(2000, 1, 1),
-		fiscalize: true,
-		lastRep:   5000,
-		lastTime:  new Date()
+		fiscalize: false,
+		lastRep:   undefined,
+		lastTime:  undefined
 	});
 	networkCell = new NetworkInfo();
 
@@ -175,7 +176,7 @@ var appStart = function () {
 	schema.load(function () {
 		schemaLoaded.resolve();
 	});
-	$.when(qryDone, schemaLoaded).always(function () {
+	$.when(qryDone, schemaLoaded, fiscalCell.initializeData()).always(function () {
 		if (schema.get('PLU')) {
 			mainScreenCells.unshift(new MainCell({
 				model: new Backbone.Model(

@@ -66,6 +66,10 @@ Name=css/backgrid-paginator.min.css
 File=css/backgrid-paginator.min.css
 Content-Type=text/css
 
+Name=css/bootstrap-datetimepicker.min.css
+File=css/bootstrap-datetimepicker.min.css
+Content-Type=text/css
+
 Name=css/main.css
 File=css/main.css
 Content-Type=text/css
@@ -110,6 +114,10 @@ Content-Type=application/javascript
 
 Name=js/backbone-pageable.min.js
 File=js/backbone-pageable.min.js
+Content-Type=application/javascript
+
+Name=js/bootstrap-datetimepicker.min.js
+File=js/bootstrap-datetimepicker.min.js
 Content-Type=application/javascript
 
 #image files

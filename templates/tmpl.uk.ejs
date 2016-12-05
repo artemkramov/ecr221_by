@@ -101,12 +101,14 @@
             <h3><%= t('By date') %></h3>
 
             <form class="form-inline">
-                <div class="form-group"><label for="fromD"><%= t('From') + ': ' %></label><input type="date"
-                                                                                                 class="form-control"
-                                                                                                 id="fromD"></div>
-                <div class="form-group"><label for="toD"><%= t('To') + ': ' %></label><input type="date"
-                                                                                             class="form-control"
-                                                                                             id="toD"></div>
+                <div class="form-group">
+                    <label for="fromD"><%= t('From') + ': ' %></label>
+                    <input type="text" class="form-control form-datepicker" id="fromD">
+                </div>
+                <div class="form-group">
+                    <label for="toD"><%= t('To') + ': ' %></label>
+                    <input type="text" class="form-control form-datepicker" id="toD">
+                </div>
                 <button type="submit" class="btn btn-default" id="pD"
                         data-loading-text="<%= t('Wait...') %>"><%= t('Print') %></button>
             </form>
