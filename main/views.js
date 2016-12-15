@@ -9,7 +9,7 @@
  * Creates one elemView per collection item and insert it to appendEl
  */
 var CollectionView = Backbone.View.extend({
-	subView:    {},
+	subViews:    [],
 	initialize: function (args) {
 		if (args && args.elemView) this.elemView = args.elemView;
 		this.initEl();
@@ -21,8 +21,9 @@ var CollectionView = Backbone.View.extend({
 		this.appendEl = this.$el;
 	},
 	addElem:    function (f) {
-		this.subView = new this.elemView({model: f});
-		this.appendEl.append(this.subView.render().$el);
+		var subView = new this.elemView({model: f});
+		this.subViews.push(subView);
+		this.appendEl.append(subView.render().$el);
 	},
 	addAll:     function () {
 		this.initEl();
@@ -34,7 +35,9 @@ var CollectionView = Backbone.View.extend({
 		return this;
 	},
 	remove:     function () {
-		this.subView.remove();
+		_.each(this.subViews, function (subView) {
+			subView.remove();
+		});
 	}
 });
 
@@ -434,7 +437,8 @@ var PagesScreen = PageScreen.extend({
 		);
 		if (args.models[args.no].addView) this.leftCol.addView = args.models[args.no].addView;
 		this.page = args.models[args.no].page;
-	}
+	},
+
 });
 
 /*var SalesSumPage = PageView.extend({ template: _.template($('#sales-sum').html()), model:sumRep });
@@ -878,6 +882,7 @@ var TableDisplay = Backgrid.Grid.extend({
 		}
 	},
 	render:     function () {
+		this.delegateEvents();
 		var self       = this;
 		var view       = Backgrid.Grid.prototype.render.apply(this);
 		var paginator  = new Backgrid.Extension.Paginator({
@@ -908,7 +913,7 @@ var TableDisplay = Backgrid.Grid.extend({
 			view.$el.find("thead").after(tfoot);
 		}
 		return view;
-	},
+	}
 });
 
 var PLUTableDisplay = TableDisplay.extend({

@@ -3,7 +3,7 @@
  */
 
 var Schema = Backbone.Collection.extend({
-	url:           '/cgi/tbl?v=' + (new Date().getTime()),
+	url:           '/cgi/tbl',
 	initialize:    function () {
 		this.cache = {};
 	},
@@ -200,7 +200,7 @@ var Schema = Backbone.Collection.extend({
 		var $this = this;
 		//var dsc = Backbone.Model.extend({urlRoot:'/'});
 		//this.descr = new dsc({id:'desc'});
-		this.fetch().done(function () {
+		this.fetch({ cache: false }).done(function () {
 			$.get('/desc?' + new Date().getTime()).done(function (desc) {
 				$.get('/desc-ext?' + new Date().getTime()).done(function (ext) {
 					$.extend(true, desc, ext);

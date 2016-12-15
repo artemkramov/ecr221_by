@@ -10,12 +10,34 @@ var devInfo = new DevInfo();
 
 var ECRStatus = Backbone.Model.extend({
 	url:        '/cgi/state',
-	defaults:   {'online': false, 'name': 'Device', dev_fn: '-', dev_nn: '-', dev_dat: '-', dev_ver: '-', dev_id: '-'},
+	defaults:   {
+		'online': false, 'name': 'Device', dev_fn: '-', dev_nn: '-', dev_dat: '-', dev_ver: '-', dev_id: '-', reg_num: '',
+		unp_num: '', skno_num: ''
+	},
 	refresh:    function () {
 		var $this = this;
 		this.fetch({remove: false}).always(function (x, txt) {
 			$this.syncDate.call($this, txt == 'success')
 		});
+	},
+	initDeviceInfo: function () {
+		var deferred = $.Deferred();
+		var self = this;
+		$.ajax({
+			url: '/cgi/dev_info',
+			dataType: 'json',
+			success: function (response) {
+				if (_.isObject(response)) {
+					for (var property in response) {
+						if (response.hasOwnProperty(property)) {
+							self.set(property, response[property]);
+						}
+					}
+					return deferred.resolve();
+				}
+			}
+		});
+		return deferred.promise();
 	},
 	initialize: function () {
 		this.nextTime = new Date();

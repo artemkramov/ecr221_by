@@ -176,7 +176,7 @@ var appStart = function () {
 	schema.load(function () {
 		schemaLoaded.resolve();
 	});
-	$.when(qryDone, schemaLoaded, fiscalCell.initializeData()).always(function () {
+	$.when(qryDone, schemaLoaded, fiscalCell.initializeData(), ecrStatus.initDeviceInfo()).always(function () {
 		if (schema.get('PLU')) {
 			mainScreenCells.unshift(new MainCell({
 				model: new Backbone.Model(

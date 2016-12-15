@@ -131,7 +131,10 @@
       "Set": "Встановить",
       "Reregistration": "Перерегистрация",
       "Warning": "Предупреждение",
-      "Are you you want to perform this operation?": "Вы уверены, что хотите произвести эту операцию?"
+      "Are you you want to perform this operation?": "Вы уверены, что хотите произвести эту операцию?",
+      "Registration number": "Регистрационный номер",
+      "Payer account number": "Учетный номер плательщика",
+      "Number of tax authorities control device": "Номер СКНО"
     }
   }
 }
