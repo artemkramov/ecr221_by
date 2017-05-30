@@ -4,6 +4,9 @@
 Name=index.html
 File=index.html
 Content-Type=text/html;charset=utf-8
+Cache-Control=max-age=0, no-cache, no-store, must-revalidate
+Pragma=no-cache
+Expires=Wed, 11 Jan 1984 05:00:00 GMT
 
 Name=index1.html
 File=index1.html
@@ -13,9 +16,16 @@ Name=index2.html
 File=index2.html
 Content-Type=text/html;charset=utf-8
 
+Name=firmware-dwl.html
+File=permanent_data/firmware.html
+Content-Type=text/html;charset=utf-8
+
 Name=tmpl.html
 File=templates/tmpl.ejs;templates/tmpl.uk.ejs;templates/tmpl.gprs.ejs
 Content-Type=text/html;charset=utf-8
+Cache-Control=max-age=0, no-cache, no-store, must-revalidate
+Pragma=no-cache
+Expires=Wed, 11 Jan 1984 05:00:00 GMT
 
 Name=desc-ext
 File=desc-ext.json
@@ -74,6 +84,14 @@ Name=css/main.css
 File=css/main.css
 Content-Type=text/css
 
+Name=css/bootstrap.min.css
+File=permanent_data/css/bootstrap.min.css
+Content-Type=text/css
+
+Name=firmware.css
+File=permanent_data/css/firmware.css
+Content-Type=text/css
+
 #js files
 
 Name=js/backgrid-select-all.js
@@ -118,6 +136,22 @@ Content-Type=application/javascript
 
 Name=js/bootstrap-datetimepicker.min.js
 File=js/bootstrap-datetimepicker.min.js
+Content-Type=application/javascript
+
+Name=js/jquery.min.js
+File=permanent_data/js/jquery.min.js
+Content-Type=application/javascript
+
+Name=js/bootstrap.min.js
+File=permanent_data/js/bootstrap.min.js
+Content-Type=application/javascript
+
+Name=js/underscore-min.js
+File=permanent_data/js/underscore-min.js
+Content-Type=application/javascript
+
+Name=Firmware.js
+File=permanent_data/js/jquery.noty.packaged.min.js;permanent_data/js/App.js;permanent_data/js/Api.js;permanent_data/js/Firmware.js;permanent_data/js/Buffer.js;permanent_data/js/IntelHex.js;
 Content-Type=application/javascript
 
 #image files

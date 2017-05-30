@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang=uk>
+<head>
+<meta charset=utf-8>
+<title>Modem Status</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script type="text/javascript">
+    if (typeof jQuery === 'undefined') {
+        document.write("<li" + "nk href='css/bootstrap.css' rel='stylesheet'>");
+    }
+</script>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+    body { padding-top:40px;
+    }
+    .nav-list .icon-chevron-right {
+        float: right;
+        opacity: .25;
+    }
+    meter {
+        width:80%;
+        height: 18px;
+    }
+    div.anchor{display: block; position: relative; top: -40px; visibility: hidden;}
+</style>
+</head>
+<body data-spy="scroll" data-target="#tocc" data-offset="40">
+    <div class="container-fluid">
+    <nav class="navbar navbar-fixed-top"><div class="navbar-inner">
+        <img alt="brand image" class="pull-right" width="50px" src="icon.png" />
+        <a class="brand" href="http://help-micro.kiev.ua/hm01.htm">Пошта</a>
+        <menu type=list class="nav">
+            <li class="active"><a href="index.html"><i class="icon-list-alt"></i> Стан</a></li>
+            <li><a href="setup.htm"><i class="icon-cog"></i> Налаштування</a></li>
+            <li><a href="docs.htm"><i class="icon-file"></i> Документи</a></li>
+        </menu>
+    </div></nav>
+
+    <div class="row-fluid">
+        <div class="span2 visible-desktop">
+        <div id="tocc" class="span2 visible-desktop" data-spy="affix" data-offset-top="0">
+            <ul class="nav nav-list">
+                <li class="active"><a href="#logr">Log<i class="icon-chevron-right"></i></a></li>
+                <li><a href="#stpr">Пристрій<i class="icon-chevron-right"></i></a></li>
+                <li><a href="#stmod">Модем<i class="icon-chevron-right"></i></a></li>
+                <li><a href="#stsam">Модуль Безпеки<i class="icon-chevron-right"></i></a></li>
+                <li><a href="#stmr">Стан Мережі<i class="icon-chevron-right"></i></a></li>
+                <li><a href="#stgprs">GPRS модуль<i class="icon-chevron-right"></i></a></li>
+            </ul>
+        </div>
+        </div>
+        <div class="span10">
+            <div class="anchor" id="logr"></div>
+            <pre id="logroot"></pre>
+            <h1>Стан Пристрою</h1>
+            <div class="anchor" id="stpr"></div>
+            <table class="table table-striped">
+    	        <tr><td>Заводський номер</td><td id="dev_zn"></td></tr>
+                <tr><td>Фіскальний номер</td><td id="dev_fn"></td></tr>
+                <tr><td>Податковий номер</td><td id="dev_nn"></td></tr>
+                <tr><td>Дата виготовлення</td><td id="dev_dat"></td></tr>
+                <tr><td>Версія ПЗ</td><td id="dev_ver"></td></tr>
+                <tr><td>ID_DEV</td><td id="dev_id"></td></tr>
+            </table>
+            <div class="anchor" id="stmod"></div>
+            <table class="table table-striped">
+                <caption><h2>Модем</h2></caption>
+                <tr><td>Персоналізовано з ID_SAM</td><td id="pers_sam_id"></td></tr>
+                <tr><td>Стан модему</td><td id="dev_state"></td></tr>
+                <tr><td>Час пристрою</td><td id="tm"></td></tr>
+                <tr><td>Період зв'язку</td><td id="tmo"></td></tr>
+                <tr><td>Зв'язок</td><td id="ct"></td></tr>
+                <tr><td>Блокування</td><td id="bt"></td></tr>
+                <tr><td colspan="2"><button class="btn" id="do_conn">Обмін</button>&nbsp;<button class="btn btn-info" id="do_log">Лог</button></td></tr>
+            </table>
+            <div class="anchor" id="stsam"></div>
+            <table class="table table-striped">
+                <caption><h2>Модуль безпеки</h2></caption>
+                <tr><td>Номер картки</td><td id="card_no"></td></tr>
+    	        <tr><td>ID_SAM</td><td id="sam_id"></td></tr>
+                <tr><td>ID еквайра</td><td id="eq_id"></td></tr>
+                <tr><td>ID_DEV сполученого пристрою</td><td id="sam_dev_id"></td></tr>
+            </table>
+            <button class="btn" id="sam_switch" style="visibility:hidden"></button>
+            <button class="btn btn-primary" id="sam_wr">Персоналізація SAM</button>
+            <button class="btn btn-primary" id="pers_do">Персоналізація</button>
+            <div class="anchor" id="stmr"></div>
+            <table class="table table-striped">
+                <caption><h2>Стан мережі</h2></caption>
+                <tr><td>IP адреса</td><td id="rndis_addr"></td></tr>
+    	        <tr><td>Маска мережі</td><td id="rndis_mask"></td></tr>
+                <tr><td>Шлюз</td><td id="rndis_gateway"></td></tr>
+                <tr><td>Адреса сервера DNS</td><td id="rndis_dns"></td></tr>
+            </table>
+            <div class="anchor" id="stgprs"></div>
+            <table class="table table-striped">
+                <caption><h2>GPRS модем</h2></caption>
+                <tr><td>Стан</td><td id="gprs_state"></td></tr>
+                <tr><td>Оператор</td><td id="gprs_oper"></td></tr>
+                <tr><td>Сигнал</td><td><div id="gprs_sign">&nbsp;</div>&nbsp;<meter id="gprs_signp" max="31">1</meter></td></tr>
+                <tr><td>Помилки</td><td><div id="gprs_err">&nbsp;</div>&nbsp;<meter id="gprs_errp" max="7">1</meter></td></tr>
+                <tr><td>Тип модему</td><td id="gprs_type"></td></tr>
+                <tr><td>Версія ПЗ</td><td id="gprs_ver"></td></tr>
+                <tr><td>IP адреса</td><td id="gprs_ip"></td></tr>
+                <tr><td>Номер</td><td id="gprs_num"></td></tr>
+            </table>
+            <button class="btn btn-primary" id="gprs_pwr">Ввімкнути</button>&nbsp;
+            <button class="btn" id="gprs_refr">Оновити</button>&nbsp;
+            <button class="btn" id="gprs_fw">Оновити ПЗ</button>&nbsp;
+            <form class="form-inline">
+                <legend>USSD:</legend>
+                <input type="text" id="gprs_txt" name="gprs_txt"/>
+                <button class="btn" id="gprs_ussd">Виконати USSD запит</button>
+            </form>
+            <div id="ussd_res">&nbsp;</div>
+        </div>
+    </div>
+    </div>    
+<script type="text/javascript" src="base.js"></script>
+<script type="text/javascript">
+    if (window.addEventListener) window.addEventListener("load", init, false);
+    else if (window.attachEvent) window.attachEvent("onload", init);
+    function pad(n) {
+        var s = n.toString();
+        if (s.length > 1) return s;
+        return "0" + s;
+    }
+    var to_conn_t;
+    var tick_timer = 0;
+    var current_time;
+    function to_curr_time(t) {
+        if (tick_timer) clearInterval(tick_timer);
+        current_time = new Date(t * 1000);
+        tick_timer = setInterval(function () {
+            id("ct").innerHTML = decode("ct", to_conn_t - 1);
+            current_time.setTime(current_time.getTime() + 1000);
+            id("tm").innerHTML = current_time.toLocaleString();
+        }, 1000);
+    }
+
+    function decode(name, val) {
+        switch (name) {
+            case "sam_dev_id": /*{
+                var b = id("sam_wr");
+                if (typeof val == "number") val = val.toString(16);
+                if (val == "ffffffff") {
+                    b.innerHTML = "Сполучити з касою";
+                } else {
+                    b.innerHTML = "Сполучити з еквайром";
+                }
+                return val;
+            }*/
+            case "dev_id":
+            case "sam_id":
+            case "rro_dev_id":
+            case "rro_sam_id":
+            case "rro_id_acq":
+            case "pers_sam_id":
+                if (typeof val == "number") return val.toString(10) + " (" + val.toString(16) + ")";
+                return val;
+            case "card_no": {
+                var b = id("sam_switch");
+                var query_par;
+                b.style.visibility = "visible";
+                if (val == "-") {
+                    b.innerHTML = "On";
+                    query_par = "cgi/sam_info?p=1";
+                } else {
+                    b.innerHTML = "Off";
+                    query_par = "cgi/sam_info?p=0";
+                }
+                b.onclick = function () { query(query_par); }
+                return val;
+            }
+            case "dev_state":
+                var st = "";
+                if ((val & 0x01) == 0) {
+                    st = st + "Модуль безпеки відсутній<br>";
+                } else if (val & 0x02) {
+                    st = st + "Модуль безпеки не сполучений<br>";
+                }
+                if ((val & 0x04) == 0) {
+                    st = st + "Відсутня персоналізація<br>";
+                } else if (val & 0x08) {
+                    st = st + "Неналежна персоналізація<br>";
+                }
+                if ((val & 0x10) == 0) {
+                    st = st + "Помилка у сховищі документів<br>";
+                }
+                if (st.length > 4) return st.slice(0, -4);
+                return "Робота";
+            case "gprs_state":
+                id("gprs_pwr").innerHTML = (val == 1) ? "Вимкнення" : "Ввімкнення";
+                if (val == 2) setTimeout(function () { query("cgi/mdm_info"); }, 3000)
+                if (val != 1) {
+                    id("gprs_oper").innerHTML = "";
+                    id("gprs_signp").value = 0;
+                    id("gprs_errp").value = 0;
+                    id("gprs_sign").innerHTML = "";
+                    id("gprs_err").innerHTML = "";
+                    id("gprs_type").innerHTML = "";
+                    id("gprs_ver").innerHTML = "";
+                }
+                switch (val) {
+                    case 0: return "Вимкнений";
+                    case 1: return "Робота";
+                    case 2: return "Включення...";
+                    case 3: return "Помилка включення. Вимкнено.";
+                    default: return "Стан невідомий";
+                }
+            case "pers_err":
+                switch (val) {
+                    case 0: return "Персоналізовано";
+                    case 1: return "РРО вимкнений";
+                    case 2: return "Модуль безпеки вилучений";
+                    case 3: return "Помилка реєстрації у еквайра";
+                    case 4: return "Помилка початку персоналізації РРО";
+                    case 7: return "Не надійшло відповіді від сервера";
+                    case 8: return "Помилка запиту на персоналізацію";
+                    case 9: return "Помилка персоналізації";
+                    case 10: return "Очікування перервано";
+                    default: return "Стан невідомий";
+                }
+            case "tmo": return "" + pad(val / 3600 >> 0) + ":" + pad(((val % 3600) / 60) >> 0);
+            case "ct":
+                to_conn_t = val;
+            case "bt":
+                if (val > 0) return "через " + pad((val / 3600) >> 0) + ":" + pad(((val % 3600) / 60) >> 0) + ":" + pad(val % 60);
+                return "невідкладно";
+            case "tm":
+                to_curr_time(val);
+                return current_time.toLocaleString();
+            case "gprs_sign":
+                if (val == 99) {
+                    id("gprs_signp").value = 0;
+                    return "Not detect";
+                }
+                id("gprs_signp").value = val;
+                return "" + (-113 + 2 * val) + " dBm";
+            case "gprs_err":
+                if (val == 99) {
+                    id("gprs_errp").value = 0;
+                    return "Not detect";
+                } else {
+                    id("gprs_errp").value = val;
+                    var prefix = "";
+                    if (val == 0) { prefix = "<";
+                    } else if (val==7) { prefix=">" }
+                    return prefix + Math.pow(2,val+1)/10 + "%";
+                }
+           /* case "gprs_ip": {
+                return "" + (val >> 24) + "." + ((val >> 16) & 0xFF) + "." + ((val >> 8) & 0xFF) + "." + (val & 0xFF);
+            }*/
+        }
+        return val;
+    }
+
+    function query(addr, errorHandler) {
+        HTTP.getJSON(addr, function (obj) {
+            if (obj) for (var el in obj) {
+                var elem = id(el);
+                if (elem) elem.innerHTML = decode(el, obj[el]);
+            }
+        }, errorHandler);
+    }
+
+    function noConnect(status, text) {
+        var msg = "Зв'язок з модемом відсутній"
+        if (text) msg = msg + "  (" + text + ")";
+        id('dev_state').innerHTML = msg;
+        if (tick_timer) {
+            clearInterval(tick_timer);
+            tick_timer = 0;
+        }
+    }
+
+    function init() {
+        query("cgi/dev_info");
+        query("cgi/status");
+        query("cgi/mdm_info");
+        setInterval(function () { query("cgi/status", noConnect); }, 15000);
+        id("pers_do").onclick = function () { LOG.monitor("logroot"); query("cgi/pers"); }
+        id("sam_wr").onclick = function () { LOG.monitor("logroot"); query("cgi/sam_info?p=2"); }
+        id("do_conn").onclick = function () { LOG.monitor("logroot"); query("cgi/do_conn"); }
+        id("do_log").onclick = function () { LOG.monitor("logroot"); }
+        id("gprs_pwr").onclick = function () { LOG.monitor("logroot"); query("cgi/mdm_pwr"); }
+        id("gprs_refr").onclick = function () { query("cgi/mdm_info"); }
+        id("gprs_fw").onclick = function () { LOG.monitor("logroot"); query("cgi/mdm_fw"); }
+        id("gprs_ussd").onclick = function () {
+            var q = "cgi/mdm_ussd?p=" + encodeURI(id("gprs_txt").value);
+            query(q.replace(/#/,"%23"));
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

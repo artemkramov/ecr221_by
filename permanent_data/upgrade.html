@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upgrade</title>
+    <!-- LOAD CSS FILES -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="firmware.css" rel="stylesheet">
+
+
+</head>
+<body class="firmware">
+
+<!-- PRELOADER -->
+<div class="preloader">
+    <div class="loader">
+        <span class="glyphicon glyphicon-refresh spin"></span>
+    </div>
+</div>
+<!-- END PRELOADER -->
+
+<!-- WRAPPER -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrapper">
+
+                <!-- TITLE -->
+                <div class="firmware-title">
+                </div>
+                <!-- END TITLE -->
+
+                <!-- ALERT MESSAGE -->
+                <div class="firmware-alert"></div>
+                <!-- END ALERT MESSAGE -->
+
+                <!-- UPGRADE BLOCK -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="firmware-upgrade"></div>
+                    </div>
+                </div>
+                <!-- END UPGRADE BLOCK -->
+
+                <!-- CURRENT STATE -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="firmware-current-state"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="dwl-current-state"></div>
+                    </div>
+                </div>
+                <!-- END CURRENT STATE -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPLATES FOR UNDERSCORE RENDERING -->
+
+<!-- TITLE -->
+<script type="text/template" class="language-template" data-type="firmware-title">
+    <h1><%= App.getTranslation("System upgrade") %></h1>
+</script>
+
+<!-- CURRENT STATE -->
+<script type="text/template" class="language-template" data-type="firmware-current-state">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <div class="pull-left">
+                    <h3><%= App.getTranslation("Current state") %></h3>
+                </div>
+                <div class="pull-right">
+                    <button type="button" id="btn-logout" class="btn btn-default">
+                        <span class="glyphicon glyphicon-log-out"></span> <%= App.getTranslation("Logout") %>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Version") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.version %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Description") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.description %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Firmware GUID") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.fwGuid %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Hardware GUID") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.hwGuid %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Firmware upload length") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.uploadLength %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("State") %>:</label>
+                    </td>
+                    <td>
+                        <span id="device-state"><%= currentState.state %></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+
+<!-- DWL CURRENT STATE -->
+<script type="text/template" class="language-template" data-type="dwl-current-state">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><%= App.getTranslation("Web-interface status") %></h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Version") %>:</label>
+                    </td>
+                    <td id="dwl_ver0"><%= currentState.version %></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Date") %>:</label>
+                    </td>
+                    <td id="dwl_dat0"><%= currentState.date %></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Description") %>:</label>
+                    </td>
+                    <td id="dwl_descr0"><%= currentState.description %></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+
+<!-- UPGRADE BLOCK -->
+<script type="text/template" class="language-template" data-type="firmware-upgrade">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><%= App.getTranslation("Upgrade") %></h3>
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-danger btn-lg" id="btn-upgrade"><%= App.getTranslation("Upgrade") %></button>
+        </div>
+    </div>
+</script>
+
+<!-- MODAL WINDOW -->
+<div id="modalDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialogLabel" aria-hidden="true"
+     style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="dialogLabel" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- REPORT -->
+<script type="text/template" id="import-report">
+    <div class="">
+        <% _.each(models, function (model) { %>
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">
+                    <%= model.id %>
+                </button>
+                <div class="pull-right">
+                    <span class="glyphicon <%= model.error ? 'glyphicon-remove-sign' : 'glyphicon-ok-sign' %>"></span>
+                </div>
+            </div>
+            <div class="panel-collapse collapse out">
+                <div class="panel-body">
+                    <p><%= model.result %></p>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</script>
+
+<!-- PROGRESS BAR -->
+<script type="text/template" id="progress-bar-block">
+    <div id="<%= model.get('id') %>">
+        <div class="clearfix">
+            <span id="model-name"><%= model.get('name') %></span>
+        </div>
+        <div class="progress progress-data">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:<%= model.get('percentage') %>%">
+                <%= model.get('percentage') %>%
+            </div>
+        </div>
+        <div class="clearfix">
+            <button class="btn btn-danger btn-import-stop pull-right"><%= t("Stop") %></button>
+        </div>
+        <div class="import-report"></div>
+    </div>
+</script>
+
+<!-- AVAILABLE SOFTWARE TABLE -->
+<script type="text/template" id="firmware-available-table">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><%= App.getTranslation("Description") %></th>
+            <th><%= App.getTranslation("Version") %></th>
+            <th><%= App.getTranslation("Creation time") %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% _.each(items, function(item) { %>
+        <% var classRow = App.versionCompare(item.version, currentVersion) > 0 ? 'more': '' %>
+        <tr class="firmware-software-row <%= classRow %>" data-path="<%= item.path %>"
+            data-version="<%= item.version %>">
+            <td>
+                <%= item.description %>
+            </td>
+            <td>
+                <%= item.version %>
+            </td>
+            <td>
+                <%= item.created_at %>
+            </td>
+        </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label for="firmware-view-all" class="firmware-view-all-label"><%= App.getTranslation("View all") %></label>
+        <input type="checkbox" value="1" id="firmware-view-all"/>
+    </div>
+</script>
+
+<script type="text/template" data-type="firmware-alert">
+    <div class="alert alert-<%= alert.type %> fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= alert.message %>
+    </div>
+</script>
+
+<!-- LOAD FILE STATUS -->
+<div class="file-loader" id="progress">
+    <div class="progress-wrapper">
+        <label id="progress-title"></label>
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LOAD JS FILE -->
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/underscore-min.js"></script>
+<script type="text/javascript" src="Firmware.js"></script>
+<script type="text/javascript">
+    window.exports = undefined;
+</script>
+<script src="js/backbone.js"></script>
+<script type="text/javascript" src="firmware.upgrade.js"></script>
+
+</body>
+</html>

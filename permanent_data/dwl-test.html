@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang=uk>
+<head>
+    <meta charset=utf-8>
+    <title>Ke stažení</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof jQuery === 'undefined') {
+            document.write("<li" + "nk href='css/bootstrap.css' rel='stylesheet'>");
+        }
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"
+            type="text/javascript"></script>
+    <style type="text/css">
+
+        .nav-list .icon-chevron-right {
+            float: right;
+            opacity: .25;
+        }
+
+        meter {
+            width: 80%;
+            height: 18px;
+        }
+
+        div.anchor {
+            display: block;
+            position: relative;
+            top: -40px;
+            visibility: hidden;
+        }
+
+        .dwl .title {
+            text-align: center;
+        }
+
+        .dwl .panel-heading h3 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        #fname, #dwl_fw {
+            display: inline-block;
+        }
+
+        progress {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body class="dwl">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="title">Webová aplikace</h1>
+
+            <!-- CURRENT STATE -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Současný stav</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label>Identifikátor:</label>
+                            </td>
+                            <td id="dwl_ver0"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Datum:</label>
+                            </td>
+                            <td id="dwl_dat0"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Popis:</label>
+                            </td>
+                            <td id="dwl_descr0"></td>
+                        </tr>
+                        <tr>
+                            <td id="dwl_err0" colspan="2"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- UPLOAD FILE -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Nahrát novou verzi</h3>
+                </div>
+                <div class="panel-body">
+                    <label>Soubor k nahrání:</label>
+                    <input type="file" id="fname" name="fname"/>
+                    <button class="btn btn-primary btn-start-upload" id="dwl_fw">
+                        <span class="glyphicon glyphicon-upload"></span> Začít nahrávat
+                    </button>
+                    <progress id="p" max=100 style="display:none" class="">
+                        <span>0</span>%
+                    </progress>
+                </div>
+            </div>
+
+            <!-- AVAILABLE SOFTWARE -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Dostupné aktualizace</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Popis</th>
+                            <th>Verze</th>
+                            <th>Čas vytvoření</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dwls"></tbody>
+                    </table>
+
+                    <div class="checkbox">
+                        <label>
+                            <input id="vall" type="checkbox">Zobrazit všechny
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="base.js"></script>
+<script type="text/javascript">
+    if (window.addEventListener) window.addEventListener("load", init, false);
+    else if (window.attachEvent) window.attachEvent("onload", init);
+    function pad(n) {
+        var s = n.toString();
+        if (s.length > 1) return s;
+        return "0" + s;
+    }
+    var to_conn_t;
+    var tick_timer = 0;
+    var current_time;
+    function to_curr_time(t) {
+        if (tick_timer) clearInterval(tick_timer);
+        current_time = new Date(t * 1000);
+        tick_timer   = setInterval(function () {
+            id("ct").innerHTML = decode("ct", to_conn_t - 1);
+            current_time.setTime(current_time.getTime() + 1000);
+            id("tm").innerHTML = current_time.toLocaleString();
+        }, 1000);
+    }
+
+    var verinfo;
+
+    function decode(name, val) {
+        switch (name) {
+            case "dwl_dat":
+                id("dwl_err").innerHTML = "";
+                return new Date(val * 1000).toLocaleString();
+            case "dwl_dat0":
+                id("dwl_err0").innerHTML = "";
+                return new Date(val * 1000).toLocaleString();
+            case "dwl_dat1":
+                id("dwl_err1").innerHTML = "";
+                return new Date(val * 1000).toLocaleString();
+            case "dwl_ver0":
+                getFirmwaresId();
+                return "" + (val >> 24) + "." + ((val >> 16) & 0xFF) + "." + (val & 0xFFFF)
+            case "dwl_ver":
+            case "dwl_ver1":
+                return "" + (val >> 24) + "." + ((val >> 16) & 0xFF) + "." + (val & 0xFFFF)
+            case "dwl_err":
+            case "dwl_err0":
+                if (val > 0) {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 30000);
+                    return "Виконується оновлення. Перезавантаження. Чекайте.";
+                } else {
+                    getFirmwaresId();
+                }
+                switch (val) {
+                    case -1:
+                        return "Exchange error";
+                    case -2:
+                        return "CRC error";
+                    case -3:
+                        return "Header lenght error";
+                    case -4:
+                        return "Image length error";
+                    case -5:
+                        return "Unknown image type";
+                    case -6:
+                        return "Unknown image format";
+                    /*case -7: return "Доступ заборонено. Каса ввімкнена.";
+                     case -8: return "Доступ заборонено. Копія стрічки використовується";*/
+                    case -9:
+                        return "Header version not supported";
+                }
+            case "dwl_err1":
+                switch (val) {
+                    case -1:
+                        return "Exchange error";
+                    case -2:
+                        return "CRC error";
+                    case -3:
+                        return "Header lenght error";
+                    case -4:
+                        return "Image length error";
+                    case -5:
+                        return "Unknown image type";
+                    case -6:
+                        return "Unknown image format";
+                    /*case -7: return "Доступ заборонено. Каса ввімкнена.";
+                     case -8: return "Доступ заборонено. Копія стрічки використовується";*/
+                    case -9:
+                        return "Header version not supported";
+                }
+        }
+        return val;
+    }
+
+    function query(addr, errorHandler) {
+        HTTP.getJSON(addr, function (obj) {
+            if (typeof obj == 'object') {
+                if (obj instanceof Array) {
+                    for (var i in obj) {
+                        for (var el in obj[i]) {
+                            var elem = id(el + i);
+                            if (elem) elem.innerHTML = decode(el + i, obj[i][el]);
+                        }
+                    }
+                } else {
+                    for (var el in obj) {
+                        var elem = id(el);
+                        if (elem) elem.innerHTML = decode(el, obj[el]);
+                    }
+                }
+            }
+        }, errorHandler);
+    }
+
+    function dwlLow(file) {
+        var prg              = id("p");
+        var prc              = prg.getElementsByTagName("span")[0];
+        var r                = HTTP.newRequest();
+        r.upload.addEventListener("loadstart", function (evt) {
+            prg.style.display = "block";
+        }, false);
+        r.upload.addEventListener("progress", function (evt) {
+            if (evt.lengthComputable) {
+                prg.max       = evt.total;
+                prg.value     = evt.loaded;
+                prc.innerHTML = Math.round(evt.loaded / evt.total * 100);
+            }
+        }, false);
+        r.upload.addEventListener("load", function (evt) {
+            prg.max   = 100;
+            prg.value = 100;
+        }, false);
+        r.onreadystatechange = function () {
+            if (r.readyState == 4) {
+                prg.style.display = "none";
+                query("cgi/dwlinf");
+                var obj           = eval(r.responseText);
+                if (obj) for (var el in obj) {
+                    id(el).innerHTML = decode(el, obj[el]);
+                }
+            } else {
+                //id("dwl_err0").innerHTML = "Loading...";
+            }
+        }
+        r.open("POST", "cgi/pdwl", true);
+        r.setRequestHeader("Content-Type", "application/octet-stream");
+        r.send(file);
+    }
+
+    function dwlFirmware() {
+        var file = id("fname").files[0];
+        if (file) {
+            dwlLow(file);
+        }
+        return false;
+    }
+
+    function getFirmwaresId() {
+        HTTP.getJSON("/cgi/dwlid", function (obj) {
+            if (typeof obj == 'object') {
+                verinfo   = obj;
+                var names = "";
+                for (var n in obj) names += n + ",";
+                getFirmwaresInfo(names.slice(0, -1));
+            }
+        });
+    }
+
+    function firmwareDwl() {
+        if (confirm("Nahrát '" + this.descr + "'?")) {
+            var request                = HTTP.newRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
+                    if (request.status == 200) {
+                        dwlLow(request.response)
+                    } else {
+                        alert(request.statusText + "(" + request.status + ")");
+                    }
+                }
+            }
+            request.responseType       = "arraybuffer";
+            request.open("GET", this.lnk);
+            request.send(null);
+        }
+    }
+
+    function getFirmwaresInfo(data) {
+        HTTP.getJSON("http://help-micro.kiev.ua/dwlget.php?id=" + data, function (obj) {
+            if (typeof obj == 'object') {
+                //console.log(obj);
+                var root       = id("dwls");
+                root.innerHTML = "";
+                for (var item in obj) {
+                    item                        = obj[item];
+                    var row                     = root.insertRow(root.rows.length);
+                    row.ver                     = item.ver;
+                    row.lnk                     = "http://help-micro.kiev.ua/" + item.link;
+                    row.descr                   = item.descr;
+                    row.onclick                 = firmwareDwl;
+                    row.fw                      = item.fw;
+                    row.style.cursor            = "pointer";
+                    row.insertCell(0).innerHTML = item.descr;
+                    row.insertCell(1).innerHTML = decode("dwl_ver", item.ver);
+                    row.insertCell(2).innerHTML = item.dat;
+                }
+                fixView();
+            }
+        });
+    }
+
+    function fixView() {
+        var root = id("dwls");
+        var vall = id("vall").checked;
+        console.log("verinfo", verinfo);
+        for (var row in root.rows) {
+            row = root.rows[row];
+            if (row instanceof HTMLTableRowElement) {
+                console.log("version", row.fw, verinfo[row.fw], row.ver);
+                row.style.display = (vall || (row.ver > verinfo[row.fw])) ? "table-row" : "none";
+            }
+        }
+    }
+
+    function init() {
+        query("cgi/dwlinf");
+        id("dwl_fw").onclick = dwlFirmware;
+        id("vall").onclick   = fixView;
+    }
+</script>
+</body>
+</html>
+                                           

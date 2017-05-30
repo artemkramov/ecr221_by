@@ -1,0 +1,1 @@
+$(PYDIR)\python.exe $(PYDIR)\ht2bin\ht2bin.py $(SOURCEDIR)\models\$(NAME)\webst.ctl $(INCLDIR)\webst.h

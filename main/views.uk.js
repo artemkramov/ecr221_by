@@ -337,7 +337,13 @@ var FiscDo = PageView.extend({
 			body:   t('Are you you want to perform this operation?')
 		});
 		confirmModal.setCallback(function () {
-			self.checkTime(self.doFisc, e);
+			$(confirmModal.$el).on('hidden.bs.modal', function (e) {
+				self.checkTime(self.doFisc, e);
+
+				//clear this function so it doesn't show up if they exit the window again
+				$(confirmModal.$el).off();
+			});
+			confirmModal.hide();
 		});
 		confirmModal.show();
 		return false;
@@ -458,7 +464,7 @@ var ReportPage = Backbone.View.extend({
 		callProc({
 			addr: '/cgi/proc/printfmreport',
 			btn:  e.target
-		}, $('#isShort').prop('checked') ? 3 : 1, toStringDate(getDate('fromD', true), 'y-m-d'), toStringDate(getDate('toD', true), 'y-m-d'), 1, 1);
+		}, $('#isShort').prop('checked') ? 3 : 1, toStringDate(new Date($("#fromD").val()), 'y-m-d'), toStringDate(new Date($("#toD").val()), 'y-m-d'), 1, 1);
 		return false;
 	}
 });
