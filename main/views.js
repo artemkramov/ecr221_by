@@ -937,14 +937,22 @@ var PLUTableDisplay = TableDisplay.extend({
 					break;
 				case 'del-all':
 				{
-					var $this = this;
-					var opt   = {data: []}
-					opt.error = function (resp) {
-						$this.collection.trigger('error', $this.collection, resp, opt);
-					};
-					this.collection.sync('update', this.collection, opt).done(function () {
-						$this.collection.reset();
+					var confirmModal = new ConfirmModal();
+					confirmModal.set({
+						header: t('Warning'),
+						body:   t('Do you want to remove all items?')
 					});
+					confirmModal.setCallback(function () {
+						var opt   = {data: []};
+						opt.error = function (resp) {
+							$this.collection.trigger('error', $this.collection, resp, opt);
+						};
+						$this.collection.sync('update', $this.collection, opt).done(function () {
+							$this.collection.reset();
+						});
+						confirmModal.hide();
+					});
+					confirmModal.show();
 				}
 					break;
 				default:
@@ -992,15 +1000,23 @@ var PLUFormDisplay = FormDisplay.extend({
 					return;
 				case 'del-all':
 				{
-					var $this = this;
-					var opt   = {data: []};
-					opt.error = function (resp) {
-						$this.collection.trigger('error', $this.collection, resp, opt);
-					};
-					this.tbl.sync('update', this.tbl, opt).done(function () {
-						$this.tbl.reset();
-						$this.event('ins');
+					var confirmModal = new ConfirmModal();
+					confirmModal.set({
+						header: t('Warning'),
+						body:   t('Do you want to remove all items?')
 					});
+					confirmModal.setCallback(function () {
+						var opt   = {data: []};
+						opt.error = function (resp) {
+							$this.collection.trigger('error', $this.collection, resp, opt);
+						};
+						$this.tbl.sync('update', $this.tbl, opt).done(function () {
+							$this.tbl.reset();
+							$this.event('ins');
+						});
+						confirmModal.hide();
+					});
+					confirmModal.show();
 				}
 					return;
 				case 'ins':

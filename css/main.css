@@ -29,6 +29,29 @@ a img:active {-webkit-transform: scale(1);transform: scale(1);}
 .table-status {
     margin-top: 20px;
 }
+.error-block {
+    margin-top: 15px;
+}
+#file-import {
+    margin-bottom: 15px;
+}
+.btn-import-stop {
+    margin-bottom: 15px;
+}
+#export-filename {
+    max-width: 400px;
+}
 .backgrid-pagination-cell {
     display: table-cell !important;
 }
+.backup-delimiter {
+    max-width: 60px;
+}
+.nav-stacked.static {
+    position: static;
+}
+
+.btn.export, .btn.import {
+    display: none;
+}
+

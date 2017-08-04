@@ -468,3 +468,18 @@ var ReportPage = Backbone.View.extend({
 		return false;
 	}
 });
+
+/**
+ * Alert for the pushing of messages
+ * Uses bootstrap alerts
+ */
+var Alert = Backbone.View.extend({
+	template: _.template($("#alert-block").html()),
+	render:   function () {
+		this.$el.html(this.template({
+			type:    this.model.type,
+			message: this.model.message
+		}));
+		return this;
+	}
+});

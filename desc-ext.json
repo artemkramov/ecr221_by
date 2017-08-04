@@ -128,13 +128,20 @@
       "By date": "По датам",
       "Adjust white point of image": "Настройка границы белого",
       "Logo": "Лого",
-      "Set": "Встановить",
+      "Set": "Установить",
       "Reregistration": "Перерегистрация",
       "Warning": "Предупреждение",
       "Are you you want to perform this operation?": "Вы уверены, что хотите произвести эту операцию?",
       "Registration number": "Регистрационный номер",
       "Payer account number": "Учетный номер плательщика",
-      "Number of tax authorities control device": "Номер СКНО"
+      "Number of tax authorities control device": "Номер СКНО",
+      "Backup": "Резервная копия",
+      "Choose table": "Выбор таблиц",
+      "Run": "Выполнить",
+      "Choose an archive to import": "Выберите архив для импорта",
+      "Choose at least 1 item": "Выберите не меньше 1 пункта",
+      "Backup file name": "Имя файла для экспорта",
+      "Do you want to remove all items?": "Удалить все товары?"
     }
   }
 }

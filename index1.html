@@ -38,16 +38,20 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.js"></script>
 <script src="/js/backgrid-select-all.js"></script>
-
+<script src="/js/papaparse.min.js"></script>
+<script src="/js/jszip.min.js"></script>
+<script src="/js/FileSaver.min.js"></script>
 <script src="/js/backgrid-paginator.min.js"></script>
 <script src="/js/backbone-pageable.min.js"></script>
 <script src="/js/bootstrap-datetimepicker.min.js"></script>
 <!--script src="/js/main.js"></script-->
 <script type="text/javascript">
     $('#lnb').load('tmpl.html',function(){
-        $.getScript('/js/main.js',function(){
-            $(function() {
-                appStart();
+        $.getScript('/js/main.js?v=' + (new Date().getTime()),function(){
+            $.getScript('/js/backup.js?v=' + (new Date().getTime()),function() {
+                $(function () {
+                    appStart();
+                });
             });
         });
     });

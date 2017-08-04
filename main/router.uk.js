@@ -13,7 +13,8 @@ var AppRouter = Backbone.Router.extend({
 		"modem(/:page)":   'modemScr',
 		"fm(/:page)":      'fisc',
 		"logo":            'logoScr',
-		"report":          'repScr'
+		"report":          'repScr',
+		"backup":          'backupScr'
 	},
 	execute: function (callback, args) {
 		if (this.view) {
@@ -99,6 +100,9 @@ var AppRouter = Backbone.Router.extend({
 				break;
 		}
 		this.view = new PagesScreen({no: this.fiscTab, models: fiscalPages});
+	},
+	backupScr:  function (page) {
+		this.view = new BackupScreenView();
 	}
 });
 
@@ -148,7 +152,8 @@ var appStart = function () {
 				addView: new NetworkView({model: networkCell})
 			})
 		}),
-		new MainCell({model: new Backbone.Model({lnk: '#report', img: 'sales', name: 'Reports'})})
+		new MainCell({model: new Backbone.Model({lnk: '#report', img: 'sales', name: 'Reports'})}),
+		new MainCell({model: new Backbone.Model({lnk: '#backup', img: 'backup', name: 'Backup'})})
 	];
 	schema          = new Schema();
 	appRouter       = new AppRouter();

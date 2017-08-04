@@ -6,6 +6,10 @@ var Schema = Backbone.Collection.extend({
 	url:           '/cgi/tbl',
 	initialize:    function () {
 		this.cache = {};
+		this.noCache = {};
+	},
+	tableIgnoreCache:      function (name) {
+		return this.noCache[name];
 	},
 	table:         function (name) {
 		if (name in this.cache) return this.cache[name];
@@ -27,6 +31,24 @@ var Schema = Backbone.Collection.extend({
 			return this.cache[name];
 		}
 		return false;
+	},
+	tableFetchIgnoreCache: function (name) {
+		var address = '/cgi/tbl';
+		var model   = this.get(name);
+		var key     = model.get('key');
+		var options;
+		if (model.get('tbl')) {
+			options = {schema: model};
+			if (key) options.idAttribute = key;
+			var m              = TableModel.extend(options);
+			this.noCache[name] = new TableCollection(false, {model: m, url: address + '/' + name, mode: ""});
+			return this.noCache[name].fetch({reset: true});
+		} else {
+			options = {schema: model, urlRoot: address};
+			if (key) options.idAttribute = key;
+			this.noCache[name] = new TableModel({id: name}, options);
+			return this.noCache[name].fetch({silent: true});
+		}
 	},
 	tableFetch:    function (name) {
 		if (!(name in this.cache)) this.table(name);
