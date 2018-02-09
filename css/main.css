@@ -11,7 +11,7 @@ body {
 a img:hover {-webkit-transform: scale(1.05);transform: scale(1.05);}
 a img:active {-webkit-transform: scale(1);transform: scale(1);}
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .affix {
         position: static;
         width: auto;
@@ -53,5 +53,15 @@ a img:active {-webkit-transform: scale(1);transform: scale(1);}
 
 .btn.export, .btn.import {
     display: none;
+}
+
+.navbar.navbar-container .navbar-brand {
+    height: auto;
+    z-index: 12;
+}
+
+.table-toolbar {
+    margin-top: 7px;
+    text-align: right;
 }
 

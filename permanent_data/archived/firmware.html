@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firmware</title>
+    <!-- LOAD CSS FILES -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/firmware.css" rel="stylesheet">
+
+
+</head>
+<body class="firmware">
+
+<!-- PRELOADER -->
+<div class="preloader">
+    <div class="loader">
+        <span class="glyphicon glyphicon-refresh spin"></span>
+    </div>
+</div>
+<!-- END PRELOADER -->
+
+<!-- WRAPPER -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrapper">
+
+                <!-- TITLE -->
+                <div class="firmware-title">
+                </div>
+                <!-- END TITLE -->
+
+                <!-- ALERT MESSAGE -->
+                <div class="firmware-alert"></div>
+                <!-- END ALERT MESSAGE -->
+
+                <!-- CURRENT STATE -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="firmware-current-state"></div>
+                    </div>
+                </div>
+                <!-- END CURRENT STATE -->
+
+                <div class="row">
+                    <!-- UPLOAD HEX FILE -->
+                    <div class="col-sm-6">
+                        <div class="firmware-upload-hex-file"></div>
+                    </div>
+                    <!-- END UPLOAD HEX  -->
+                    <!-- UPLOAD FIRMWARE TO PROCESSOR -->
+                    <div class="col-sm-6">
+                        <div class="firmware-upload-to-processor"></div>
+                    </div>
+                    <!-- END UPLOAD FIRMWARE TO PROCESSOR -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPLATES FOR UNDERSCORE RENDERING -->
+
+<!-- TITLE -->
+<script type="text/template" class="language-template" data-type="firmware-title">
+    <h1><%= App.getTranslation("Firmware") %></h1>
+</script>
+
+<!-- CURRENT STATE -->
+<script type="text/template" class="language-template" data-type="firmware-current-state">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><%= App.getTranslation("Current state") %></h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Version") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.version %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Description") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.description %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Firmware GUID") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.fwGuid %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Hardware GUID") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.hwGuid %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("Firmware upload length") %>:</label>
+                    </td>
+                    <td>
+                        <%= currentState.uploadLength %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><%= App.getTranslation("State") %>:</label>
+                    </td>
+                    <td>
+                        <span id="device-state"><%= currentState.state %></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+
+<!-- HEX FILE UPLOAD -->
+<script type="text/template" class="language-template" data-type="firmware-upload-hex-file">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><%= App.getTranslation("Upload hex file") %></h3>
+        </div>
+        <div class="panel-body">
+            <div class="firmware-upload">
+                <form method="post" action="" enctype="multipart/form-data" id="form-hex-upload">
+                    <input type="file" required="true" name="fileHex" accept=".hex" id="file-hex">
+
+                    <div class="firmware-upload-hex-status"></div>
+                    <button type="submit" class="btn btn-primary btn-hex-upload">
+                        <span class='glyphicon glyphicon-download-alt'></span> <%= App.getTranslation("Upload") %>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</script>
+
+<!-- STATUS OF THE UPLOADED HEX FILE -->
+<script type="text/template" class="language-template" data-type="firmware-upload-hex-status">
+
+    <h4><%= App.getTranslation("Upload file status") %></h4>
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>
+                <label><%= App.getTranslation("Version") %>:</label>
+            </td>
+            <td>
+                <%= uploadedState.version %>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label><%= App.getTranslation("Description") %>:</label>
+            </td>
+            <td>
+                <%= uploadedState.description %>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label><%= App.getTranslation("Firmware GUID") %>:</label>
+            </td>
+            <td>
+                <%= uploadedState.guid %>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<!-- UPLOAD FIRMWARE TO THE PROCESSOR -->
+<script type="text/template" class="language-template" data-type="firmware-upload-to-processor">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><%= App.getTranslation("Flash firmware to processor") %></h3>
+        </div>
+        <div class="panel-body">
+            <div class="firmware-upload">
+                <form method="post" action="" enctype="multipart/form-data" id="form-firmware-upload">
+                    <div class="block-flash">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-refresh spin"></span><span class="glyphicon glyphicon-flash icon-flash"></span> <%= App.getTranslation("Flash") %>
+                        </button>
+                        <button type="button" class="btn btn-default btn-flash-stop" style="display: none !important;">
+                            <span class="glyphicon glyphicon-remove"></span> <%= App.getTranslation("Cancel") %>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" data-type="firmware-alert">
+    <div class="alert alert-<%= alert.type %> fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= alert.message %>
+    </div>
+</script>
+
+<!-- LOAD FILE STATUS -->
+<div class="file-loader" id="progress">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        </div>
+    </div>
+</div>
+
+<!-- LOAD JS FILE -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="js/Firmware.js"></script>
+
+</body>
+</html>

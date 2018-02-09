@@ -258,6 +258,75 @@ var Schema = Backbone.Collection.extend({
 						$this.tr = l;
 					}
 					$this.langs = _.without($this.descr.keys(), 'id', 'def', 'regex');
+
+					/**
+					 * Set some temp extra options for test purpose
+					 *
+					 */
+					$this.descr.get($this.lang).tbl.Flg.Flg1.labels = [
+						{"val":0,"label":"watch of remaining amount"},
+						{"val":1,"label":"no change PLU base from keyboard"},
+						{"val":2,"label":"PLU item weight must be entered"},
+						{"val":3,"label":"no receipt copy"},
+						{"val":4,"label":"no PLU report sorting"},
+						{"val":5,"label":"prices autorounding"},
+						{"val":6,"label":"switch off sound (keyboard, errors)"},
+						{"val":7,"label":"simplify regime"},
+						{"val":8,"label":"zero price allowed"},
+						{"val":9,"label":"delete 0 amount PLUs after Z1"},
+						{"val":10,"label":"delete all PLU after Z1"},
+						{"val":13,"label":"small font when journal printing"},
+						{"val":14,"label":"display light off"}
+					];
+					$this.descr.get($this.lang).tbl.Flg.Flg3.labels = [
+						{"val":0,"label":"print PLU code"},
+						{"val":1,"label":"print department name"},
+						{"val":2,"label":"print department number"},
+						{"val":3,"label":"USB barcode reader"},
+						{"val":4,"label":"require zero sum in drawer before Z1"},
+						{"val":5,"label":"disable negative balance"},
+						{"val":8,"label":"no logo printing"},
+						{"val":11,"label":"print EURO subtotal"},
+						{"val":12,"label":"no VAT payer"},
+						{"val":13,"label":"no VAT in receipt"},
+						{"val":16,"label":"sound instead 1..30 errors"}
+					];
+
+					$this.descr.get($this.lang).tbl.PLU.Flg.labels = [
+						{"val":0,"label":"price changeable"},
+						{"val":1,"label":"fractional amount only"},
+						{"val":2,"label":"disable sales with zero amount"},
+						{"val":4,"label":"receipt closed after sale"},
+						{"val":5,"label":"return only"},
+						{"val":6,"label":"sale only"}
+					];
+
+					$this.each(function (model) {
+						specialTableSchema.forEach(function (requiredFields) {
+							if (model.get("id") == requiredFields.id) {
+								var elements  = model.get("elems");
+								var newFields = [];
+								elements.forEach(function (field) {
+									var isNeeded = false;
+									_.each(requiredFields.fields, function (requiredField) {
+										var name = _.isObject(requiredField) ? requiredField.name : requiredField;
+										if (name == field.name) {
+											isNeeded = true;
+											if (_.isObject(requiredField)) {
+												for (var property in requiredField) {
+													field[property] = requiredField[property];
+												}
+											}
+										}
+									});
+									if (isNeeded) {
+										newFields.push(field);
+									}
+								});
+								model.set("elems", newFields);
+							}
+						});
+					});
 					$this.each($this.fixupTable, $this);
 					if (callback) callback();
 				});
@@ -507,3 +576,28 @@ _.extend(CheckFormatter.prototype, {
 		}, 0) : (_.isNull(d) ? 0 : d);
 	}
 });
+
+var specialTableSchema = [{
+	id:     "Flg",
+	fields: [
+		"AutoOff", "Feed", {
+			name: "Flg1", type: "checkbox-multiple"
+		},
+		"Flg2",
+		{
+			name: "Flg3", type: "checkbox-multiple"
+		},
+		"Lang",
+		"MaxChkSum",
+		"PrintOff"
+	]
+},
+	{
+		id:     "PLU",
+		fields: [
+			"Code", "Name", {
+				name: "Flg", type: "checkbox-multiple", cell: "integer"
+			}
+		]
+	},
+];

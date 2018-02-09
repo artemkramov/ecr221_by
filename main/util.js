@@ -327,3 +327,17 @@ function loadTexts(data, err) {
 	}
 	return ret.promise();
 }
+
+function multipleCheckboxesToInt(values)
+{
+	var result = 0;
+	_.each(values, function (value) {
+		result += Math.pow(2, value);
+	});
+	return result;
+}
+
+function intToBinaryArray(number)
+{
+	return number.toString(2);
+}

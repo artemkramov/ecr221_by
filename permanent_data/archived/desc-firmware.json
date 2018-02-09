@@ -1,0 +1,1129 @@
+{
+  "def": "cs",
+  "regex": {
+    "v_IP4": "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b",
+    "v_MAC": "([0-9A-F]{2}[\\.-]){5}([0-9A-F]{2})",
+    "v_BaudN": "600|1200|2400|4800|9600|19200|38400|57600|115200|230400|460800|921600",
+    "v_BaudC": "600|1200|2400|4800|9600|19200|38400|57600|115200|230400|460800|921600",
+    "v_Cen_9x8": "^\\d{1,6}(\\.\\d{0,2})?$",
+    "v_Num_0_1": "^[0-1]$",
+    "v_Num_0_2": "^[0-2]$",
+    "v_Num_0_4": "^[0-4]$",
+    "v_Num_0_8": "^[0-8]$",
+    "v_Num_0_9": "^[0-9]$",
+    "v_Num_0_15": "^([0-9]|1[0-5])$",
+    "v_Num_0_16": "^([0-9]|1[0-6])$",
+    "v_Num_0_50": "^([0-9]|[1-4][0-9]|50)$",
+    "v_Num_0_31": "^([0-9]|[1-2][0-9]|3[0-1])$",
+    "v_Num_0_255": "^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$",
+    "v_Num_0_999": "[0-9]{1,3}",
+    "v_Num_20_90": "^([2-8][0-9]|90)$",
+    "v_Num_9x14": "^[1-9][0-9]{0,13}$",
+    "v_Prc_99_99": "^\\d{1,2}(\\.\\d{0,2})?$",
+    "v_Pswd": "[0-9]{1,6}",
+    "v_Qty_999999_999": "^\\d{1,6}(\\.\\d{0,3})?$",
+    "v_Dummy": ".*"
+  },
+  "en": {
+    "err": {
+      "x01": "The price is not specified",
+      "x02": "The quantity is not specified",
+      "x03": "The department is not specified",
+      "x04": "The group is not specified",
+      "x31": "User already registered",
+      "x32": "Invalid password",
+      "x33": "Invalid table number",
+      "x34": "Table access denied",
+      "x35": "Default not found",
+      "x36": "Invalid index",
+      "x37": "Invalid field",
+      "x38": "Table overflow",
+      "x39": "Invalid length of binary data",
+      "x3A": "Attempt to modify read only field",
+      "x3B": "Invalid field value",
+      "x3C": "PLU exists",
+      "x3D": "PLU has non-empty report",
+      "x3E": "Query is disbled",
+      "x3F": "Invalid bookmark",
+      "x40": "Key not found",
+      "x41": "Procedure already running",
+      "x42": "PLU quantity is negative",
+      "x43": "Redirection to read from the card is enabled",
+      "x87": "Fiscal memory error",
+      "x88": "Memory card error",
+      "x89": "Memory card overflow",
+      "x8A": "No control receipt paper",
+      "x8B": "No receipt paper",
+      "x8C": "Fiscal memory overflow",
+      "x8D": "Forbidden the issuance of change",
+      "x92": "Print error",
+      "x9C": "User display is disabled",
+      "xA3": "Operation terminated on device side",
+      "xA4": "ef_BegSlipChk Slip Receipt is open",
+      "xA5": "ef_NoFindZ1Rep Z1 report not found",
+      "xA6": "ef_NoSlipPaper End of slip document occured",
+      "xA7": "ef_MMCDisable MMC is disabled",
+      "xA8": "ef_FMBadNum   Bad Fiscal memory number",
+      "xA9": "ef_FMNotEmpty Fiscal memory is not empty",
+      "xB5": "ef_BegVatFact VAT form is opened",
+      "xB6": "ef_RestDisb Restaraunt mode is disabled",
+      "xB7": "ef_NoOpenTable Table is not opened",
+      "xB8": "ef_OverOrder Order count overflow",
+      "xB9": "ef_BegRestrn Restaurant bill already started",
+      "xBA": "ef_BadNTable Wrong table number",
+      "xBB": "ef_IsWrk Electronic journal is not empty",
+      "xBC": "ef_TrainMode    Training mode",
+      "xBD": "ef_BadCurrDate   Wrong current date",
+      "xBE": "ef_ChDateDisable Change of date/time is disabled",
+      "xBF": "ef_ServTimer Service timer is out",
+      "xC0": "ef_PlatTerm Error in work with NSMEP terminal",
+      "xC1": "ef_BadTax Bad tax number",
+      "xC2": "ef_BadProcParam Bad procedure parameter",
+      "xC3": "ef_NoFisPrnMode Fiscal printer mode is not started",
+      "xC4": "ef_DiffTaxName changed Tax or Name",
+      "xC5": "Required personalization",
+      "xC6": "No exchange with the server NSMEP for 72 hours",
+      "xC7": "Forbidden zeroing data EKL",
+      "xC8": "Forbidden work with GPRS modem",
+      "xCC": "Started return operation",
+      "xCF": "Z1 report is not empty",
+      "xD0": "Not to make money collection",
+      "xD1": "The cash drawer is not closed",
+      "xD2": "The printing of the journal is interrupted",
+      "xD3": "Date change or the end of the shift is reached",
+      "xD4": "The default percent extra charges/discounts are not specified",
+      "xD5": "The default extra charges/discounts are not specified",
+      "xD6": "The daily report is not cleared",
+      "xD7": "Z1 report is already printed out (Z1 report is empty) ",
+      "xD8": "The canceling of the PLU which has subtotals/extra charges/discounts is not allowed",
+      "xD9": "There was no selling of the PLU with given code in the current check",
+      "xDA": "There is not anything to cancel by the command \"VoidLast\"",
+      "xDB": "A negative sum of PLU selling",
+      "xDC": "Invalid percent value",
+      "xDD": "There was not any selling yet",
+      "xDE": "The extra charges/discounts are disbled",
+      "xDF": "Invalid sum of the payment",
+      "xE0": "Using Client Code is disabled for this kind of payment",
+      "xE1": "Invalid sum of the payment",
+      "xE2": "The check payment is in progress",
+      "xE3": "The PLU is sold out",
+      "xE4": "The group could not be changed",
+      "xE5": "Invalid group",
+      "xE6": "The department could not be changed",
+      "xE7": "Invalid department",
+      "xE8": "Product of price and quantity is zero",
+      "xE9": "Internal sum overflow",
+      "xEA": "A fractional quantity is not allowed",
+      "xEB": "Invalid quantity",
+      "xEC": "The price could not be changed",
+      "xED": "Invalid price",
+      "xEE": "PLU does not exist",
+      "xEF": "The deposit/withdrawal of the money is begun",
+      "xF0": "Not empty check (contains sellings)",
+      "xF1": "Not existing or disabled payment type",
+      "xF2": "Record field overflow",
+      "xF3": "A negative sum of the Z1 report",
+      "xF4": "A negative sum of the check",
+      "xF5": "Check overflow",
+      "xF6": "Daily report overflow",
+      "xF7": "The check for copy is not found",
+      "xF8": "The payment for the check is not completed",
+      "xF9": "The cashier is not registered",
+      "xFA": "Logged in cashier has no rights to perform this operation",
+      "xFB": "The non-fiscal check is not opened",
+      "xFC": "The check is not opened",
+      "xFD": "The non-fiscal check is already opened",
+      "xFE": "The check is already opened",
+      "xFF": "E-journal overflow"
+    },
+    "tbl": {
+      "Time": {
+        "label": "Cash register time",
+        "Time": {
+          "label": "Time"
+        },
+        "Date": {
+          "label": "Date"
+        }
+      },
+      "QUser": {
+        "label": "User Query",
+        "id": {
+          "label": "Query number"
+        },
+        "User": {
+          "label": "User number"
+        }
+      },
+      "Com": {
+        "label": "Serial ports",
+        "id": {
+          "label": "Port number"
+        },
+        "Device": {
+          "label": "Device number",
+          "help": [
+            "<b>0</b> unused",
+            "<b>1</b> scales Leningrad",
+            "<b>3</b> barcode reader",
+            "<b>4</b> POS terminal",
+            "<b>5</b> barcode reader (text)",
+            "<b>6</b> scales CAS",
+            "<b>7</b> customer display",
+            "<b>8</b> scales Tiger",
+            "<b>9</b> scales UNS",
+            "<b>10</b> scales AT",
+            "<b>11</b> scales WildCat",
+            "<b>12</b> scales Масса-К",
+            "<b>13</b> scales Axis A250",
+            "<b>14</b> scales MoTEX"
+          ]
+        },
+        "Baud": {
+          "label": "Baud rate"
+        }
+      },
+      "Net": {
+        "label": "Quantity of barcode filters",
+        "NtEnb": {
+          "label": "Type of network interface"
+        },
+        "NtNum": {
+          "label": "Network number"
+        },
+        "NtBaud": {
+          "label": "Baud rate"
+        },
+        "Query": {
+          "label": "Reserved"
+        },
+        "LgNum": {
+          "label": "Logical number"
+        },
+        "WBar": {
+          "label": "Quantity of barcode filters"
+        },
+        "NetPsw": {
+          "label": "Reserved"
+        },
+        "ComPsw": {
+          "label": "Reserved"
+        }
+      },
+      "Hdr": {
+        "label": "Receipt Header",
+        "id": {
+          "label": "Line number"
+        },
+        "Param": {
+          "label": "Printing parameter",
+          "help": [
+            "<b>0</b> disabled",
+            "<b>1</b> regular",
+            "<b>2</b> double height"
+          ]
+        },
+        "Line": {
+          "label": "Header Line"
+        }
+      },
+      "Ftr": {
+        "label": "Promotional messages",
+        "id": {
+          "label": "Line number"
+        },
+        "Param": {
+          "label": "Printing parameter",
+          "help": [
+            "<b>0</b> disabled",
+            "<b>1</b> regular",
+            "<b>2</b> double height"
+          ]
+        },
+        "Line": {
+          "label": "Footer Line"
+        }
+      },
+      "Oper": {
+        "label": "Operators",
+        "id": {
+          "label": "Operator number"
+        },
+        "Name": {
+          "label": "Operator name"
+        },
+        "Pswd": {
+          "label": "Operator password"
+        }
+      },
+      "Dep": {
+        "label": "Departments",
+        "id": {
+          "label": "Department number"
+        },
+        "Name": {
+          "label": "Name"
+        }
+      },
+      "Grp": {
+        "label": "Items groups",
+        "id": {
+          "label": "Group number"
+        },
+        "Name": {
+          "label": "Group name"
+        }
+      },
+      "Dsc": {
+        "label": "Discounts and markups",
+        "NcDsb": {
+          "label": "Disable markup"
+        },
+        "Nac": {
+          "label": "Value of markup"
+        },
+        "SkDsb": {
+          "label": "Disable discount"
+        },
+        "Skd": {
+          "label": "Value of discount"
+        },
+        "PNDsb": {
+          "label": "Disable percent markup"
+        },
+        "PNac": {
+          "label": "Percent of markup"
+        },
+        "PSDsb": {
+          "label": "Disable percent discount"
+        },
+        "PSkd": {
+          "label": "Percent of discount"
+        }
+      },
+      "Pay": {
+        "label": "Payments types",
+        "id": {
+          "label": "Number"
+        },
+        "Param": {
+          "label": "Parameter",
+          "help": [
+            "<b>1</b> enable payment type,",
+            "<b>2</b> allowed the issuance of rest,",
+            "<b>4</b> need to enter client code,",
+            "<b>16</b> cashless payment type,",
+            "<b>32</b> allowed a refund,",
+            "<b>64</b> card terminal used,",
+            "<b>128</b> payment sum required"
+          ]
+        },
+        "Name": {
+          "label": "Name"
+        }
+      },
+      "Adm": {
+        "label": "Administrative settings",
+        "ParPrg": {
+          "label": "Programmer password"
+        },
+        "OtcPrg": {
+          "label": "Reports password"
+        },
+        "NumOpr": {
+          "label": "Quantity of active operators"
+        },
+        "CurTim": {
+          "label": "Current time"
+        },
+        "PrContr": {
+          "label": "Printing contrast"
+        },
+        "PrEqual": {
+          "label": "Printing equalization"
+        },
+        "ScrCntr": {
+          "label": "Contrast of screen"
+        }
+      },
+      "EET": {
+        "label": "EET settings",
+        "Addr": {
+          "label": "EET Server Address"
+        },
+        "Port": {
+          "label": "EET Server Port"
+        },
+        "DIC_POPL": {
+          "label": "<b>dic_popl</b><br> Taxpayer’s DIČ"
+        },
+        "DIC_POVER": {
+          "label": "<b>dic_poverujiciho</b><br> DIČ of entrustment taxpayer"
+        },
+        "ID_PROVOZ": {
+          "label": "<b>id_provoz</b><br> Marking of facility"
+        },
+        "ID_POKL": {
+          "label": "<b>id_pokl</b><br> Marking of POS"
+        }
+      },
+      "Flg": {
+        "label": "Flags of cash register",
+        "NFoot": {
+          "label": "Quantity of active footer lines"
+        },
+        "AutoOff": {
+          "label": "Parameter of automatic off "
+        },
+        "PrintOff": {
+          "label": "Parameters of printing",
+          "help": [
+            "<b>1</b> no print in training mode,",
+            "<b>2</b> print header just after end of receipt,"
+          ]
+        },
+        "Flg1": {
+          "label": "Flags",
+          "help": [
+            "<b>1</b> watch of remaining amount,",
+            "<b>2</b> no change PLU base from keyboard,",
+            "<b>4</b> PLU item weight must be entered,",
+            "<b>8</b> no receipt copy,",
+            "<b>16</b> no PLU report sorting,",
+            "<b>64</b> switch off sound (keyboard, errors),",
+            "<b>256</b> zero price allowed,",
+            "<b>512</b> delete 0 amount PLUs after Z1,",
+            "<b>1024</b> delete all PLU after Z1,",
+            "<b>8192</b> small font when journal printing,",
+            "<b>16384</b> display light off"
+          ]
+        },
+        "LowVolt": {
+          "label": "Reserved"
+        },
+        "Feed": {
+          "label": "Number of rows between receipts"
+        },
+        "Flg3": {
+          "label": "Receipt options",
+          "help": [
+            "<b>1</b> print PLU code,",
+            "<b>2</b> print department name,",
+            "<b>4</b> print department number,",
+            "<b>64</b> no operator name printing,",
+            "<b>256</b> no logo printing,",
+            "<b>65536</b> sound instead 1..30 errors"
+          ]
+        }
+      },
+      "Tax": {
+        "label": "VAT values",
+        "id": {
+          "label": "VAT id"
+        },
+        "Prc": {
+          "label": "VAT value"
+        },
+        "Extra": {
+          "label": "Excise value"
+        },
+        "SMode": {
+          "label": "Type of tax",
+          "help": [
+            "<b>0</b> VAT and Extra from turnover,",
+            "<b>1</b> VAT from turnover and from Extra,",
+            "<b>2</b> Extra from turnover and from VAT"
+          ]
+        }
+      },
+      "Fsk": {
+        "label": "Price point position",
+        "SNumSign": {
+          "label": "Serial number letters"
+        },
+        "FisNum": {
+          "label": "VAT number"
+        },
+        "NumPnt": {
+          "label": "Pointer position"
+        },
+        "NumChk": {
+          "label": "Receipt number"
+        },
+        "TaxOff": {
+          "label": "Tax mode",
+          "help": [
+            "<b>0</b> VAT included in the price,",
+            "<b>1</b> VAT not included in the price"
+          ]
+        },
+        "SerNum": {
+          "label": "Serial number of cash register"
+        }
+      },
+      "PLU": {
+        "label": "PLU",
+        "Code": {
+          "label": "Code"
+        },
+        "Name": {
+          "label": "Name"
+        },
+        "Price": {
+          "label": "Price"
+        },
+        "Dep": {
+          "label": "Department"
+        },
+        "Grp": {
+          "label": "Group"
+        },
+        "Qty": {
+          "label": "Quantity"
+        },
+        "Flg": {
+          "label": "Flag",
+          "help": [
+            "<b>1</b> price changeable,",
+            "<b>2</b> fractional amount only,",
+            "<b>4</b> disable sales with zero amount,",
+            "<b>16</b> receipt closed after sale,",
+            "<b>32</b> return only,",
+            "<b>64</b> sale only"
+          ]
+        }
+      },
+      "Host": {
+        "label": "TCP extended parameters",
+        "Name": {
+          "label": "DHCP name",
+          "help": "Network name of device"
+        }
+      },
+      "TCP": {
+        "label": "TCP settings",
+        "id": {
+          "label": "#"
+        },
+        "Addr": {
+          "label": "IP address"
+        },
+        "Gate": {
+          "label": "Gateway"
+        },
+        "Mask": {
+          "label": "Network mask"
+        },
+        "DNS": {
+          "label": "DNS server address"
+        },
+        "MAC": {
+          "label": "MAC address"
+        },
+        "AdptFlg": {
+          "label": "Flags",
+          "help": [
+            "<b>1</b> 10Mbps,",
+            "<b>2</b> 100Mbps,",
+            "<b>4</b> 1000Mbps,",
+            "<b>8</b> full duplex,",
+            "<b>16</b> automatic mode,",
+            "<b>32</b> enable MDI/MDI-X,",
+            "<b>256</b> keep alive off. (for Linux connection)"
+          ]
+        },
+        "SysLog": {
+          "label": "Syslog Client",
+          "Addr": {
+            "label": "Syslog server address",
+            "help": "Example: <b>192.168.8.1</b> or <b>syslog.server.org</b>"
+          },
+          "Port": {
+            "label": "Syslog server port",
+            "help": "Example: <b>514</b>"
+          },
+          "Priority": {
+            "label": "Syslog priority",
+            "help": "Priority according SysLog RFC. All used enabled:<b>4294967295</b>. Для отключения некоторых типов сообщений от этого числа надо отнять <b>8</b>(ошибки), <b>16</b>(предупреждения), <b>128</b>(отладка)"
+          },
+          "Trans": {
+            "label": "Unusal?",
+            "help": ""
+          }
+        }
+      }
+    }
+  },
+  "cs": {
+    "panel": {
+      "Firmware": "Firmware",
+      "Current state": "Current state",
+      "Version": "Version",
+      "Description": "Description",
+      "Firmware GUID": "Firmware GUID",
+      "Hardware GUID": "Hardware GUID",
+      "Firmware upload length": "Firmware upload length",
+      "Upload hex file": "Upload hex file",
+      "Upload": "Upload",
+      "Upload file status": "Upload file status",
+      "Flash firmware to processor": "Flash firmware to processor",
+      "Flash": "Flash",
+      "HEX file was uploaded successfully!": "HEX file was uploaded successfully!",
+      "Device programming is started...": "Device programming is started...",
+      "HEX file is not valid!": "HEX file is not valid!",
+      "Device was programmed successfully!": "Device was programmed successfully!",
+      "Online": "Online",
+      "Offline": "Offline",
+      "Cancel": "Cancel"
+    },
+    "err": {
+      "x01": "Cena není zadána",
+      "x02": "Množství není zadáno",
+      "x03": "Oddělení není zadáno",
+      "x04": "Skupina není zadána",
+      "x31": "Uživatel již registrován",
+      "x32": "Neplatné heslo",
+      "x33": "Neplatné číslo stolu",
+      "x34": "Přístup ke stolu zamítnut",
+      "x35": "Nastavení nenalezeno",
+      "x36": "Neplatný index",
+      "x37": "Neplatné poled",
+      "x38": "Přeplněný stůl",
+      "x39": "Neplatná délka binárních dat",
+      "x3A": "Snaha měnit pole pouze pro čtení",
+      "x3B": "Neplatná hodnota pole",
+      "x3C": "PLU existuje",
+      "x3D": "PLU má neprázdný report",
+      "x3E": "Požadavek zrušen",
+      "x3F": "Neplatná záložka",
+      "x40": "Klávesa nenalezena",
+      "x41": "Procedura už běží",
+      "x42": "PLU množství je záporné",
+      "x43": "Přesměrování pro čtení karty je zapnuté.",
+      "x87": "Chyba fiskální paměti",
+      "x88": "Chyba paměťové karty",
+      "x89": "Přeplněná karta",
+      "x8A": "Došel papír pro kontrolní účtenku",
+      "x8B": "Došel papír pro účtenku",
+      "x8C": "Přeplněná fiskální paměť",
+      "x8D": "Vydání změny zakázáno",
+      "x92": "Chyba tisku",
+      "x9C": "Uživatelsky displej vypnut",
+      "xA3": "Operace zrušena na straně zařízení",
+      "xA4": "ef_BegSlipChk Začátek účtenky je otevřený",
+      "xA5": "ef_NoFindZ1Rep Z1 přehled nenalezen",
+      "xA6": "ef_NoSlipPaper Konec účtenkového papíru",
+      "xA7": "ef_MMCDisable MMC je vypnuto",
+      "xA8": "ef_FMBadNum   Špatné číslo fiskální paměti",
+      "xA9": "ef_FMNotEmpty Fiskální paměť není prázdná",
+      "xB5": "ef_BegVatFact Formulář DPH je otevřený",
+      "xB6": "ef_RestDisb Restarční mód je vypnutý",
+      "xB7": "ef_NoOpenTable Stůl není otevřený",
+      "xB8": "ef_OverOrder Přeplněno objednávkami",
+      "xB9": "ef_BegRestrn Restaurační účet již spuštěn",
+      "xBA": "ef_BadNTable Špatné číslo stolu",
+      "xBB": "ef_IsWrk Electronic journal is not empty",
+      "xBC": "ef_TrainMode    Tréninkový mód",
+      "xBD": "ef_BadCurrDate   Špatné stávající datum",
+      "xBE": "ef_ChDateDisable Změna datumu/času vypnuta",
+      "xBF": "ef_ServTimer Servisní časovač doběhl",
+      "xC0": "ef_PlatTerm Error in work with NSMEP terminal",
+      "xC1": "ef_BadTax Bad tax number",
+      "xC2": "ef_BadProcParam Bad procedure parameter",
+      "xC3": "ef_NoFisPrnMode Fiscal printer mode is not started",
+      "xC4": "ef_DiffTaxName changed Tax or Name",
+      "xC5": "Required personalization",
+      "xC6": "No exchange with the server NSMEP for 72 hours",
+      "xC7": "Forbidden zeroing data EKL",
+      "xC8": "Forbidden work with GPRS modem",
+      "xCC": "Started return operation",
+      "xCF": "Z1 report is not empty",
+      "xD0": "Neprovádět převzetí peněz",
+      "xD1": "Pokladní zásuvka není zavřená",
+      "xD2": "Tisk žurnálu přerušen",
+      "xD3": "Změna datumu nebo konec směny dosažen",
+      "xD4": "Původní nastavení procent zvláštních příplatků/slev není specifikováno",
+      "xD5": "Původní nastavení zvláštních příplatků/slev není specifikováno",
+      "xD6": "Denní report není vypořádán",
+      "xD7": "Z1 přehled již byl vytištěn (Z1 přehled je prázdný) ",
+      "xD8": "Zrušení záznamu PLU který má subtotal/extra příplatky/slevy není dovolen",
+      "xD9": "Nenastaly prodeje PLU se zadaným kódem na této účtence",
+      "xDA": "Není co zrušit příkazem \"VoidLast\"",
+      "xDB": "Záporná částka při prodeji PLU",
+      "xDC": "Neplatné hodnota v procentech",
+      "xDD": "Dosud neproveden žádný prodej",
+      "xDE": "Zvláštní příplatky/slevy vypnuty",
+      "xDF": "Neplatný součet plateb",
+      "xE0": "Použití klientského kódu je vypnoto pro tento způsob platby",
+      "xE1": "Neplatný součet platby",
+      "xE2": "Platby účtenky probíhá",
+      "xE3": "PLU vyprodáno",
+      "xE4": "Skupina nemůže být změněna",
+      "xE5": "Neplatná skupina",
+      "xE6": "Oddělení nemůže být změněno",
+      "xE7": "Neplatné oddělení",
+      "xE8": "Cena a množství zboží je nula",
+      "xE9": "Interní součet přeplněn",
+      "xEA": "Částečné množství není dovoleno",
+      "xEB": "Neplatné množství",
+      "xEC": "Cena nemohla být změněna",
+      "xED": "Neplatná cena",
+      "xEE": "PLU neexistuje",
+      "xEF": "Zahájeno vložení/výběr peněz",
+      "xF0": "Neprázdná účtenka (obsahuje prodeje)",
+      "xF1": "Neexistující, nebo vypnutý způsob platby",
+      "xF2": "Přeplnění pole v přehledu",
+      "xF3": "Záporný součet v přehledu Z1",
+      "xF4": "Záporný součet na účtence",
+      "xF5": "Přeplnění účtenky",
+      "xF6": "Přeplnění denního přehledu",
+      "xF7": "Účtenka pro kopírování nenalezena",
+      "xF8": "Platba účtenky nedokončena",
+      "xF9": "Pokladní není registrován/a",
+      "xFA": "Přihlášená/ý pokladní nemá práva provést tuto operaci",
+      "xFB": "Nefiskální účtenka není otevřená",
+      "xFC": "Účtenka není otevřená",
+      "xFD": "Nefiskální účtenka už je otevřená",
+      "xFE": "Účtenka je otevřená",
+      "xFF": "E-journal přeplněn"
+    },
+    "tbl": {
+      "Time": {
+        "label": "Čas pokladny",
+        "Time": {
+          "label": "Čas"
+        },
+        "Date": {
+          "label": "Datum"
+        }
+      },
+      "QUser": {
+        "label": "Požadavek uživatele",
+        "id": {
+          "label": "Číslo požadavku"
+        },
+        "User": {
+          "label": "Číslo uživatele"
+        }
+      },
+      "Com": {
+        "label": "Seriové porty",
+        "id": {
+          "label": "Port number"
+        },
+        "Device": {
+          "label": "Číslo zařízení",
+          "help": [
+            "<b>0</b> nepoužit",
+            "<b>1</b> váha Leningrad",
+            "<b>3</b> čtečka čár kódů",
+            "<b>4</b> POS terminal",
+            "<b>5</b> čtečka čár kódů (text)",
+            "<b>6</b> váha CAS",
+            "<b>7</b> zákaznický displej",
+            "<b>8</b> váha Tiger",
+            "<b>9</b> váha UNS",
+            "<b>10</b> váha AT",
+            "<b>11</b> váha WildCat",
+            "<b>12</b> váha Масса-К",
+            "<b>13</b> váha Axis A250",
+            "<b>14</b> váha MoTEX"
+          ]
+        },
+        "Baud": {
+          "label": "Přenosová rychlost"
+        }
+      },
+      "Net": {
+        "label": "Počet váhových čár kódů",
+        "NtEnb": {
+          "label": "Typ sítového interf."
+        },
+        "NtNum": {
+          "label": "Síťové číslo"
+        },
+        "NtBaud": {
+          "label": "Přenosová rychlost"
+        },
+        "Query": {
+          "label": "Rezervováno"
+        },
+        "LgNum": {
+          "label": "Logické číslo"
+        },
+        "WBar": {
+          "label": "Počet váhových čár. kódů"
+        },
+        "NetPsw": {
+          "label": "Rezervováno"
+        },
+        "ComPsw": {
+          "label": "Rezervováno"
+        }
+      },
+      "Hdr": {
+        "label": "Záhlaví účtenky",
+        "id": {
+          "label": "Číslo řádku"
+        },
+        "Param": {
+          "label": "Parametr tisku",
+          "help": [
+            "<b>0</b> zakázat tisk",
+            "<b>1</b> povolit tisk",
+            "<b>2</b> povolit tisk dvojté velikosti"
+          ]
+        },
+        "Line": {
+          "label": "Řádek"
+        }
+      },
+      "Ftr": {
+        "label": "Marketingová sdělení",
+        "id": {
+          "label": "Č. řádku"
+        },
+        "Param": {
+          "label": "Parametr tisku",
+          "help": [
+            "<b>0</b> zákaz tisku",
+            "<b>1</b> povolit tisk",
+            "<b>2</b> povolit tisk dvojtou velikostí"
+          ]
+        },
+        "Line": {
+          "label": "Řádek"
+        }
+      },
+      "Oper": {
+        "label": "Uživatelé",
+        "id": {
+          "label": "Číslo uživatele"
+        },
+        "Name": {
+          "label": "Jméno uživatele"
+        },
+        "Pswd": {
+          "label": "Heslo uživatele"
+        }
+      },
+      "Dep": {
+        "label": "Oddělení",
+        "id": {
+          "label": "Číslo oddělení"
+        },
+        "Name": {
+          "label": "Jméno"
+        }
+      },
+      "Grp": {
+        "label": "Zbožová skupina",
+        "id": {
+          "label": "Číslo zbožové skupiny"
+        },
+        "Name": {
+          "label": "Název zbožové skupiny"
+        }
+      },
+      "Dsc": {
+        "label": "Slevy a přírážky",
+        "NcDsb": {
+          "label": "Přirážka zakázána"
+        },
+        "Nac": {
+          "label": "Hodnota přirážky"
+        },
+        "SkDsb": {
+          "label": "Sleva zakázána"
+        },
+        "Skd": {
+          "label": "Hodnota slevy"
+        },
+        "PNDsb": {
+          "label": "Procentní přirážka zakázána"
+        },
+        "PNac": {
+          "label": "Procento přirážky"
+        },
+        "PSDsb": {
+          "label": "Procentní sleva zakázána"
+        },
+        "PSkd": {
+          "label": "Procentní sleva"
+        }
+      },
+      "Pay": {
+        "label": "Typ platby",
+        "id": {
+          "label": "Číslo"
+        },
+        "Param": {
+          "label": "Parametr",
+          "help": [
+            "<b>1</b> umožnit typ platby,",
+            "<b>2</b> možnost vrácení drobných,",
+            "<b>4</b> třeba zadat číslo klienta,",
+            "<b>16</b> bezhotovostní platba,",
+            "<b>32</b> možnost vrácení peněz,",
+            "<b>64</b> platba platebním terminálem,",
+            "<b>128</b> ukázat částku k zaplacení"
+          ]
+        },
+        "Name": {
+          "label": "Název"
+        }
+      },
+      "Adm": {
+        "label": "Administrativní nastavení",
+        "ParPrg": {
+          "label": "Heslo pro programování"
+        },
+        "OtcPrg": {
+          "label": "Heslo k reportům"
+        },
+        "NumOpr": {
+          "label": "Počet aktivních uživatelů"
+        },
+        "CurTim": {
+          "label": "Aktuální čas"
+        },
+        "PrContr": {
+          "label": "Kontrast tisku"
+        },
+        "PrEqual": {
+          "label": "Rovnoměrnost tisku"
+        },
+        "ScrCntr": {
+          "label": "Kontrast obrazovky"
+        }
+      },
+      "EET": {
+        "label": "EET settings",
+        "Addr": {
+          "label": "EET Server Address"
+        },
+        "Port": {
+          "label": "EET Server Port"
+        },
+        "DIC_POPL": {
+          "label": "<b>dic_popl</b><br> Taxpayer’s DIČ"
+        },
+        "DIC_POVER": {
+          "label": "<b>dic_poverujiciho</b><br> DIČ of entrustment taxpayer"
+        },
+        "ID_PROVOZ": {
+          "label": "<b>id_provoz</b><br> Marking of facility"
+        },
+        "ID_POKL": {
+          "label": "<b>id_pokl</b><br> Marking of POS"
+        }
+      },
+      "Flg": {
+        "label": "Příznaky pokladny",
+        "NFoot": {
+          "label": "Počet aktivních řádků v zápatí účtenky"
+        },
+        "AutoOff": {
+          "label": "Automatické vypnutí"
+        },
+        "PrintOff": {
+          "label": "Parametry tisku",
+          "help": [
+            "<b>1</b> vypnout tisk v režimu školení,",
+            "<b>2</b> tisk záhlaví po ukončení účtenky"
+          ]
+        },
+        "Flg1": {
+          "label": "Hlášky",
+          "help": [
+            "<b>1</b> sledovat zboží na skladě,",
+            "<b>2</b> no change PLU base from keyboard zákaz měnit zboží z klávesnice,",
+            "<b>4</b> PLU item weight must be entered musí být vložena hmotnost zboží,",
+            "<b>8</b> kopie účtenky zakázána,",
+            "<b>16</b> zákaz sortování ve zbožových reportech,",
+            "<b>64</b> vypnout zvukové signály (klávesnice, chyby),",
+            "<b>256</b> nulová cena povolena,",
+            "<b>512</b> vymazat zboží s nulovým množstvím po Z1,",
+            "<b>1024</b> vymazat všechno zboží po Z1,",
+            "<b>8192</b> tisk žurnálu malým písmem,",
+            "<b>16384</b> vypnout podsvícení displeje"
+          ]
+        },
+        "LowVolt": {
+          "label": "Rezervováno"
+        },
+        "Feed": {
+          "label": "Počet řádku mezi účtenkami"
+        },
+        "Flg3": {
+          "label": "Možnosti účtenky",
+          "help": [
+            "<b>1</b> tisk kódu zboží,",
+            "<b>2</b> tisk názvu oddělení,",
+            "<b>4</b> tisk čísla oddělení,",
+            "<b>64</b> netisknout jméno uživatele,",
+            "<b>256</b> netisknout logo,",
+            "<b>65536</b> zvuk místo chyb 1..30"
+          ]
+        }
+      },
+      "Tax": {
+        "label": "hodnoty DPH",
+        "id": {
+          "label": "DPH identifikátor"
+        },
+        "Prc": {
+          "label": "% DPH"
+        },
+        "Extra": {
+          "label": "% spotřební daně"
+        },
+        "SMode": {
+          "label": "Druh daně",
+          "help": [
+            "<b>0</b> DPH a spotřební daň z obratu,",
+            "<b>1</b> DPH z obratu a ze spotřební daně,",
+            "<b>2</b> Spotřební daň z obratu a z DPH"
+          ]
+        }
+      },
+      "Fsk": {
+        "label": "Pozice desetinné čárky",
+        "SNumSign": {
+          "label": "Písmena výrobního čísla"
+        },
+        "FisNum": {
+          "label": "DIČ"
+        },
+        "NumPnt": {
+          "label": "Pozice desetinné čárky"
+        },
+        "NumChk": {
+          "label": "Číslo účtenky"
+        },
+        "TaxOff": {
+          "label": "Daňový režim",
+          "help": [
+            "<b>0</b> Včetně DPH,",
+            "<b>1</b> Bez DPH"
+          ]
+        },
+        "SerNum": {
+          "label": "Sériové číslo kasy"
+        }
+      },
+      "PLU": {
+        "label": "Zboží",
+        "Code": {
+          "label": "Kód zboží"
+        },
+        "Name": {
+          "label": "Název"
+        },
+        "Price": {
+          "label": "Cena"
+        },
+        "Dep": {
+          "label": "Oddělení"
+        },
+        "Grp": {
+          "label": "Skupina"
+        },
+        "Qty": {
+          "label": "Množství"
+        },
+        "Flg": {
+          "label": "Hlášky",
+          "help": [
+            "<b>1</b> cena se může měnit,",
+            "<b>2</b> pouze částečné množství,",
+            "<b>4</b> zákaz prodeje při nulovém skladu,",
+            "<b>16</b> uzavřít účtenku,",
+            "<b>32</b> pouze vrácení,",
+            "<b>64</b> pouze prodej"
+          ]
+        }
+      },
+      "Host": {
+        "label": "TCP rozšířené parametry",
+        "Name": {
+          "label": "DHCP jméno",
+          "help": "Síťové jméno zařízení"
+        }
+      },
+      "TCP": {
+        "label": "TCP nastavení",
+        "id": {
+          "label": "# číslo"
+        },
+        "Addr": {
+          "label": "I P adresa"
+        },
+        "Gate": {
+          "label": "Gateway"
+        },
+        "Mask": {
+          "label": "Maska sítě"
+        },
+        "DNS": {
+          "label": "Adresa DNS serveru"
+        },
+        "MAC": {
+          "label": "MAC adresa"
+        },
+        "AdptFlg": {
+          "label": "Hlášky",
+          "help": [
+            "<b>1</b> 10Mbps,",
+            "<b>2</b> 100Mbps,",
+            "<b>4</b> 1000Mbps,",
+            "<b>8</b> plný duplex,",
+            "<b>16</b> automatický mode,",
+            "<b>32</b> povolit MDI/MDI-X,",
+            "<b>256</b> odpojit keep alive. (nutné pro Linux)"
+          ]
+        },
+        "EET": {
+          "label": "EET settings",
+          "Addr": {
+            "label": "EET Server Address"
+          },
+          "Port": {
+            "label": "EET Server Port"
+          },
+          "DIC_POPL": {
+            "label": "dic_popl Taxpayer’s DIČ"
+          },
+          "DIC_POVER": {
+            "label": "dic_poverujiciho DIČ of entrustment taxpayer"
+          },
+          "ID_PROVOZ": {
+            "label": "id_provoz Marking of facility"
+          },
+          "ID_POKL": {
+            "label": "id_pokl Marking of POS"
+          }
+        },
+        "SysLog": {
+          "label": "Syslog Client",
+          "Addr": {
+            "label": "Syslog server address",
+            "help": "Example: <b>192.168.8.1</b> or <b>syslog.server.org</b>"
+          },
+          "Port": {
+            "label": "Syslog server port",
+            "help": "Example: <b>514</b>"
+          },
+          "Priority": {
+            "label": "Syslog priority",
+            "help": "Priority podle standardu SysLog RFC. Zapnout všechny:<b>4294967295</b>. Pro vypnutí některých hlášek je třeba od tohoto množství odebrat <b>8</b>(chyby), <b>16</b>(varování), <b>128</b>(vyladění)"
+          },
+          "Trans": {
+            "label": "Unusal?",
+            "help": ""
+          }
+        }
+      }
+    }
+  }
+}

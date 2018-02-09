@@ -134,26 +134,26 @@ var appStart = function () {
 		 {lnk:'#plu',img:'plu',name:'PLU'
 		 //addView: new PLUView()
 		 })}),*/
-		new MainCell({
-			model: new Backbone.Model({
-				lnk:     '#table', img: 'table', name: 'Settings',
-				addView: new PrgView({model: ecrStatus})
-			})
-		}),
-		new MainCell({
-			model: new Backbone.Model({
-				lnk:     '#fm', img: 'fm', name: 'Fiscal',
-				addView: new FiscalView({model: fiscalCell})
-			})
-		}),
-		new MainCell({
-			model: new Backbone.Model({
-				lnk:     '#network', img: 'network', name: 'Network',
-				addView: new NetworkView({model: networkCell})
-			})
-		}),
+		//new MainCell({
+		//	model: new Backbone.Model({
+		//		lnk:     '#table', img: 'table', name: 'Settings',
+		//		addView: new PrgView({model: ecrStatus})
+		//	})
+		//}),
+		//new MainCell({
+		//	model: new Backbone.Model({
+		//		lnk:     '#fm', img: 'fm', name: 'Fiscal',
+		//		addView: new FiscalView({model: fiscalCell})
+		//	})
+		//}),
+		//new MainCell({
+		//	model: new Backbone.Model({
+		//		lnk:     '#network', img: 'network', name: 'Network',
+		//		addView: new NetworkView({model: networkCell})
+		//	})
+		//}),
 		new MainCell({model: new Backbone.Model({lnk: '#report', img: 'sales', name: 'Reports'})}),
-		new MainCell({model: new Backbone.Model({lnk: '#backup', img: 'backup', name: 'Backup'})})
+		//new MainCell({model: new Backbone.Model({lnk: '#backup', img: 'backup', name: 'Backup'})})
 	];
 	schema          = new Schema();
 	appRouter       = new AppRouter();
@@ -192,13 +192,13 @@ var appStart = function () {
 			}));
 		}
 		if (schema.get('Logo')) {
-			mainScreenCells.push(new MainCell({
-				model: new Backbone.Model(
-					{
-						lnk: '#logo', img: 'logo', name: 'Logo'
-						//addView: new PLUView()
-					})
-			}));
+			//mainScreenCells.push(new MainCell({
+			//	model: new Backbone.Model(
+			//		{
+			//			lnk: '#logo', img: 'logo', name: 'Logo'
+			//			//addView: new PLUView()
+			//		})
+			//}));
 		}
 		modemPages   = [];
 		fiscalPages  = [

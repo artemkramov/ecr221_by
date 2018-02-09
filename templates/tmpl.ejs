@@ -24,61 +24,68 @@
 
 <script type="text/template" id="network-cell">
     <tbody>
-    <%_.each(models,function(model) {%>
+    <% _.each(models,function(model) { %>
     <tr>
-        <td><%=model.get('name')%></td>
+        <td><%= model.get('name') %></td>
         <td>
             <%
-            var addr = model.get('addr');
-            if (addr) {
-                if (!_.isString(addr)) addr = IP2Str(addr);
-                if (addr=='0.0.0.0') { print(t('Off'));
-                } else print(['<b>',t('Active'),'.</b> IP:',addr].join(''));
-            } else print(t('Off'));
+                var addr = model.get('addr');
+                if (addr) {
+                    if (!_.isString(addr)) addr = IP2Str(addr);
+                    if (addr == '0.0.0.0') {
+                        print(t('Off'));
+                    } else print(['<b>', t('Active'), '.</b> IP:', addr].join(''));
+                } else print(t('Off'));
             %>
         </td>
     </tr>
-    <%});%>
+    <% }); %>
     </tbody>
 </script>
 
 <script type="text/template" id="interfaces-tbl">
-<table class="table table-striped">
-    <tr>
-        <th><%=t('Name')%></th><th><%=t('Address')%></th><th><%=t('Mask')%></th><th><%=t('Gateway')%></th><th><%=t('DNS')%></th>
-    </tr>
-    <%models.each(function(model) {%>
+    <table class="table table-striped">
         <tr>
-            <td><%=model.get('name')%></td>
+            <th><%= t('Name') %></th>
+            <th><%= t('Address') %></th>
+            <th><%= t('Mask') %></th>
+            <th><%= t('Gateway') %></th>
+            <th><%= t('DNS') %></th>
+        </tr>
+        <% models.each(function(model) { %>
+        <tr>
+            <td><%= model.get('name') %></td>
             <%
                 var addr = model.get('addr');
-                if (addr) {
+            if (addr) {
             %>
-                    <td><%=IP2Str(addr)%></td><td><%=IP2Str(model.get('mask'))%></td><td><%=IP2Str(model.get('gateway'))%></td>
-                    <td><%=IP2Str(model.get('dns'))%></td>
-            <%  } else {%>
-                <td colspan="4"><%=t('Off')%></td>
-            <%  }%>
+            <td><%= IP2Str(addr) %></td>
+            <td><%= IP2Str(model.get('mask')) %></td>
+            <td><%= IP2Str(model.get('gateway')) %></td>
+            <td><%= IP2Str(model.get('dns')) %></td>
+            <% } else { %>
+            <td colspan="4"><%= t('Off') %></td>
+            <% } %>
         </tr>
-    <%})%>
-</table>
+        <% }) %>
+    </table>
 </script>
 
 <script type="text/template" id="left-col">
     <ul class="nav nav-pills nav-stacked">
-        <%_.each(models,function(model,idx) {%>
-        <li <%=(idx==modelIdx)?'class="active"':''%>><a href="<%=model.lnk%>"><%=t(model.name)%></a></li>
-        <%});%>
-        <li><a href="#"><%=t('Back')%></a></li>
+        <% _.each(models,function(model, idx) { %>
+        <li <%= (idx == modelIdx)?'class="active"':'' %>><a href="<%= model.lnk %>"><%= t(model.name) %></a></li>
+        <% }); %>
+        <li><a href="#"><%= t('Back') %></a></li>
     </ul>
 </script>
 
 <script type="text/template" id="table-left-col-old">
     <div class="visible-lg visible-md">
         <ul class="nav nav-pills nav-stacked">
-            <%_.each(models,function(model,idx) {%>
-            <li><a href="#<%=model.get('id')%>"><%=model.get('name')%></a></li>
-            <%});%>
+            <% _.each(models,function(model, idx) { %>
+            <li><a href="#<%= model.get('id') %>"><%= model.get('name') %></a></li>
+            <% }); %>
         </ul>
     </div>
 </script>
@@ -86,154 +93,188 @@
 <script type="text/template" id="table-left-col">
     <div class="visible-lg visible-md">
         <ul class="nav nav-pills nav-stacked">
-            <%_.each(models,function(model,idx) {%>
-            <li><a data-ref="<%=model.get('id')%>"><%=model.get('name')%></a></li>
-            <%});%>
+            <% _.each(models,function(model, idx) { %>
+            <li><a data-ref="<%= model.get('id') %>"><%= model.get('name') %></a></li>
+            <% }); %>
         </ul>
     </div>
 </script>
 
 
 <script type="text/template" id="impex-view">
-    <a class="btn btn-default" href="#" data-toggle="tooltip" title="<%=t('Back')%>">
+    <a class="btn btn-default" href="#" data-toggle="tooltip" title="<%= t('Back') %>">
         <span class="glyphicon glyphicon-arrow-left"></span></a>
     <div class="btn-group">
-        <button class="export btn btn-default" draggable="true" data-toggle="tooltip" title="<%=t('Export')%>"><span class="glyphicon glyphicon-export"></span></button>
-        <button class="import btn btn-default"><span class="glyphicon glyphicon-import" data-toggle="tooltip" title="<%=t('Import')%>"></span></button>
+        <button class="export btn btn-default" draggable="true" data-toggle="tooltip" title="<%= t('Export') %>"><span
+                    class="glyphicon glyphicon-export"></span></button>
+        <button class="import btn btn-default"><span class="glyphicon glyphicon-import" data-toggle="tooltip"
+                                                     title="<%= t('Import') %>"></span></button>
     </div>
-    <div hidden> <a class="csv" download="tables.csv"/>
+    <div hidden><a class="csv" download="tables.csv"/>
         <input type="file" class="icsv"/></div>
 </script>
 
 <script type="text/template" id="form-template">
-    <form id="<%=id%>" data-fid="<%=id%>" autocomplete="on" class="form-horizontal">
-        <% _.each( elems, function( el ){
-        if (('renderable' in el) && !el.renderable) return;%>
+    <form id="<%= id %>" data-fid="<%= id %>" autocomplete="on" class="form-horizontal">
+        <% _.each( elems, function(el){
+            if (('renderable' in el) && !el.renderable) return; %>
         <div class="form-group row">
-            <%if ((el.type!='radio') && (el.type!='checkbox')) {
-            if ('label' in el) print('<label class="col-md-2 control-label">'+el.label+'</label>');
-            print('<div class="col-md-5">');
+            <% if ((el.type != 'radio') && (el.type != 'checkbox')) {
+                if ('label' in el) print('<label class="col-md-2 control-label">' + el.label + '</label>');
+                print('<div class="col-md-5">');
             }
-            switch(el.type) {
-            case 'select-one': {%>
-            <select name="<%=el.name%>" class="form-control" <%if (('editable' in el) && (el.editable==false)) print('disabled')%>>
-            <% _.each(extractLabels(el.labels), function(label,no) { %>
-            <option value="<%=no%>"><%=label%></option>
-            <%});%>
+                    switch(el.type) {
+            case 'select-one': { %>
+            <select name="<%= el.name %>" class="form-control"
+                    <% if (('editable' in el) && (el.editable == false)) print('disabled') %>
+                    >
+                <% _.each(extractLabels(el.labels), function(label, no) { %>
+                <option value="<%= no %>"><%= label %></option>
+                <% }); %>
             </select>
-            <%  } break;
-            case 'select-multiple': {%>
-            <select multiple name="<%=el.name%>" class="form-control" <%if (('editable' in el) && (el.editable==false)) print('disabled')%>>
-            <% _.each(extractLabels(el.labels), function(label,no) { %>
-            <option value="<%=no%>"><%=label%></option>
-            <%});%>
+            <% } break;
+            case 'select-multiple': { %>
+            <select multiple name="<%= el.name %>" class="form-control"
+                    <% if (('editable' in el) && (el.editable == false)) print('disabled') %>
+                    >
+                <% _.each(extractLabels(el.labels), function(label, no) { %>
+                <option value="<%= no %>"><%= label %></option>
+                <% }); %>
             </select>
-            <%  } break;
-            case 'radio': { _.each(extractLabels(el.labels), function(label,no) { %>
+            <% } break;
+            case 'radio': { _.each(extractLabels(el.labels), function(label, no) { %>
             <div class="radio col-md-offset-2 col-md-6">
-                <label><input type="radio" name="<%=el.name%>" value="<%=no%>" <%if (('editable' in el) && (el.editable==false)) print(' disabled')%>/><%=label%></label>
+                <label><input type="radio" name="<%= el.name %>" value="<%= no %>"
+                            <% if (('editable' in el) && (el.editable == false)) print(' disabled') %>
+                            /><%= label %></label>
             </div>
-            <%  });} break;
-            case 'checkbox': {%>
-            <% _.each(extractLabels(el.labels), function(label,no) { %>
+            <% });} break;
+            case 'checkbox': { %>
+            <% _.each(extractLabels(el.labels), function(label, no) { %>
             <div class="checkbox col-md-offset-2 col-md-6">
-                <label><input type="checkbox" name="<%=el.name%>" value="<%=no%>" <%if (('editable' in el) && (el.editable==false)) print(' disabled')%>/><%=label%></label>
+                <label><input type="checkbox" name="<%= el.name %>" value="<%= no %>"
+                            <% if (('editable' in el) && (el.editable == false)) print(' disabled') %>
+                            /><%= label %></label>
             </div>
-            <%  });} break;
+            <% });} break;
+            case 'checkbox-multiple': { %>
+            <div class="checkbox-multiple-choice-row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <input type="text" data-type="checkbox-multiple" class="form-control checkbox-multiple-choice-value" readonly name="<%= el.name %>" value="" />
+                    </div>
+                </div>
+                <% _.each(el.labels, function(label, index) { %>
+                <div class="checkbox col-md-12">
+                    <label>
+                        <input type="checkbox" data-type="checkbox-<%= el.name %>" class="checkbox-multiple-choice" value="<%= label.val %>"
+                                <% if (('editable' in el) && (el.editable == false)) print(' disabled') %>
+                                /><%= label.label %>
+                    </label>
+                </div>
+                <% }); %>
+            </div>
+            <% } break;
             default: { %>
-            <input type="<%=el.type%>" name="<%=el.name%>" class="form-control" <%if ('attr' in el) print(el.attr);
-            if (('editable' in el) && (el.editable==false)) print(' disabled');
-            if ('pattern' in el) {
-            var p = schema.regex(el.pattern);
-            if (p.length && (p!='.*')) print(' pattern="'+p+'"');
+            <input type="<%= el.type %>" name="<%= el.name %>" class="form-control"
+                    <% if ('attr' in el) print(el.attr);
+                        if (('editable' in el) && (el.editable == false)) print(' disabled');
+                        if ('pattern' in el) {
+                            var p = schema.regex(el.pattern);
+                            if (p.length && (p != '.*')) print(' pattern="' + p + '"');
+                        }
+                        if ((el.type == 'range') || (el.type == 'number')) {
+                            if ('min' in el) print(' min="' + el.min + '"');
+                            if ('max' in el) print(' max="' + el.max + '"');
+                            if ('step' in el) print(' step="' + el.step + '"');
+                        }
+                        if (el.type == 'time') print(' step="1"');
+                        if ('placeholder' in el) print(' placeholder="' + el.placeholder + '"'); %>
+                    >
+            <% } break;
             }
-            if ((el.type=='range')||(el.type=='number')) {
-            if ('min' in el) print(' min="'+el.min+'"');
-            if ('max' in el) print(' max="'+el.max+'"');
-            if ('step' in el) print(' step="'+el.step+'"');
-            }
-            if (el.type=='time') print(' step="1"');
-            if ('placeholder' in el) print(' placeholder="'+el.placeholder+'"');%>>
-            <%  } break;
-            }
-            if ((el.type!='radio') && (el.type!='checkbox')) print('</div>');
-            if ('help' in el) print(formatHelp(el.help));%>
+                if ((el.type != 'radio') && (el.type != 'checkbox')) print('</div>');
+                if ('help' in el) print(formatHelp(el.help)); %>
         </div>
         <% }); %>
-        <div class="form-group"><div class="btn-group col-md-offset-2">
-            <button class="btn btn-default" data-loading-text="<%=t('Saving...')%>"><%=t('Save')%></button>
-            <input type="reset" value="<%=t('Reset')%>" class="btn btn-default"/>
-        </div></div>
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2">
+                <button class="btn btn-default" data-loading-text="<%= t('Saving...') %>"><%= t('Save') %></button>
+                <input type="reset" value="<%= t('Reset') %>" class="btn btn-default"/>
+            </div>
+        </div>
     </form>
 </script>
 
 <script type="text/template" id="form-bar-template">
     <div class="btn-group tblctrl">
-        <button class="btn btn-default" data-ev="first" data-toggle="tooltip" title="<%=t('First')%>">
+        <button class="btn btn-default" data-ev="first" data-toggle="tooltip" title="<%= t('First') %>">
             <span class="glyphicon glyphicon-step-backward"></span></button>
-        <button class="btn btn-default" data-ev="prev" data-toggle="tooltip" title="<%=t('Previous')%>">
+        <button class="btn btn-default" data-ev="prev" data-toggle="tooltip" title="<%= t('Previous') %>">
             <span class="glyphicon glyphicon-chevron-left"></span></button>
-        <button class="btn btn-default" data-ev="next" data-toggle="tooltip" title="<%=t('Next')%>">
+        <button class="btn btn-default" data-ev="next" data-toggle="tooltip" title="<%= t('Next') %>">
             <span class="glyphicon glyphicon-chevron-right"></span></button>
-        <button class="btn btn-default" data-ev="last" data-toggle="tooltip" title="<%=t('Last')%>">
+        <button class="btn btn-default" data-ev="last" data-toggle="tooltip" title="<%= t('Last') %>">
             <span class="glyphicon glyphicon-step-forward"></span></button>
     </div>
-    <button class="btn btn-default btntbl tblctrl" data-toggle="tooltip" title="<%=t('Table Mode')%>">
+    <button class="btn btn-default btntbl tblctrl" data-toggle="tooltip" title="<%= t('Table Mode') %>">
         <span class="glyphicon glyphicon-th-large"></span></button>
-    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%= t('Refresh') %>">
         <span class="glyphicon glyphicon-refresh"></span></button>
 </script>
 
 <script type="text/template" id="plu-form-bar-template">
-    <button class="btn btn-default" data-ev="del-all" data-toggle="tooltip" title="<%=t('Delete All')%>">
+    <button class="btn btn-default" data-ev="del-all" data-toggle="tooltip" title="<%= t('Delete All') %>">
         <span class="glyphicon glyphicon-remove"></span></button>
     <div class="btn-group">
-        <button class="btn btn-default" data-ev="ins" data-toggle="tooltip" title="<%=t('Insert Row')%>">
+        <button class="btn btn-default" data-ev="ins" data-toggle="tooltip" title="<%= t('Insert Row') %>">
             <span class="glyphicon glyphicon-plus"></span></button>
-        <button class="btn btn-default" data-ev="del" data-toggle="tooltip" title="<%=t('Delete Row')%>">
+        <button class="btn btn-default" data-ev="del" data-toggle="tooltip" title="<%= t('Delete Row') %>">
             <span class="glyphicon glyphicon-minus"></span></button>
     </div>
     <div class="btn-group">
-        <button class="btn btn-default" data-ev="first" data-toggle="tooltip" title="<%=t('First')%>">
+        <button class="btn btn-default" data-ev="first" data-toggle="tooltip" title="<%= t('First') %>">
             <span class="glyphicon glyphicon-step-backward"></span></button>
-        <button class="btn btn-default" data-ev="prev" data-toggle="tooltip" title="<%=t('Previous')%>">
+        <button class="btn btn-default" data-ev="prev" data-toggle="tooltip" title="<%= t('Previous') %>">
             <span class="glyphicon glyphicon-chevron-left"></span></button>
-        <button class="btn btn-default" data-ev="next" data-toggle="tooltip" title="<%=t('Next')%>">
+        <button class="btn btn-default" data-ev="next" data-toggle="tooltip" title="<%= t('Next') %>">
             <span class="glyphicon glyphicon-chevron-right"></span></button>
-        <button class="btn btn-default" data-ev="last" data-toggle="tooltip" title="<%=t('Last')%>">
+        <button class="btn btn-default" data-ev="last" data-toggle="tooltip" title="<%= t('Last') %>">
             <span class="glyphicon glyphicon-step-forward"></span></button>
     </div>
-    <button class="btn btn-default btntbl" data-toggle="tooltip" title="<%=t('Table Mode')%>">
+    <button class="btn btn-default btntbl" data-toggle="tooltip" title="<%= t('Table Mode') %>">
         <span class="glyphicon glyphicon-th-large"></span></button>
-    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%= t('Refresh') %>">
         <span class="glyphicon glyphicon-refresh"></span></button>
 </script>
 
 
 <script type="text/template" id="table-bar-template">
-    <button class="btn btn-default btnfrm" data-toggle="tooltip" title="<%=t('Form Mode')%>">
+    <button class="btn btn-default btnfrm" data-toggle="tooltip" title="<%= t('Form Mode') %>">
         <span class="glyphicon glyphicon-th-list"></span></button>
-    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%= t('Refresh') %>">
         <span class="glyphicon glyphicon-refresh"></span></button>
 </script>
 
 <script type="text/template" id="plu-table-bar-template">
-    <button class="btn btn-default" data-ev="del-all" data-toggle="tooltip" title="<%=t('Delete All')%>">
+    <button class="btn btn-default" data-ev="del-all" data-toggle="tooltip" title="<%= t('Delete All') %>">
         <span class="glyphicon glyphicon-remove"></span></button>
     <div class="btn-group">
-        <button class="btn btn-default" data-ev="ins" data-toggle="tooltip" title="<%=t('Insert Row')%>">
+        <button class="btn btn-default" data-ev="ins" data-toggle="tooltip" title="<%= t('Insert Row') %>">
             <span class="glyphicon glyphicon-plus"></span></button>
-        <button class="btn btn-default" data-ev="del" disabled="disabled" data-toggle="tooltip" title="<%=t('Delete Selected Rows')%>">
+        <button class="btn btn-default" data-ev="del" disabled="disabled" data-toggle="tooltip"
+                title="<%= t('Delete Selected Rows') %>">
             <span class="glyphicon glyphicon-minus"></span></button>
     </div>
-    <button class="btn btn-default btnfrm" data-toggle="tooltip" title="<%=t('Form Mode')%>">
+    <button class="btn btn-default btnfrm" data-toggle="tooltip" title="<%= t('Form Mode') %>">
         <span class="glyphicon glyphicon-th-list"></span></button>
-    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%=t('Refresh')%>">
+    <button class="btn btn-default" data-ev="refresh" data-toggle="tooltip" title="<%= t('Refresh') %>">
         <span class="glyphicon glyphicon-refresh"></span></button>
 </script>
 
 <script type="text/template" id="log">
-    <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+    </button>
     <details open>
         <summary>Log</summary>
         <div style="height: 100px; overflow: auto; resize: vertical" id="logtxt"></div>
@@ -249,24 +290,24 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <div class="checkbox">
-                <label> <input type="checkbox" checked> <%=t('Use computer time')%> </label>
+                <label> <input type="checkbox" checked> <%= t('Use computer time') %> </label>
             </div>
         </div>
     </div>
     <div class="form-group" id="date-group">
         <label for="d" class="col-sm-2 control-label">Date</label>
-        <%if (is_type['datetime-local']) {%>
+        <% if (is_type['datetime-local']) { %>
         <div class="col-sm-10">
             <input type="datetime-local" class="form-control" id="d" step="1">
         </div>
-        <%} else {%>
+        <% } else { %>
         <div class="col-sm-4">
             <input type="date" class="form-control" id="d" placeholder="DD-MM-YYYY" pattern="\d{2}-\d{2}-\d{4}">
         </div>
         <div class="col-sm-4">
             <input type="time" class="form-control" id="t" step="1" placeholder="HH:MM:SS" pattern="\d{2}:\d{2}:\d{2}">
         </div>
-        <%}%>
+        <% } %>
     </div>
 </script>
 
@@ -275,7 +316,7 @@
     <form class="form-horizontal" role="form">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button class="btn btn-primary" data-loading-text="<%=t('Wait...')%>"><%= t("Set") %></button>
+                <button class="btn btn-primary" data-loading-text="<%= t('Wait...') %>"><%= t("Set") %></button>
             </div>
         </div>
     </form>
@@ -284,14 +325,15 @@
 <script type="text/template" id="fisc-reset">
     <form class="form-horizontal" role="form">
         <div class="form-group">
-            <label for="receiptNo" class="col-sm-2 control-label"><%=t('Receipt#')%></label>
+            <label for="receiptNo" class="col-sm-2 control-label"><%= t('Receipt#') %></label>
+
             <div class="col-sm-10">
                 <input type="number" class="form-control" id="receiptNo">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button class="btn btn-primary" data-loading-text="<%=t('Wait...')%>"><%=t('Reset')%></button>
+                <button class="btn btn-primary" data-loading-text="<%= t('Wait...') %>"><%= t('Reset') %></button>
             </div>
         </div>
     </form>
@@ -346,7 +388,8 @@
             </div>
             <div class="form-group">
                 <label><%= t("Delimiter") %></label>
-                <input type="text" class="form-control backup-delimiter" maxlength="1" id="export-delimiter" value="<%= exportDelimiter %>"/>
+                <input type="text" class="form-control backup-delimiter" maxlength="1" id="export-delimiter"
+                       value="<%= exportDelimiter %>"/>
             </div>
             <div class="form-group">
                 <label><%= t("Backup file name") %></label>
@@ -400,10 +443,14 @@
         </div>
         <div class="panel-body">
             <label><%= t("Choose an archive to import") %></label>
-            <input type="file" accept=".zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" id="file-import">
+            <input type="file"
+                   accept=".zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
+                   id="file-import">
+
             <div class="form-group">
                 <label><%= t("Delimiter") %></label>
-                <input type="text" class="form-control backup-delimiter" maxlength="1" id="import-delimiter" value="<%= importDelimiter %>"/>
+                <input type="text" class="form-control backup-delimiter" maxlength="1" id="import-delimiter"
+                       value="<%= importDelimiter %>"/>
             </div>
             <button type="button" class="btn btn-danger btn-import-run" disabled="true">
                 <%= t("Import") %>
@@ -506,32 +553,33 @@
 
 <script type="text/template" id="impex-err">
     <li class="list-group-item">
-        <h4 class="list-group-item-heading"><%=d.msg%></h4>
+        <h4 class="list-group-item-heading"><%= d.msg %></h4>
+
         <p class="list-group-item-text">
-            <%=d.file?"<b>File:</b>"+d.file:""%>
-            <%=d.tbl?"<b>Table:</b>"+d.tbl:""%>
-            <%=d.row?"<b>Index:</b>"+d.row:""%>
+            <%= d.file?"<b>File:</b>" + d.file:"" %>
+            <%= d.tbl?"<b>Table:</b>" + d.tbl:"" %>
+            <%= d.row?"<b>Index:</b>" + d.row:"" %>
         </p>
     </li>
 </script>
 <!--script type="text/template" id="sales-cell">
     <tbody>
-    <tr><td>Report#:</td><td><%=zno%></td></tr>
-    <tr><td>Total:</td><td><%=total%></td></tr>
-    <tr><td>Taxes:</td><td><%=taxes%></td></tr>
-    <tr><td>Discounts:</td><td><%=discounts%></td></tr>
-    <tr><td>In safe:</td><td><%=insafe%></td></tr>
+    <tr><td>Report#:</td><td><%= zno %></td></tr>
+    <tr><td>Total:</td><td><%= total %></td></tr>
+    <tr><td>Taxes:</td><td><%= taxes %></td></tr>
+    <tr><td>Discounts:</td><td><%= discounts %></td></tr>
+    <tr><td>In safe:</td><td><%= insafe %></td></tr>
     </tbody>
 </script>
 <script type="text/template" id="receipts-cell">
     <tbody>
     <tr><th colspan="2">Receipts</th></tr>
-    <tr><td>Sales:</td><td><%=receipts%></td></tr>
-    <tr><td>Returns:</td><td><%=returns%></td></tr>
+    <tr><td>Sales:</td><td><%= receipts %></td></tr>
+    <tr><td>Returns:</td><td><%= returns %></td></tr>
     <tr><th colspan="2">Last receipt</th></tr>
-    <tr><td>#:</td><td><%=lrNo%></td></tr>
-    <tr><td>Sum:</td><td><%=lrSum%></td></tr>
-    <tr><td>Time:</td><td><%=dateStr(lrTime)%></td></tr>
+    <tr><td>#:</td><td><%= lrNo %></td></tr>
+    <tr><td>Sum:</td><td><%= lrSum %></td></tr>
+    <tr><td>Time:</td><td><%= dateStr(lrTime) %></td></tr>
     </tbody>
 </script-->
 <!--script type="text/template" id="sales-sum">
@@ -542,23 +590,23 @@
         </thead>
         <tbody>
         <%
-        var sums = [0.0,0.0,0.0,0.0]
+var sums = [0.0, 0.0, 0.0, 0.0]
         _.each(sales,function(r) {
-            if (r.txSum)  sums[0]+=r.txSum;
-            if (r.txTx)   sums[1]+=r.txTx;
-            if (r.txrSum) sums[2]+=r.txrSum;
-            if (r.txrTx)  sums[3]+=r.txrTx;%>
+    if (r.txSum)  sums[0] += r.txSum;
+    if (r.txTx)   sums[1] += r.txTx;
+    if (r.txrSum) sums[2] += r.txrSum;
+    if (r.txrTx)  sums[3] += r.txrTx; %>
         <tr>
-            <td><%=r.txLet%></td><td><%=r.txPrc%></td>
-            <td><%=notZ(r.txSum)%></td><td><%=notZ(r.txTx)%></td>
-            <td><%=notZ(r.txrSum)%></td><td><%=notZ(r.txrTx)%></td>
-            <td><%=notZ(r.txSum+r.txrSum)%></td><td><%=notZ(r.txTx+r.txrTx)%></td>
+            <td><%= r.txLet %></td><td><%= r.txPrc %></td>
+            <td><%= notZ(r.txSum) %></td><td><%= notZ(r.txTx) %></td>
+            <td><%= notZ(r.txrSum) %></td><td><%= notZ(r.txrTx) %></td>
+            <td><%= notZ(r.txSum + r.txrSum) %></td><td><%= notZ(r.txTx + r.txrTx) %></td>
         </tr>
-        <%});%>
+        <% }); %>
         <tr class="success">
-            <td>Всього</td><td>&nbsp;</td><td><%=notZ(sums[0])%></td><td><%=notZ(sums[1])%></td>
-            <td><%=notZ(sums[2])%></td><td><%=notZ(sums[3])%></td>
-            <td><%=notZ(sums[0]+sums[2])%></td><td><%=notZ(sums[1]+sums[3])%></td></tr>
+            <td>Всього</td><td>&nbsp;</td><td><%= notZ(sums[0]) %></td><td><%= notZ(sums[1]) %></td>
+            <td><%= notZ(sums[2]) %></td><td><%= notZ(sums[3]) %></td>
+            <td><%= notZ(sums[0] + sums[2]) %></td><td><%= notZ(sums[1] + sums[3]) %></td></tr>
         </tbody>
     </table>
     <table class="table table-striped">
@@ -568,15 +616,15 @@
         </thead>
         <tbody>
         <%
-        sums = [0.0,0.0,0.0,0.0]
+sums = [0.0, 0.0, 0.0, 0.0]
         _.each(money,function(r) {
-        if (r.sumIn)  sums[0+(r.inSafe?0:2)]+=r.sumIn;
-        if (r.sumOut) sums[1+(r.inSafe?0:2)]+=r.sumOut;
-        %>
-        <tr><td><%=r.name%></td><td><%=notZ(r.sumIn)%></td><td><%=notZ(r.sumOut)%></td><td><%=notZ(r.sumIn+r.sumOut)%></td></tr>
-        <%});%>
-        <tr class="success"><td>В сейфі</td><td><%=notZ(sums[0])%></td><td><%=notZ(sums[1])%></td><td><%=notZ(sums[0]+sums[1])%></td></tr>
-        <tr class="success"><td>Безготівкові</td><td><%=notZ(sums[2])%></td><td><%=notZ(sums[3])%></td><td><%=notZ(sums[2]+sums[3])%></td></tr>
+    if (r.sumIn)  sums[0 + (r.inSafe ? 0 : 2)] += r.sumIn;
+    if (r.sumOut) sums[1 + (r.inSafe ? 0 : 2)] += r.sumOut;
+%>
+        <tr><td><%= r.name %></td><td><%= notZ(r.sumIn) %></td><td><%= notZ(r.sumOut) %></td><td><%= notZ(r.sumIn + r.sumOut) %></td></tr>
+        <% }); %>
+        <tr class="success"><td>В сейфі</td><td><%= notZ(sums[0]) %></td><td><%= notZ(sums[1]) %></td><td><%= notZ(sums[0] + sums[1]) %></td></tr>
+        <tr class="success"><td>Безготівкові</td><td><%= notZ(sums[2]) %></td><td><%= notZ(sums[3]) %></td><td><%= notZ(sums[2] + sums[3]) %></td></tr>
         </tbody>
     </table>
     <table class="table table-striped">
@@ -585,9 +633,9 @@
         <tr><th>Вид</th><th>Кількість</th><th>Сума</th></tr>
         </thead>
         <tbody>
-        <%_.each(oper,function(r) {%>
-        <tr><td><%=r.name%></td><td><%=notZ(r.ops,"n")%></td><td><%=notZ(r.sum)%></td></tr>
-        <%});%>
+        <% _.each(oper,function(r) { %>
+        <tr><td><%= r.name %></td><td><%= notZ(r.ops, "n") %></td><td><%= notZ(r.sum) %></td></tr>
+        <% }); %>
         </tbody>
     </table>
 </script>
@@ -620,47 +668,47 @@
     </form>
 </script>
 <script type="text/template" id="chk-view">
-    <div id="chk<%=no%>" class="<%=classChk(type)%>">
+    <div id="chk<%= no %>" class="<%= classChk(type) %>">
         <hr>
-        <h3>Чек №<%=no%></h3>
+        <h3>Чек №<%= no %></h3>
         <%
-        _.each(rows,function(row) {
+_.each(rows,function(row) {
         switch(row.type) {
-        case CHKR.SALE: {%>
-        <div class="<%=(row.kol?'salekol':'sale')+(row.void?' void':'')+' row'%>">
-            <div class="col-md-3"><%=row.code%></div><div class="col-md-3"><%=row.name%></div>
-            <%if (row.kol) print('<div class="col-md-3">'+row.kol.toFixed(3)+'*'+row.cen.toFixed(2)+'</div>');%>
-            <div class="col-md-<%=row.kol?3:6%>"><%=row.sum.toFixed(2)%> <%=row.tax%></div>
+case CHKR.SALE: { %>
+        <div class="<%= (row.kol ? 'salekol' : 'sale')+(row.void ? ' void' : '')+' row' %>">
+            <div class="col-md-3"><%= row.code %></div><div class="col-md-3"><%= row.name %></div>
+            <% if (row.kol) print('<div class="col-md-3">' + row.kol.toFixed(3) + '*' + row.cen.toFixed(2) + '</div>'); %>
+            <div class="col-md-<%= row.kol?3:6 %>"><%= row.sum.toFixed(2) %> <%= row.tax %></div>
         </div>
-        <%} break;
-        case CHKR.COMM: {%>
-        <div class="<%='comm'+(row.void?' void':'')%>"><q>"<%=row.comm%>"</q></div>
-        <%} break;
-        case CHKR.PROM: {%>
-        <div class="<%='prom'+(row.void?' void':'')+' row'%>">
+        <% } break;
+case CHKR.COMM: { %>
+        <div class="<%= 'comm'+(row.void ? ' void' : '') %>"><q>"<%= row.comm %>"</q></div>
+        <% } break;
+case CHKR.PROM: { %>
+        <div class="<%= 'prom'+(row.void ? ' void' : '')+' row' %>">
             <div class="col-md-6"></div>
-            <div class="col-md-6"><%=row.sum.toFixed(2)%></div>
+            <div class="col-md-6"><%= row.sum.toFixed(2) %></div>
         </div>
-        <%} break;
-        case CHKR.DSK: {%>
-        <div class="<%='dsk'+(row.prc?' prc':'')+(row.void?' void':'')+' row'%>">
-            <div class="col-md-<%=row.prc?3:6%>"><%=(row.sum>0)?'Наценка':'Скидка'%></div>
-            <%if (row.prc) print('<div class="col-md-3">'+row.prc+'%</div>');%>
-            <div class="col-md-6"><%=row.sum.toFixed(2)%></div>
+        <% } break;
+case CHKR.DSK: { %>
+        <div class="<%= 'dsk'+(row.prc ? ' prc' : '')+(row.void ? ' void' : '')+' row' %>">
+            <div class="col-md-<%= row.prc?3:6 %>"><%= (row.sum > 0)?'Наценка':'Скидка' %></div>
+            <% if (row.prc) print('<div class="col-md-3">' + row.prc + '%</div>'); %>
+            <div class="col-md-6"><%= row.sum.toFixed(2) %></div>
         </div>
-        <%} break;
-        case CHKR.INOUT: {%>
-        <div class="<%='inout'+(row.void?' void':'')+' row'%>">
-            <div class="col-md-6"><%=((row.sum>0)?'Внесение ':'Изъятие ')+row.name%></div>
-            <div class="col-md-6"><%=row.sum.toFixed(2)%></div>
+        <% } break;
+case CHKR.INOUT: { %>
+        <div class="<%= 'inout'+(row.void ? ' void' : '')+' row' %>">
+            <div class="col-md-6"><%= ((row.sum > 0) ? 'Внесение ' : 'Изъятие ')+row.name %></div>
+            <div class="col-md-6"><%= row.sum.toFixed(2) %></div>
         </div>
-        <%  } break; }
-        });
-        if (typeof(voidChk)=="undefined") {%>
+        <% } break; }
+});
+if (typeof(voidChk) == "undefined") { %>
         <div class="endchk row">
-            <div class="col-md-3"><%='Касса '+ecr_no%></div>
-            <div class="col-md-3"><%='Чек №'+no%></div>
-            <div class="col-md-6"><%=dat.toLocaleString()%></div></div>
-        <%}%>
+            <div class="col-md-3"><%= 'Касса '+ecr_no %></div>
+            <div class="col-md-3"><%= 'Чек №'+no %></div>
+            <div class="col-md-6"><%= dat.toLocaleString() %></div></div>
+        <% } %>
     </div>
 </script-->

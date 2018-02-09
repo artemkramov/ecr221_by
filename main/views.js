@@ -9,7 +9,7 @@
  * Creates one elemView per collection item and insert it to appendEl
  */
 var CollectionView = Backbone.View.extend({
-	subViews:    [],
+	subViews:   [],
 	initialize: function (args) {
 		if (args && args.elemView) this.elemView = args.elemView;
 		this.initEl();
@@ -563,7 +563,7 @@ var PagesScreen = PageScreen.extend({
 //<editor-fold desc="----------------------Table Elements-----------------------------">
 var Toolbar = Backbone.View.extend({
 	tagName:    'div',
-	className:  'navbar-right',
+	className:  'col-md-5 table-toolbar',
 	tmpl:       _.template($('#form-bar-template').html()),
 	hideTbl:    false,
 	initialize: function (args) {
@@ -586,19 +586,30 @@ var Toolbar = Backbone.View.extend({
 		}
 	},
 	render:     function () {
-		this.$el.html(this.tmpl()).css('margin', '5px');
+		this.$el.html(this.tmpl());
 		if (this.hideTbl) this.$('.tblctrl').hide();
 		return this;
 	}
 });
 
 var FormDisplay = Backbone.View.extend({
-	events:        {
+	events:                 {
 		//'click button.btn':'saveData',
-		'submit':     'saveData',
-		'blur input': 'validField'
+		'submit':                           'saveData',
+		'blur input':                       'validField',
+		'change .checkbox-multiple-choice': 'checkboxMultipleChange'
 	},
-	fill:          function (isAll, def) {
+	checkboxMultipleChange: function (e) {
+		var parentRow  = $(e.target).closest(".checkbox-multiple-choice-row");
+		var checkboxes = $(parentRow).find('.checkbox-multiple-choice:checked');
+		var values     = [];
+		_.each(checkboxes, function (checkbox) {
+			values.push($(checkbox).val());
+		});
+		var result     = multipleCheckboxesToInt(values);
+		$(parentRow).find('.checkbox-multiple-choice-value').val(result.toString());
+	},
+	fill:                   function (isAll, def) {
 		if (isAll) {
 			this.clearFormData();
 			this.setFormData(this.data.attributes, def);
@@ -606,7 +617,7 @@ var FormDisplay = Backbone.View.extend({
 			this.setFormData(this.data.changed, def);
 		}
 	},
-	saveData:      function (ev) {
+	saveData:               function (ev) {
 		ev.preventDefault();
 		events.trigger("buttonBlock:" + this.model.id, "refresh", true);
 		this.$('button.btn').button('loading');
@@ -619,7 +630,7 @@ var FormDisplay = Backbone.View.extend({
 				events.trigger("buttonBlock:" + $this.model.id, "refresh", false);
 			});
 	},
-	validField:    function (ev) {
+	validField:             function (ev) {
 		if ('validity' in ev.target) {
 			if (ev.target.checkValidity()) {
 				$(ev.target).parents('.form-group').addClass('has-success').removeClass('has-error');
@@ -629,7 +640,7 @@ var FormDisplay = Backbone.View.extend({
 		} else console.log("check validity impossible");
 
 	},
-	formInObj:     function (all) {
+	formInObj:              function (all) {
 		f       = this.$('form')[0];
 		var obj = {};
 		var rem = {};
@@ -674,7 +685,7 @@ var FormDisplay = Backbone.View.extend({
 		});
 		return obj;
 	},
-	clearFormData: function () {
+	clearFormData:          function () {
 		this.$(':input').each(function (idx, el) {
 			var $flt = 0;
 			el       = $(el);
@@ -704,7 +715,7 @@ var FormDisplay = Backbone.View.extend({
 			}
 		});
 	},
-	setFormData:   function (obj, def) {
+	setFormData:            function (obj, def) {
 		for (var name in obj) {
 			var val = obj[name];
 			//if (typeof (this.$el[0][name]) != "object") continue;
@@ -742,15 +753,33 @@ var FormDisplay = Backbone.View.extend({
 					if (def) el.prop('defaultValue', v);
 				}
 					break;
+
 				default:
 					el.val(val);
 					if (def) el.prop('defaultValue', val);
 			}
+
+			switch (el.data('type')) {
+				case "checkbox-multiple":
+					var checkboxes = $(el).closest('.checkbox-multiple-choice-row').find('.checkbox-multiple-choice');
+					var binaryData = intToBinaryArray(parseInt(val));
+					_.each(checkboxes, function (checkbox) {
+						var value = parseInt($(checkbox).val());
+						console.log(value);
+						if (value < binaryData.length && parseInt(binaryData[binaryData.length - 1 - value]) == 1) {
+							$(checkbox).prop('checked', true);
+						}
+					});
+					console.log(binaryData);
+					break;
+				default:
+					break;
+			}
 		}
 	},
-	template:      _.template($('#form-template').html()),
-	tmpl:          _.template($('#form-bar-template').html()),
-	render:        function () {
+	template:               _.template($('#form-template').html()),
+	tmpl:                   _.template($('#form-bar-template').html()),
+	render:                 function () {
 		this.$el.html(this.template(this.model.toJSON()));
 		if (!this.data) {
 			var name = this.model.get('id');
@@ -785,10 +814,10 @@ var FormDisplay = Backbone.View.extend({
 		}
 		return this;
 	},
-	onSync:        function () {
+	onSync:                 function () {
 		this.fill(true, true);
 	},
-	change:        function (pos) {
+	change:                 function (pos) {
 		if (!this.tbl) return;
 		if (pos == this.row) return;
 		if (pos < 0) return;
@@ -803,7 +832,7 @@ var FormDisplay = Backbone.View.extend({
 		this.fill(true, true);
 		this.data.on('sync', this.onSync, this);
 	},
-	event:         function (ev) {
+	event:                  function (ev) {
 		if (!_.isUndefined(ev)) {
 			switch (ev) {
 				case 'refresh':
@@ -845,6 +874,7 @@ var TableDisplay = Backgrid.Grid.extend({
 				this.collection = args.collection;
 			}
 		}
+
 		Backgrid.Grid.prototype.initialize.apply(this, arguments);
 		var $this = this;
 		this.$el.on('keydown', function (ev) {
@@ -1443,8 +1473,8 @@ var TableContainer = Backbone.View.extend({
 	render:         function () {
 		this.delegateEvents();
 		this.$el.html('');
-		var header = $('<nav class="navbar navbar-default" id="' + this.model.get('id') + '" role="navigation">');
-		header.html('<div class="navbar-brand col-md-3">' + this.model.get('name') + '</div>');
+		var header = $('<nav class="navbar navbar-default navbar-container" id="' + this.model.get('id') + '" role="navigation">');
+		header.html('<div class="navbar-brand col-md-7">' + this.model.get('name') + '</div>');
 		$('.navbar-brand', header).css('cursor', 'pointer');
 		this.toolbar.delegateEvents();
 		header.append(this.toolbar.render().$el);
@@ -1452,7 +1482,7 @@ var TableContainer = Backbone.View.extend({
 			this.content.addToolbar.delegateEvents();
 			var $e = this.content.addToolbar.render().$el;
 			$e.addClass("navbar-right");
-			$e.css('margin', '5px');
+			$e.css('margin', '15px');
 			header.append($e);
 		}
 		this.$el.append(header);
