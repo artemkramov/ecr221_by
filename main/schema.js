@@ -263,42 +263,89 @@ var Schema = Backbone.Collection.extend({
 					 * Set some temp extra options for test purpose
 					 *
 					 */
-					$this.descr.get($this.lang).tbl.Flg.Flg1.labels = [
-						{"val":0,"label":"watch of remaining amount"},
-						{"val":1,"label":"no change PLU base from keyboard"},
-						{"val":2,"label":"PLU item weight must be entered"},
-						{"val":3,"label":"no receipt copy"},
-						{"val":4,"label":"no PLU report sorting"},
-						{"val":5,"label":"prices autorounding"},
-						{"val":6,"label":"switch off sound (keyboard, errors)"},
-						{"val":7,"label":"simplify regime"},
-						{"val":8,"label":"zero price allowed"},
-						{"val":9,"label":"delete 0 amount PLUs after Z1"},
-						{"val":10,"label":"delete all PLU after Z1"},
-						{"val":13,"label":"small font when journal printing"},
-						{"val":14,"label":"display light off"}
+					$this.descr.get("ru").tbl.Pay.Param.labels = [
+						{"val":0,"label":"разрешить вид оплаты"},
+						{"val":1,"label":"возможна сдача"},
+						{"val":2,"label":"нужен ввод кода клиента"},
+						{"val":4,"label":"безналичная оплата"},
+						{"val":5,"label":"возможна выплата"},
+						{"val":6,"label":"оплата платежной картой"}
 					];
-					$this.descr.get($this.lang).tbl.Flg.Flg3.labels = [
-						{"val":0,"label":"print PLU code"},
-						{"val":1,"label":"print department name"},
-						{"val":2,"label":"print department number"},
-						{"val":3,"label":"USB barcode reader"},
-						{"val":4,"label":"require zero sum in drawer before Z1"},
-						{"val":5,"label":"disable negative balance"},
-						{"val":8,"label":"no logo printing"},
-						{"val":11,"label":"print EURO subtotal"},
-						{"val":12,"label":"no VAT payer"},
-						{"val":13,"label":"no VAT in receipt"},
-						{"val":16,"label":"sound instead 1..30 errors"}
+					$this.descr.get("en").tbl.Pay.Param.labels = [
+						{"val":0,"label":"allow payment type"},
+						{"val":1,"label":"delivery possible"},
+						{"val":2,"label":"need to enter the client code"},
+						{"val":4,"label":"cashless payment"},
+						{"val":5,"label":"payment is possible"},
+						{"val":6,"label":"payment by credit card"}
 					];
 
-					$this.descr.get($this.lang).tbl.PLU.Flg.labels = [
-						{"val":0,"label":"price changeable"},
-						{"val":1,"label":"fractional amount only"},
-						{"val":2,"label":"disable sales with zero amount"},
-						{"val":4,"label":"receipt closed after sale"},
-						{"val":5,"label":"return only"},
-						{"val":6,"label":"sale only"}
+					$this.descr.get("ru").tbl.Flg.PrintOff.labels = [
+						{"val":0,"label":"выключить принтер в режиме тренировки"},
+						{"val":1,"label":"печать заголовка после предыдущего чека"},
+						{"val":2,"label":"включение обрезчика"},
+						{"val":3,"label":"использовать полную обрезку"},
+						{"val":5,"label":"печать на бумаге 57,5 мм"}
+					];
+					$this.descr.get("en").tbl.Flg.PrintOff.labels = [
+						{"val":0,"label":"turn off the printer in workout mode"},
+						{"val":1,"label":"print the title after the previous check"},
+						{"val":2,"label":"turn on trimming"},
+						{"val":3,"label":"use full trim"},
+						{"val":5,"label":"printing on paper 57.5 mm"}
+					];
+
+					$this.descr.get("ru").tbl.Flg.Flg1.labels = [
+						{"val":0,"label":"следить за запасом товара"},
+						{"val":2,"label":"контролировать количество в весовых товарах"},
+						{"val":4,"label":"сортировка в отчетах по товарам"},
+						{"val":8,"label":"разрешить нулевую цену"},
+						{"val":9,"label":"удалять товары c запасом 0 после Z1"},
+						{"val":10,"label":"удалять все товары после Z1"}
+					];
+					$this.descr.get("en").tbl.Flg.Flg1.labels = [
+						{"val":0,"label":"keep track of the stock of goods"},
+						{"val":2,"label":"control quantity in weight products"},
+						{"val":4,"label":"sorting in reports by goods"},
+						{"val":8,"label":"allow a zero price"},
+						{"val":9,"label":"delete items with a margin of 0 after Z1"},
+						{"val":10,"label":"delete all products after Z1"}
+					];
+
+					$this.descr.get("ru").tbl.Flg.Flg3.labels = [
+						{"val":0,"label":"печатать код товара"},
+						{"val":1,"label":"печатать название отдела"},
+						{"val":2,"label":"печатать номер отдела"},
+						{"val":4,"label":"не выводить Z1 отчет без инкассации всех наличных денег"},
+						{"val":8,"label":"не печатать лого клиента"},
+						{"val":15,"label":"печатать сумму налога после каждой продажи"}
+					];
+					$this.descr.get("en").tbl.Flg.Flg3.labels = [
+						{"val":0,"label":"print product code"},
+						{"val":1,"label":"print department name"},
+						{"val":2,"label":"print department number"},
+						{"val":4,"label":"do not print Z1 report without cash collection"},
+						{"val":8,"label":"do not print client's logo"},
+						{"val":15,"label":"print the amount of tax after each sale"}
+					];
+
+					$this.descr.get("ru").tbl.TCP.AdptFlg.labels = [
+						{"val":0,"label":"10Mbps"},
+						{"val":1,"label":"100Mbps"},
+						{"val":2,"label":"1000Mbps"},
+						{"val":3,"label":"полный дуплекс"},
+						{"val":4,"label":"автоматический режим"},
+						{"val":5,"label":"разрешить MDI/MDI-X"},
+						{"val":8,"label":"отключить keep alive. (Для работы с Linux)"}
+					];
+					$this.descr.get("en").tbl.TCP.AdptFlg.labels = [
+						{"val":0,"label":"10Mbps"},
+						{"val":1,"label":"100Mbps"},
+						{"val":2,"label":"1000Mbps"},
+						{"val":3,"label":"full duplex"},
+						{"val":4,"label":"auto mode"},
+						{"val":5,"label":"enable MDI / MDI-X"},
+						{"val":8,"label":"disable keep alive. (For working with Linux)"}
 					];
 
 					$this.each(function (model) {
@@ -577,27 +624,41 @@ _.extend(CheckFormatter.prototype, {
 	}
 });
 
+//var specialTableSchema = [];
+
 var specialTableSchema = [{
-	id:     "Flg",
+	id:     "Pay",
 	fields: [
-		"AutoOff", "Feed", {
-			name: "Flg1", type: "checkbox-multiple"
+		"id", {
+			name: "Param", type: "checkbox-multiple", cell: "integer"
 		},
-		"Flg2",
-		{
-			name: "Flg3", type: "checkbox-multiple"
-		},
-		"Lang",
-		"MaxChkSum",
-		"PrintOff"
+		"Name",
+		"MaxSum"
 	]
 },
 	{
-		id:     "PLU",
+		id:     "Flg",
 		fields: [
-			"Code", "Name", {
-				name: "Flg", type: "checkbox-multiple", cell: "integer"
+			"id", {
+				name: "PrintOff", type: "checkbox-multiple", cell: "integer"
+			},
+			{
+				name: "Flg1", type: "checkbox-multiple", cell: "integer"
+			},
+			"Feed",
+			{
+				name: "Flg3", type: "checkbox-multiple", cell: "integer"
 			}
 		]
 	},
+	{
+		id:     "TCP",
+		fields: [
+			"id", "Addr", "Gate", "Mask", "DNS", "MAC",
+			{
+				name: "AdptFlg", type: "checkbox-multiple", cell: "integer"
+			},
+			"AuthType"
+		]
+	}
 ];
