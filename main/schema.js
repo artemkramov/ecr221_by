@@ -318,6 +318,9 @@ var Schema = Backbone.Collection.extend({
 						{"val":2,"label":"печатать номер отдела"},
 						{"val":4,"label":"не выводить Z1 отчет без инкассации всех наличных денег"},
 						{"val":8,"label":"не печатать лого клиента"},
+						{"val":9,"label":"включить ресторанный режим"},
+						{"val":10,"label":"работа с заказами любым кассиром"},
+						{"val":11,"label":"не печатать копии заказов для разноса на кухню"},
 						{"val":15,"label":"печатать сумму налога после каждой продажи"}
 					];
 					$this.descr.get("en").tbl.Flg.Flg3.labels = [
@@ -326,6 +329,9 @@ var Schema = Backbone.Collection.extend({
 						{"val":2,"label":"print department number"},
 						{"val":4,"label":"do not print Z1 report without cash collection"},
 						{"val":8,"label":"do not print client's logo"},
+						{"val":9,"label":"turn restaurant mode on"},
+						{"val":10,"label":"work with orders by any cashier"},
+						{"val":11,"label":"do not print copies of orders for delivery to the kitchen"},
 						{"val":15,"label":"print the amount of tax after each sale"}
 					];
 
@@ -427,7 +433,7 @@ var Schema = Backbone.Collection.extend({
 		var list = (this.descr && this.descr.get('regex'));
 		return (list && list[id]) || id;
 	},
-	parseInTypes:  ["time", "number", "summ", "percent", "qty"],
+	parseInTypes:  ["time", "number", "summ", "percent", "qty", "text"],
 	parseIn:       function (type, val) {
 		switch (type.type) {
 			case "time":
@@ -447,6 +453,10 @@ var Schema = Backbone.Collection.extend({
 				if (_.isString(val)) {
 					return (type.step && (type.step < 1)) ? parseFloat(val) : parseInt(val);
 				}
+				break;
+			case "text":
+				//console.log(val.toString());
+				return val.toString();
 				break;
 		}
 		return val;
@@ -626,7 +636,25 @@ _.extend(CheckFormatter.prototype, {
 
 //var specialTableSchema = [];
 
-var specialTableSchema = [{
+
+//var specialTableSchema = [{
+//	id:     "PLU",
+//	fields: [
+//		"id", {
+//			name: "Code", type: "number", "pattern":"v_Num_9x18","min":1,"max":999999999999999999
+//		},
+//		"Name",
+//		"Price",
+//		"Dep",
+//		"Grp",
+//		"Tax",
+//		"Qty",
+//		"Flg"
+//	]
+//}];
+
+var specialTableSchema = [
+	{
 	id:     "Pay",
 	fields: [
 		"id", {
@@ -659,6 +687,21 @@ var specialTableSchema = [{
 				name: "AdptFlg", type: "checkbox-multiple", cell: "integer"
 			},
 			"AuthType"
+		]
+	},
+	{
+		id:     "PLU",
+			fields: [
+			"id", {
+				name: "Code", type: "text", //"pattern":"v_Num_9x18","min":1,"max":999999999999999999
+			},
+			"Name",
+			"Price",
+			"Dep",
+			"Grp",
+			"Tax",
+			"Qty",
+			"Flg"
 		]
 	}
 ];
