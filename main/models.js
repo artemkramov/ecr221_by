@@ -142,32 +142,32 @@ var TableModel = Backbone.Model.extend({
 				a[e] = schema.parseOut(schema.typeCol(this.schema, e), a[e]);
 			}, this);
 		}
-		if (this.url().indexOf('PLU') >= 0) {
-			if (_.isUndefined(options)) {
-				options = {};
-			}
-			options.dataType = "text";
-		}
+		//if (this.url().indexOf('PLU') >= 0) {
+		//	if (_.isUndefined(options)) {
+		//		options = {};
+		//	}
+		//	options.dataType = "text";
+		//}
 		return Backbone.sync(method, model, options);
 	},
 	fetch: function (options) {
 		//console.log(this.urlRoot);
-		if (this.url().indexOf('PLU') >= 0) {
-			if (_.isUndefined(options)) {
-				options = {};
-			}
-			options.dataType = "text";
-		}
+		//if (this.url().indexOf('PLU') >= 0) {
+		//	if (_.isUndefined(options)) {
+		//		options = {};
+		//	}
+		//	options.dataType = "text";
+		//}
 		return Backbone.Model.prototype.fetch.call(this, options);
 	},
 	parse:      function (response/*,option*/) {
 		//console.log('parse',response,option,this.schema);
 		//console.log(this.url());
-		console.log(response);
-		if (this.url().indexOf('PLU') >= 0 && _.isString(response)) {
-			var str = response.replace(/\"Code\":([a-zA-Z0-9-]+)/g, "\"Code\":\"$1\"");
-			response = $.parseJSON(str);
-		}
+		//console.log(response);
+		//if (this.url().indexOf('PLU') >= 0 && _.isString(response)) {
+		//	var str = response.replace(/\"Code\":([a-zA-Z0-9-]+)/g, "\"Code\":\"$1\"");
+		//	response = $.parseJSON(str);
+		//}
 		if (_.isArray(response)) {
 			_.each(response, function (el) {
 				if (_.isObject(el)) this.parseRow(el);
@@ -211,21 +211,21 @@ var TableCollection = Backbone.PageableCollection.extend({
 	},
 	fetch: function (options) {
 		//console.log(this.url);
-		if (this.url.indexOf('PLU') >= 0) {
-			if (_.isUndefined(options)) {
-				options = {};
-			}
-			options.dataType = "text";
-		}
+		//if (this.url.indexOf('PLU') >= 0) {
+		//	if (_.isUndefined(options)) {
+		//		options = {};
+		//	}
+		//	options.dataType = "text";
+		//}
 		return Backbone.PageableCollection.prototype.fetch.call(this, options);
 	},
 	parse:      function (resp/*,options*/) {
 		//console.log(resp);
 
-		if (this.url.indexOf('PLU') >= 0) {
-			var str = resp.replace(/\"Code\":([a-zA-Z0-9-]+)/g, "\"Code\":\"$1\"");
-			resp = $.parseJSON(str);
-		}
+		//if (this.url.indexOf('PLU') >= 0 && _.isString(resp)) {
+		//	var str = resp.replace(/\"Code\":([a-zA-Z0-9-]+)/g, "\"Code\":\"$1\"");
+		//	resp = $.parseJSON(str);
+		//}
 		var key = this.model.prototype.schema.get('key') || 'id';
 		if (_.isArray(resp)) {
 			var toRemove = [];

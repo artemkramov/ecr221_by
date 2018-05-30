@@ -634,26 +634,9 @@ _.extend(CheckFormatter.prototype, {
 	}
 });
 
-//var specialTableSchema = [];
+var specialTableSchema = [];
 
-
-//var specialTableSchema = [{
-//	id:     "PLU",
-//	fields: [
-//		"id", {
-//			name: "Code", type: "number", "pattern":"v_Num_9x18","min":1,"max":999999999999999999
-//		},
-//		"Name",
-//		"Price",
-//		"Dep",
-//		"Grp",
-//		"Tax",
-//		"Qty",
-//		"Flg"
-//	]
-//}];
-
-var specialTableSchema = [
+/*var specialTableSchema = [
 	{
 	id:     "Pay",
 	fields: [
@@ -704,4 +687,4 @@ var specialTableSchema = [
 			"Flg"
 		]
 	}
-];
+];*/
