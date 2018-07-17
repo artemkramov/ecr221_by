@@ -623,7 +623,7 @@ var FormDisplay = Backbone.View.extend({
 		this.$('button.btn').button('loading');
 		var $this = this;
 		var o     = this.formInObj();
-		console.log('data', this.data);
+		//console.log('data', this.data);
 		this.data.save(o, {patch: true, silent: true})
 			.always(function () {
 				$('button.btn', $this.$el).button('reset');
@@ -765,12 +765,12 @@ var FormDisplay = Backbone.View.extend({
 					var binaryData = intToBinaryArray(parseInt(val));
 					_.each(checkboxes, function (checkbox) {
 						var value = parseInt($(checkbox).val());
-						console.log(value);
+						//console.log(value);
 						if (value < binaryData.length && parseInt(binaryData[binaryData.length - 1 - value]) == 1) {
 							$(checkbox).prop('checked', true);
 						}
 					});
-					console.log(binaryData);
+					//console.log(binaryData);
 					break;
 				default:
 					break;
@@ -1229,7 +1229,7 @@ var LogoView = Backbone.View.extend({
 				$this.error('error', resp.err);
 			}
 		}).fail(function () {
-			console.log('error');
+			//console.log('error');
 		}).always(function () {
 			btn.button('reset');
 		});
