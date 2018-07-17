@@ -317,16 +317,24 @@ var Schema = Backbone.Collection.extend({
 						{"val":1,"label":"печатать название отдела"},
 						{"val":2,"label":"печатать номер отдела"},
 						{"val":4,"label":"не выводить Z1 отчет без инкассации всех наличных денег"},
+						{"val":7,"label":"разделять продажи в чеке пустой строкой"},
 						{"val":8,"label":"не печатать лого клиента"},
-						{"val":15,"label":"печатать сумму налога после каждой продажи"}
+						{"val":15,"label":"печатать сумму налога после каждой продажи"},
+						{"val":16,"label":"печатать сумму из БЭП вначале дневного отчета"},
+						{"val":17,"label":"выделять накопительные итоги широким шрифтом (при использовании бумаги 80мм)"},
+						{"val":18,"label":"отчет по состоянию сейфа в расширенном виде (при использовании бумаги 80мм)"}
 					];
 					$this.descr.get("en").tbl.Flg.Flg3.labels = [
 						{"val":0,"label":"print product code"},
 						{"val":1,"label":"print department name"},
 						{"val":2,"label":"print department number"},
 						{"val":4,"label":"do not print Z1 report without cash collection"},
+						{"val":7,"label":"divide sales in check with an empty line"},
 						{"val":8,"label":"do not print client's logo"},
-						{"val":15,"label":"print the amount of tax after each sale"}
+						{"val":15,"label":"print the amount of tax after each sale"},
+						{"val":16,"label":"print the amount from the BEP at the beginning of the daily report"},
+						{"val":17,"label":"allocate cumulative results in a wide font (when using 80mm paper)"},
+						{"val":18,"label":"report on the state of the safe in expanded form (when using paper 80mm)"}
 					];
 
 					$this.descr.get("ru").tbl.TCP.AdptFlg.labels = [
@@ -624,9 +632,9 @@ _.extend(CheckFormatter.prototype, {
 	}
 });
 
-//var specialTableSchema = [];
+var specialTableSchema = [];
 
-var specialTableSchema = [{
+/*var specialTableSchema = [{
 	id:     "Pay",
 	fields: [
 		"id", {
@@ -661,4 +669,4 @@ var specialTableSchema = [{
 			"AuthType"
 		]
 	}
-];
+];*/
